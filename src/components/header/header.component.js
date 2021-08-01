@@ -6,11 +6,17 @@ import {
     SubjectsGroup,
     SubjectsButton,
     SubjectsMenu,
+    SearchForm,
     MenuArea,
     MenuItem,
     ContentArea,
+    LogoWrapper,
     SettingsGroup
 } from './header.styles';
+
+import SearchGlass from '../../assets/search.png';
+import Home from '../../assets/home-36x36.png';
+import Settings from '../../assets/settings.png';
 
 
 const Header = ({ history }) => {
@@ -18,6 +24,14 @@ const Header = ({ history }) => {
     const [currentSubject, setCurrentSubject] = useState('math');
     const [mathBg, setMathBg] = useState('white');
     const [scienceBg, setScienceBg] = useState('white');
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        const searchInput = document.querySelector('input#search-bar');
+        console.log(searchInput.value);
+        searchInput.value = '';
+        searchInput.focus();
+    }
 
     return (
     <HeaderWrapper>
@@ -28,12 +42,17 @@ const Header = ({ history }) => {
             >
                 Subjects &#9660;
             </SubjectsButton>
-            <form>
+            <SearchForm>
                 <fieldset>
                     <input type='search' name='q' id='search-bar' placeholder='Search lessons' />
-                    <button type='submit'>Search glass</button>
+                    <button
+                        type='submit'
+                        onClick={handleClick}
+                    >
+                        <img src={SearchGlass} alt='Search Glass' />
+                    </button>
                 </fieldset>
-            </form>
+            </SearchForm>
             {
                 subjectsVisible ? (
                     <SubjectsMenu>
@@ -86,7 +105,7 @@ const Header = ({ history }) => {
             }
         </SubjectsGroup>
 
-        <div>Logo</div>
+        <LogoWrapper>Learn</LogoWrapper>
 
         <SettingsGroup>
             <button
@@ -95,8 +114,12 @@ const Header = ({ history }) => {
                     history.push('/');
                     toggleSubjectsVisible(false);
                 }}
-            >Home</button>
-            <button type='button'>Settings</button>
+            >
+                <img src={Home} alt='Home' /> &#9660;
+            </button>
+            <button type='button'>
+                <img src={Settings} alt='Settings' /> &#9660;
+            </button>
         </SettingsGroup>
 
     </HeaderWrapper>

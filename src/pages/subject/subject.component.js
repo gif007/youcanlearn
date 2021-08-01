@@ -1,21 +1,17 @@
-import React, { Suspense, lazy } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { Route } from 'react-router-dom';
 
-const Science = () => (
-    <div>I'm blinded by Science</div>
-);
-
-const Maths = () => (
-    <div>Ahhh Math!</div>
-);
+import Subject from '../../components/subject-overview/subject-overview.component';
 
 
-const SubjectPage = ({ match }) => (
-    <Switch>
+const SubjectPage = ({ match }) => {
+    console.log(match);
+    
+    return (
+    <div>
         <Suspense fallback={<div>Loading ...</div>} />
-        <Route path={`${match.path}/1`} component={Maths} />
-        <Route path={`${match.path}/2`} component={Science} />
-    </Switch>
-);
+        <Route path={`${match.path}/:subjectId`} component={Subject} />
+    </div>
+)};
 
 export default SubjectPage;

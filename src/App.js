@@ -19,7 +19,7 @@ const App = () => {
       <Switch>
         <Suspense fallback={<div>Loading...</div>}>
         <Route exact path="/" component={OverviewPage} />
-        <Route exact path="/s" component={SubjectPage} />
+        <Route path="/s" component={SubjectPage} />
         </Suspense>
       </Switch>
       <Footer />
