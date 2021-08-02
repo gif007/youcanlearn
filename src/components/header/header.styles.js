@@ -25,17 +25,7 @@ export const SubjectsButton = styled.button`
     font-size: 0.9rem;
 `;
 
-export const SubjectsMenu = styled.div`
-    position: absolute;
-    left: 8rem;
-    top: 75px;
-    display: flex;
-    box-shadow: 0 0.7rem 2rem rgb(0 0 0 / 15%);
-    width: 80vw;
-    height: 500px;
-    z-index: 9001;
-    background: white;
-`;
+
 
 export const SearchForm = styled.form`
     border: 1px solid grey;
@@ -80,30 +70,6 @@ export const SearchForm = styled.form`
 
 `;
 
-export const MenuArea = styled.div`
-    width: 20%;
-`;
-
-export const MenuItem = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
-    border-bottom: 1px solid lightgrey;
-    cursor: pointer;
-    background: ${props => props.bg};
-    color: ${props => props.bg === 'white' ? 'black' : 'white'};
-    
-`;
-
-export const ContentArea = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80%;
-    background: ${props => props.subject === 'math' ? `rgb(99, 181, 61)`: `rgb(0, 161, 113)`};
-`;
-
 export const SettingsGroup = styled.div`
     flex: 1;
     display: flex;
@@ -126,4 +92,8 @@ export const LogoWrapper = styled.div`
     text-align: center;
     font-weight: 700;
     font-size: 1.5rem;
+
+    :hover {
+        cursor: pointer;
+    }
 `;

@@ -5,14 +5,12 @@ import {
     HeaderWrapper,
     SubjectsGroup,
     SubjectsButton,
-    SubjectsMenu,
     SearchForm,
-    MenuArea,
-    MenuItem,
-    ContentArea,
     LogoWrapper,
     SettingsGroup
 } from './header.styles';
+
+import SubjectMenu from '../subject-menu/subject-menu.component';
 
 import SearchGlass from '../../assets/search.png';
 import Home from '../../assets/home-36x36.png';
@@ -21,9 +19,7 @@ import Settings from '../../assets/settings.png';
 
 const Header = ({ history }) => {
     const [subjectsVisible, toggleSubjectsVisible] = useState(false);
-    const [currentSubject, setCurrentSubject] = useState('math');
-    const [mathBg, setMathBg] = useState('white');
-    const [scienceBg, setScienceBg] = useState('white');
+    
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -55,57 +51,14 @@ const Header = ({ history }) => {
             </SearchForm>
             {
                 subjectsVisible ? (
-                    <SubjectsMenu>
-                        <MenuArea>
-
-                            <MenuItem
-                                onMouseEnter={() => {
-                                    setCurrentSubject('math');
-                                    setMathBg('rgb(99, 181, 61)');
-                                    setScienceBg('white');
-                                }}
-                                bg={mathBg}
-                                onClick={() => {
-                                    history.push('/s/1');
-                                    toggleSubjectsVisible(false);
-                                }}
-                            >
-                                <span>Mathematics</span>
-                                <span style={{fontSize: '1.5rem', fontWeight: 700}}>&rsaquo;</span>
-                            </MenuItem>
-
-                            <MenuItem
-                                onMouseEnter={() => {
-                                    setCurrentSubject('science');
-                                    setMathBg('white');
-                                    setScienceBg('rgb(0, 161, 113)');
-                                }}
-                                bg={scienceBg}
-                                onClick={() => {
-                                    history.push('/s/2');
-                                    toggleSubjectsVisible(false);
-                                }}
-                            >
-                                <span>Science</span>
-                                <span style={{fontSize: '1.5rem', fontWeight: 700}}>&rsaquo;</span>
-                            </MenuItem>
-
-                        </MenuArea>
-                        <ContentArea subject={currentSubject}>
-                            {
-                                currentSubject === 'math' ? (
-                                    <div>Maaaath</div>
-                                ) : (
-                                    <div>Science!</div>
-                                )
-                            }
-                        </ContentArea>
-                    </SubjectsMenu>
+                    <SubjectMenu toggleSubjectsVisible={toggleSubjectsVisible} />
                 ) : null
             }
         </SubjectsGroup>
 
-        <LogoWrapper>Learn</LogoWrapper>
+        <LogoWrapper onClick={() => history.push('/')}>
+            Learn
+        </LogoWrapper>
 
         <SettingsGroup>
             <button

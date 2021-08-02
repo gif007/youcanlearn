@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 
 export const SubjectContainer = styled.div`
-    height: 800px;
+    min-height: 400px;
     width: 100%;
 `;
 

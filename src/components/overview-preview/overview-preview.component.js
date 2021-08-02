@@ -4,7 +4,8 @@ import {
     PreviewContainer,
     PreviewHeader,
     PreviewList,
-    PreviewCaption
+    PreviewCaption,
+    PreviewButton
 } from './overview-preview.styles';
 
 
@@ -16,7 +17,7 @@ const OverviewPreview = () => (
             <div>Preview 2</div>
         </PreviewList>
         <PreviewCaption>Many videos are free to watch without any membership!</PreviewCaption>
-        <button type='button'>List all free lessons</button>
+        <PreviewButton type='button'>List all free lessons</PreviewButton>
     </PreviewContainer>
 );
 
