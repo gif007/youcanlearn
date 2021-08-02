@@ -8,9 +8,10 @@ import {
     ContentArea
 } from './subject-menu.styles';
 
-import MATH_COURSES from '../../data/math';
+import CourseOutline from '../course-outline/course-outline.component';
 
-const mathCoursesArray = Object.keys(MATH_COURSES).map(key => MATH_COURSES[key]);
+import MATH_COURSES from '../../data/math';
+import SCIENCE_COURSES from '../../data/science';
 
 
 const SubjectMenu = ({ toggleSubjectsVisible, history }) => {
@@ -59,27 +60,10 @@ const SubjectMenu = ({ toggleSubjectsVisible, history }) => {
             <ContentArea subject={currentSubject}>
                 {
                     currentSubject === 'math' ? (
-                        <ul>
-                            {
-                                mathCoursesArray.map(elem => {
-                                    return (
-                                        <li>
-                                            <div style={{marginBottom: '0.5rem'}}>
-                                                <a href='/' style={{fontWeight: 700}}>{elem.title}</a>
-                                            </div>
-                                            <ul style={{marginBottom: '2rem'}}>
-                                                {
-                                                    elem.sections.map(section => {
-                                                        return <li style={{marginBottom: '0.25rem'}}><a href='/'>&rsaquo; {section.title}</a></li>
-                                                    })
-                                                }
-                                            </ul>
-                                        </li>)
-                                })
-                            }
-                        </ul>
+                       
+                        <CourseOutline subject={MATH_COURSES}/>
                     ) : (
-                        <div>Science!</div>
+                        <CourseOutline subject={SCIENCE_COURSES}/>
                     )
                 }
             </ContentArea>

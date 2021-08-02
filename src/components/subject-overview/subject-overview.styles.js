@@ -14,3 +14,16 @@ export const SubjectBanner = styled.div`
     padding-left: 8rem;
     color: white;
 `;
+
+export const SubjectButton = styled.button`
+    background: unset;
+    padding: unset;
+    border: 1px solid lightgrey;
+    border-radius: 8px;
+    line-height: 80px;
+    width: 300px;
+    font-size: .9rem;
+    margin: 1rem;
+
+    cursor: pointer;
+`;
