@@ -1,35 +1,44 @@
 import React from 'react';
 
 import {
-    OutlineWrapper
+    OutlineWrapper,
+    SectionList,
+    LessonList,
+    SectionTitle
 } from './course-outline.styles';
 
+import { connect } from 'react-redux'
+import { selectSubject } from '../../redux/subjects/subjects.selectors';
 
-const CourseOutline = ({ subject }) => {
-    const subjectAsArray = Object.keys(subject).map(key => subject[key]);
 
+const CourseOutline = ({ course, subjectAsArray }) => {
+    const selectedCourse = subjectAsArray.filter(elem => elem.title === course)[0];
+    
     return (
-        <OutlineWrapper>
-            <ul>
-                {
-                    subjectAsArray.map(course => {
-                        return (
-                            <li>
-                                <div style={{marginBottom: '0.5rem'}}>
-                                    <a href='/' style={{fontWeight: 700}}>{course.title}</a>
-                                </div>
-                                <ul style={{marginBottom: '2rem'}}>
-                                    {
-                                        course.sections.map(section => {
-                                            return <li style={{marginBottom: '0.25rem'}}><a href='/'>&rsaquo; {section.title}</a></li>
-                                        })
-                                    }
-                                </ul>
-                            </li>)
-                    })
-                }
-            </ul>
-        </OutlineWrapper>
+    <OutlineWrapper>
+        <SectionList>
+            {
+                selectedCourse.sections.map((section, index) => {
+                    return (
+                    <li key={index}>
+                        <SectionTitle>{section.title}</SectionTitle>
+                        <LessonList>
+                            {
+                                section.lessons.map((lesson, i) => {
+                                    return <li key={i}>{lesson.title}</li>
+                                })
+                            }
+                        </LessonList>
+                    </li>
+                )
+                })
+            }
+        </SectionList>
+    </OutlineWrapper>
 )};
 
-export default CourseOutline;
+const mapStateToProps = (state, ownProps) => ({
+    subjectAsArray: selectSubject(ownProps.subject)(state)
+});
+
+export default connect(mapStateToProps)(CourseOutline);

@@ -8,6 +8,7 @@ export const HeaderWrapper = styled.div`
     justify-content: space-between;
     height: 75px;
     position: relative;
+    background: white;
 `;
 
 export const SubjectsGroup = styled.div`

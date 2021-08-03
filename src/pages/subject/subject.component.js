@@ -1,16 +1,17 @@
 import React, { Suspense } from 'react';
 import { Route } from 'react-router-dom';
 
-import Subject from '../../components/subject-overview/subject-overview.component';
+import SubjectOverview from '../../components/subject-overview/subject-overview.component';
+import CourseOverview from '../../components/course-overview/course-overview.component';
 
 
 const SubjectPage = ({ match }) => {
-    console.log(match);
     
     return (
     <div>
         <Suspense fallback={<div>Loading ...</div>} />
-        <Route path={`${match.path}/:subjectId`} component={Subject} />
+        <Route exact path={`${match.path}/:subjectId`} component={SubjectOverview} />
+        <Route path={`${match.path}/:subjectId/:courseId`} component={CourseOverview} />
     </div>
 )};
 

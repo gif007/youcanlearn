@@ -8,17 +8,13 @@ import {
     ContentArea
 } from './subject-menu.styles';
 
-import CourseOutline from '../course-outline/course-outline.component';
-
-import MATH_COURSES from '../../data/math';
-import SCIENCE_COURSES from '../../data/science';
+import SubjectOutline from '../subject-outline/subject-outline.component';
 
 
 const SubjectMenu = ({ toggleSubjectsVisible, history }) => {
     const [currentSubject, setCurrentSubject] = useState('math');
-    const [mathBg, setMathBg] = useState('white');
+    const [mathBg, setMathBg] = useState('rgb(99, 181, 61)');
     const [scienceBg, setScienceBg] = useState('white');
-
 
     return (
         <SubjectMenuWrapper>
@@ -32,7 +28,7 @@ const SubjectMenu = ({ toggleSubjectsVisible, history }) => {
                     }}
                     bg={mathBg}
                     onClick={() => {
-                        history.push('/s/1');
+                        history.push('/subject/math');
                         toggleSubjectsVisible(false);
                     }}
                 >
@@ -48,7 +44,7 @@ const SubjectMenu = ({ toggleSubjectsVisible, history }) => {
                     }}
                     bg={scienceBg}
                     onClick={() => {
-                        history.push('/s/2');
+                        history.push('/subject/science');
                         toggleSubjectsVisible(false);
                     }}
                 >
@@ -58,17 +54,12 @@ const SubjectMenu = ({ toggleSubjectsVisible, history }) => {
 
             </MenuArea>
             <ContentArea subject={currentSubject}>
-                {
-                    currentSubject === 'math' ? (
-                       
-                        <CourseOutline subject={MATH_COURSES}/>
-                    ) : (
-                        <CourseOutline subject={SCIENCE_COURSES}/>
-                    )
-                }
+                <SubjectOutline subject={currentSubject} />
             </ContentArea>
         </SubjectMenuWrapper>
     )
 };
+
+
 
 export default withRouter(SubjectMenu);

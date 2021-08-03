@@ -2,34 +2,45 @@ import React from 'react';
 
 import {
     SubjectContainer,
-    SubjectBanner,
-    SubjectButton
+    SubjectTitle,
+    CourseLink,
+    Circle,
+    CourseTitle,
+    CourseLinksContainer
 } from './subject-overview.styles';
 
-import MATH_COURSES from '../../data/math';
-import SCIENCE_COURSES from '../../data/science';
+import { connect } from 'react-redux'
+import { selectSubject } from '../../redux/subjects/subjects.selectors';
 
-const subjectMap = {
-    1: MATH_COURSES,
-    2: SCIENCE_COURSES
-}
+import SubjectBanner from '../subject-banner/subject-banner.component';
 
 
-const Subject = ({ match }) => {
-    const subject = subjectMap[match.params.subjectId];
-    const subjectAsArray = Object.keys(subject).map(key => subject[key]);
+const SubjectOverview = ({ match, subject }) => {
+    const param = match.params.subjectId;
 
     return (
     <SubjectContainer>
-        <SubjectBanner subject={subject}>{ match.params.subjectId === '1' ? 'Math' : 'Science' }</SubjectBanner>
-            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '420px'}}>
+        <SubjectBanner subject={param} />
+            <SubjectTitle>{param === 'math' ? 'Mathematics' : 'Science'}</SubjectTitle>
+            <CourseLinksContainer>
                 {
-                    subjectAsArray.map(section => {
-                        return <SubjectButton>{section.title}</SubjectButton>
+                    subject.map((section, index) => {
+                        const url = encodeURI(`/subject/${param}/${section.title}`);
+  
+                        return (
+                            <CourseLink href={url} key={index}>
+                                <Circle subject={param}>{section.title.slice(0, 1).toUpperCase()}</Circle>
+                                <CourseTitle>{section.title}</CourseTitle>
+                            </CourseLink>
+                        )
                     })
                 }
-            </div>
+            </CourseLinksContainer>
     </SubjectContainer>
 )};
 
-export default Subject;
+const mapStateToProps = (state, ownProps) => ({
+    subject: selectSubject(ownProps.match.params.subjectId)(state)
+});
+
+export default connect(mapStateToProps)(SubjectOverview);
