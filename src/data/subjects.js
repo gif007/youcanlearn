@@ -7,13 +7,16 @@ const SUBJECTS = {
                     'title': 'Arithmetic',
                     'lessons': [
                         {
-                            'title': 'The four basic arithmetical operations'
+                            'title': 'The four basic arithmetical operations',
+                            'iconUrl': 'https://i.ibb.co/tZBBwz8/fourbasicarithmetics.png'
                         },
                         {
-                            'title': 'Order of operations'
+                            'title': 'Order of operations',
+                            'iconUrl': 'https://i.ibb.co/WpHd4cz/orderofoperations.png'
                         },
                         {
-                            'title': 'Rounding and estimates'
+                            'title': 'Rounding and estimates',
+                            'iconUrl': 'https://i.ibb.co/jhDtLyc/roudingandestimates.png'
                         }
                     ]
                 },
@@ -21,13 +24,16 @@ const SUBJECTS = {
                     'title': 'Multiplication',
                     'lessons': [
                         {
-                            'title': 'Multiplication - calculate in rectangles'
+                            'title': 'Multiplication - calculate in rectangles',
+                            'iconUrl': 'https://i.ibb.co/XV65m1x/multiplicationscalculateinrectangles.png'
                         },
                         {
-                            'title': 'Multiplication with decimal numbers'
+                            'title': 'Multiplication with decimal numbers',
+                            'iconUrl': 'https://i.ibb.co/L9ZWrNm/multiplicationwithdecimals.png'
                         },
                         {
-                            'title': 'Multiplication with fractions'
+                            'title': 'Multiplication with fractions',
+                            'iconUrl': 'https://i.ibb.co/VHqMtQF/multiplicationwithfractions.png'
                         }
                     ]
                 }
@@ -40,13 +46,16 @@ const SUBJECTS = {
                     'title': 'Algebraic expressions',
                     'lessons': [
                         {
-                            'title': 'Algebraic expressions'
+                            'title': 'Algebraic expressions',
+                            'iconUrl': 'https://i.ibb.co/zn7z4s3/algebraicexpressions.png'
                         },
                         {
-                            'title': 'Multiplication with parenthesis'
+                            'title': 'Multiplication with parenthesis',
+                            'iconUrl': 'https://i.ibb.co/WDCtY7C/multiplicationwithparenthesis.png'
                         },
                         {
-                            'title': 'Squaring the binomial'
+                            'title': 'Squaring the binomial',
+                            'iconUrl': 'https://i.ibb.co/BCWsZyv/squaringthebinomial.png'
                         }
                     ]
                 },
@@ -54,13 +63,16 @@ const SUBJECTS = {
                     'title': 'Equations',
                     'lessons': [
                         {
-                            'title': 'Introduction to equations'
+                            'title': 'Introduction to equations',
+                            'iconUrl': 'https://i.ibb.co/rZBxt5p/introtoequations.png'
                         },
                         {
-                            'title': 'Writing equations'
+                            'title': 'Writing equations',
+                            'iconUrl': 'https://i.ibb.co/mzvjJtT/writingequations.png'
                         },
                         {
-                            'title': 'Solving quadratic equations using the zero product method'
+                            'title': 'Solving quadratic equations using the zero product method',
+                            'iconUrl': 'https://i.ibb.co/4fRpsjY/zeroproductmethod.png'
                         }
                     ]
                 }
@@ -73,10 +85,12 @@ const SUBJECTS = {
                     'title': 'Introduction to Geometry',
                     'lessons': [
                         {
-                            'title': 'Introduction to geometry'
+                            'title': 'Introduction to geometry',
+                            'iconUrl': 'https://i.ibb.co/Hx6v5P4/introtogeometry.png'
                         },
                         {
-                            'title': 'Angles'
+                            'title': 'Angles',
+                            'iconUrl': 'https://i.ibb.co/mNdpBY2/angles.png'
                         }
                     ]
                 },
@@ -84,13 +98,16 @@ const SUBJECTS = {
                     'title': 'Triangles',
                     'lessons': [
                         {
-                            'title': 'The angles of a triangle'
+                            'title': 'The angles of a triangle',
+                            'iconUrl': 'https://i.ibb.co/hfV28G1/anglesofatriangle.png'
                         },
                         {
-                            'title': 'The perimeter of a triangle'
+                            'title': 'The perimeter of a triangle',
+                            'iconUrl': 'https://i.ibb.co/ccg3z1R/perimeterofatriangle.png'
                         },
                         {
-                            'title': 'The area of a triangle'
+                            'title': 'The area of a triangle',
+                            'iconUrl': 'https://i.ibb.co/qxVhB2h/areaoftriangle.png'
                         }
                     ]
                 }
@@ -105,13 +122,16 @@ const SUBJECTS = {
                     'title': 'The Basics',
                     'lessons': [
                         {
-                            'title': 'The history of biology'
+                            'title': 'The history of biology',
+                            'iconUrl': 'https://i.ibb.co/Vx4qxrv/historyofbiology.png'
                         },
                         {
-                            'title': 'Scientific notation'
+                            'title': 'Scientific notation',
+                            'iconUrl': 'https://i.ibb.co/Gcy1r5t/scientificnotation.png'
                         },
                         {
-                            'title': 'Line graphs'
+                            'title': 'Line graphs',
+                            'iconUrl': 'https://i.ibb.co/QMSNCff/linegraphs.png'
                         }
                     ]
                 },
@@ -119,13 +139,16 @@ const SUBJECTS = {
                     'title': 'Research and Work Methods',
                     'lessons': [
                         {
-                            'title': 'Bar and column graphs'
+                            'title': 'Bar and column graphs',
+                            'iconUrl': 'https://i.ibb.co/FBTM3VN/barandcolumngraphs.png'
                         },
                         {
-                            'title': 'The chemistry lab'
+                            'title': 'The chemistry lab',
+                            'iconUrl': 'https://i.ibb.co/mz5YGSn/thechemistrylab.png'
                         },
                         {
-                            'title': 'Scientific knowledge'
+                            'title': 'Scientific knowledge',
+                            'iconUrl': 'https://i.ibb.co/sWpD5cy/scientificknowledge.png'
                         }
                     ]
                 }
@@ -138,13 +161,16 @@ const SUBJECTS = {
                     'title': 'Phases of Matter',
                     'lessons': [
                         {
-                            'title': 'Water, ice and steam'
+                            'title': 'Water, ice and steam',
+                            'iconUrl': 'https://i.ibb.co/KGLKWKr/watericeandsteam.png'
                         },
                         {
-                            'title': 'Heat and phase transitions'
+                            'title': 'Heat and phase transitions',
+                            'iconUrl': 'https://i.ibb.co/XVQD7jK/heatandphasetransitions.png'
                         },
                         {
-                            'title': 'The particle theory of matter'
+                            'title': 'The particle theory of matter',
+                            'iconUrl': 'https://i.ibb.co/4WDnsMS/particletheoryofmatter.png'
                         }
                     ]
                 },
@@ -152,13 +178,16 @@ const SUBJECTS = {
                     'title': 'Bonds and Intermolecular Forces',
                     'lessons': [
                         {
-                            'title': 'Molecules have covalent bonds'
+                            'title': 'Molecules have covalent bonds',
+                            'iconUrl': 'https://i.ibb.co/9grr93Y/moleculeshavecovalentbonds.png'
                         },
                         {
-                            'title': 'Metallic bonding'
+                            'title': 'Metallic bonding',
+                            'iconUrl': 'https://i.ibb.co/FhRYQs5/metallicbonding.png'
                         },
                         {
-                            'title': 'Soap'
+                            'title': 'Soap',
+                            'iconUrl': 'https://i.ibb.co/jGpcrZr/soap.png'
                         }
                     ]
                 }
@@ -171,10 +200,12 @@ const SUBJECTS = {
                     'title': 'Geology',
                     'lessons': [
                         {
-                            'title': 'Rocks and Minerals'
+                            'title': 'Rocks and Minerals',
+                            'iconUrl': 'https://i.ibb.co/Xj6JvkN/rocksandminerals.png'
                         },
                         {
-                            'title': 'Tectonic plates'
+                            'title': 'Tectonic plates',
+                            'iconUrl': 'https://i.ibb.co/XZQWKkz/tectonicplates.png'
                         }
                     ]
                 },
@@ -182,13 +213,16 @@ const SUBJECTS = {
                     'title': 'Atmosphere and Climate',
                     'lessons': [
                         {
-                            'title': 'Introduction to climate and weather'
+                            'title': 'Introduction to climate and weather',
+                            'iconUrl': 'https://i.ibb.co/Qc3sqb2/climateandweather.png'
                         },
                         {
-                            'title': 'Rain'
+                            'title': 'Rain',
+                            'iconUrl': 'https://i.ibb.co/yYwgcXv/rain.png'
                         },
                         {
-                            'title': 'Hurricanes'
+                            'title': 'Hurricanes',
+                            'iconUrl': 'https://i.ibb.co/nsy954v/hurricanes.png'
                         }
                     ]
                 }
