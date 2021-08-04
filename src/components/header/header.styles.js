@@ -73,17 +73,6 @@ export const SettingsGroup = styled.div`
     flex: 1;
     display: flex;
     justify-content: flex-end;
-
-    button {
-        border: unset;
-        background: unset;
-        padding: unset;
-        margin: 0 2px;
-        display: flex;
-        align-items: center;
-        color: grey;
-        cursor: pointer;
-    }
 `;
 
 export const LogoWrapper = styled.a`

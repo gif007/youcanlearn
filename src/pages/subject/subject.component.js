@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 
 import SubjectOverview from '../../components/subject-overview/subject-overview.component';
 import CourseOverview from '../../components/course-overview/course-overview.component';
+import LessonOverview from '../../components/lesson-overview/lesson-overview.component';
 
 
 const SubjectPage = ({ match }) => {
@@ -11,7 +12,8 @@ const SubjectPage = ({ match }) => {
     <div>
         <Suspense fallback={<div>Loading ...</div>} />
         <Route exact path={`${match.path}/:subjectId`} component={SubjectOverview} />
-        <Route path={`${match.path}/:subjectId/:courseId`} component={CourseOverview} />
+        <Route exact path={`${match.path}/:subjectId/:courseId`} component={CourseOverview} />
+        <Route path={`${match.path}/:subjectId/:courseId/:lessonId`} component={LessonOverview} />
     </div>
 )};
 

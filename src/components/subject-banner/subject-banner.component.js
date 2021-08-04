@@ -3,7 +3,7 @@ import React from 'react';
 import { BannerWrapper } from './subject-banner.styles';
 
 
-const SubjectBanner = ({ subject, course }) => {
+const SubjectBanner = ({ subject, course, lesson }) => {
     const subjectText = subject === 'math' ? 'Mathematics' : 'Science';
 
     return (
@@ -17,7 +17,13 @@ const SubjectBanner = ({ subject, course }) => {
                         style={{color: 'white', textDecoration: 'none'}}
                         href={`/subject/${subject}`}>
                         {subjectText}
-                    </a> / {course}
+                    </a>{
+                        lesson === undefined ? (
+                            <span> / {course} </span>
+                        ) : (
+                            <span> / <a style={{color: 'white', textDecoration: 'none'}} href={`/subject/${subject}/${course}`}>{course}</a> / {lesson}</span>
+                        )
+                    }
                 </span>
             )
         }

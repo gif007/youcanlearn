@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
 
 import {
     HeaderWrapper,
@@ -11,10 +10,10 @@ import {
 } from './header.styles';
 
 import SubjectMenu from '../subject-menu/subject-menu.component';
+import SettingsIcon from '../settings-icon/settings-icon.component';
+import HomeIcon from '../home-icon/home-icon.component';
 
 import SearchGlass from '../../assets/search.png';
-import Home from '../../assets/home-30x30.png';
-import Settings from '../../assets/settings.png';
 
 
 const Header = ({ history }) => {
@@ -61,21 +60,11 @@ const Header = ({ history }) => {
         </LogoWrapper>
 
         <SettingsGroup>
-            <button
-                type='button'
-                onClick={() => {
-                    history.push('/');
-                    toggleSubjectsVisible(false);
-                }}
-            >
-                <img src={Home} alt='Home' /> &#9660;
-            </button>
-            <button type='button'>
-                <img src={Settings} alt='Settings' /> &#9660;
-            </button>
+            <HomeIcon toggleSubjectsVisible={toggleSubjectsVisible} />
+            <SettingsIcon />
         </SettingsGroup>
 
     </HeaderWrapper>
 )};
 
-export default withRouter(Header);
+export default Header;

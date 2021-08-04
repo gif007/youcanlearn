@@ -25,7 +25,9 @@ const SubjectOutline = ({ selectedSubject, subject }) => {
                                 <ul style={{marginBottom: '2rem'}}>
                                     {
                                         course.sections.map((section, i) => {
-                                        return <li key={i} style={{marginBottom: '0.25rem'}}><a href='/'>&rsaquo; {section.title}</a></li>
+                                            const lessonUrl = encodeURI(`/subject/${subject}/${course.title}/${section.lessons[0].title}`);
+
+                                            return <li key={i} style={{marginBottom: '0.25rem'}}><a href={lessonUrl}>&rsaquo; {section.title}</a></li>
                                         })
                                     }
                                 </ul>
