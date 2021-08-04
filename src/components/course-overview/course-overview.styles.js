@@ -9,5 +9,6 @@ export const CourseOverviewWrapper = styled.div`
 
 export const CourseTitle = styled.h1`
     text-align: center;
-        margin: 2rem;
+    margin: 2rem 0 3rem;
+    font-size: 1.5rem;
 `;

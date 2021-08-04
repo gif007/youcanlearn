@@ -4,14 +4,16 @@ import {
     OutlineWrapper,
     SectionList,
     LessonList,
-    SectionTitle
+    SectionTitle,
+    SectionWrapper,
+    LessonLink
 } from './course-outline.styles';
 
 import { connect } from 'react-redux'
 import { selectSubject } from '../../redux/subjects/subjects.selectors';
 
 
-const CourseOutline = ({ course, subjectAsArray }) => {
+const CourseOutline = ({ course, subjectAsArray, subject }) => {
     const selectedCourse = subjectAsArray.filter(elem => elem.title === course)[0];
     
     return (
@@ -20,16 +22,18 @@ const CourseOutline = ({ course, subjectAsArray }) => {
             {
                 selectedCourse.sections.map((section, index) => {
                     return (
-                    <li key={index}>
+                    <SectionWrapper key={index}>
                         <SectionTitle>{section.title}</SectionTitle>
                         <LessonList>
                             {
                                 section.lessons.map((lesson, i) => {
-                                    return <li key={i}>{lesson.title}</li>
+                                    const url = encodeURI(`/subject/${subject}/${course}/${lesson.title}`);
+
+                                    return <li key={i}><LessonLink href={url}>{lesson.title} <span>&rsaquo;</span></LessonLink></li>
                                 })
                             }
                         </LessonList>
-                    </li>
+                    </SectionWrapper>
                 )
                 })
             }

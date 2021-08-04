@@ -26,8 +26,6 @@ export const SubjectsButton = styled.button`
     font-size: 0.9rem;
 `;
 
-
-
 export const SearchForm = styled.form`
     border: 1px solid grey;
     border-radius: 8px;
@@ -80,7 +78,7 @@ export const SettingsGroup = styled.div`
         border: unset;
         background: unset;
         padding: unset;
-        margin: 0 12px;
+        margin: 0 2px;
         display: flex;
         align-items: center;
         color: grey;
@@ -88,11 +86,13 @@ export const SettingsGroup = styled.div`
     }
 `;
 
-export const LogoWrapper = styled.div`
+export const LogoWrapper = styled.a`
     flex: 1;
     text-align: center;
     font-weight: 700;
     font-size: 1.5rem;
+    color: black;
+    text-decoration: none;
 
     :hover {
         cursor: pointer;

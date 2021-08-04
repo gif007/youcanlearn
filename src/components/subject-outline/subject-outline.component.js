@@ -8,17 +8,19 @@ import {
 } from './subject-outline.styles';
 
 
-const SubjectOutline = ({ selectedSubject }) => {
+const SubjectOutline = ({ selectedSubject, subject }) => {
 
     return (
         <OutlineWrapper>
             <ul>
                 {
                     selectedSubject.map((course, index) => {
+                        const courseUrl = encodeURI(`/subject/${subject}/${course.title}`);
+
                         return (
                             <li key={index}>
                                 <div style={{marginBottom: '0.5rem'}}>
-                                    <a href='/' style={{fontWeight: 700}}>{course.title}</a>
+                                    <a href={courseUrl} style={{fontWeight: 700}}>{course.title}</a>
                                 </div>
                                 <ul style={{marginBottom: '2rem'}}>
                                     {

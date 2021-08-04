@@ -13,9 +13,17 @@ export const BannerWrapper = styled.div`
 `;
 
 export const Nameplate = styled.div`
+    display: flex;
+    align-items: center;
     font-size: 2rem;
     font-weight: 700;
     color: white;
+
+    span {
+        margin-left: 12px;
+        padding-top: 6px;
+        height: 40px;
+    }
 `;
 
 export const Points = styled.div`

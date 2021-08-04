@@ -8,11 +8,13 @@ import {
     PointsContainer
 } from './overview-banner.styles';
 
+import HomeIcon from '../../assets/home-40x40.png';
+
 
 const OverviewBanner = () => (
     <BannerWrapper>
 
-        <Nameplate>Guest</Nameplate>
+        <Nameplate><img src={HomeIcon} alt='home icon' /><span>Guest</span></Nameplate>
 
         <Points>
             <PointsTitle>Points earned</PointsTitle>

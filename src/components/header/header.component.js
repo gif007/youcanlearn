@@ -13,7 +13,7 @@ import {
 import SubjectMenu from '../subject-menu/subject-menu.component';
 
 import SearchGlass from '../../assets/search.png';
-import Home from '../../assets/home-36x36.png';
+import Home from '../../assets/home-30x30.png';
 import Settings from '../../assets/settings.png';
 
 
@@ -56,8 +56,8 @@ const Header = ({ history }) => {
             }
         </SubjectsGroup>
 
-        <LogoWrapper onClick={() => history.push('/')}>
-            Learn
+        <LogoWrapper href='/'>
+            YouCanLearn
         </LogoWrapper>
 
         <SettingsGroup>
