@@ -7,15 +7,21 @@ import { GlobalStyle } from './global.styles';
 
 import Header from './components/header/header.component';
 import Footer from './components/footer/footer.component';
+import { createStructuredSelector } from 'reselect';
+import { selectIsSubjectMenuHidden } from './redux/dropdowns/dropdowns.selector';
 
 const OverviewPage = lazy(() => import('./pages/overview/overview.component'));
 const SubjectPage = lazy(() => import('./pages/subject/subject.component'));
 
 
-const App = ({ closeSubjectMenu }) => {
+const App = ({ closeSubjectMenu, subjectMenuIsHidden }) => {
   
   return (
-    <div onClick={() => closeSubjectMenu()}>
+    <div onClick={() => {
+      if (!subjectMenuIsHidden) {
+        closeSubjectMenu();
+      }
+      }}>
       <GlobalStyle />
       <Header />
       <Switch>
@@ -33,4 +39,8 @@ const mapDispatchToProps = dispatch => ({
   closeSubjectMenu: () => dispatch(closeSubjectMenu())
 });
 
-export default connect(null, mapDispatchToProps)(App);
+const mapStateToProps = createStructuredSelector({
+  subjectMenuIsHidden: selectIsSubjectMenuHidden
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -18,7 +18,7 @@ const LessonMenu = ({ section, course, subject }) => (
 
                     return (
                         <li key={index}>
-                            <LessonMenuItem subject={subject} url={url} lesson={lesson} />
+                            <LessonMenuItem course={course} subject={subject} url={url} lesson={lesson} />
                         </li>
                     )
                 })

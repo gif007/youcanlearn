@@ -75,7 +75,7 @@ export const SettingsGroup = styled.div`
     justify-content: flex-end;
 `;
 
-export const LogoWrapper = styled.a`
+export const LogoWrapper = styled.div`
     flex: 1;
     text-align: center;
     font-weight: 700;

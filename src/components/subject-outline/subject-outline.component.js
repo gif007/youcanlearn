@@ -1,14 +1,21 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
+import { updateCourse, updateLesson, updateSubject } from '../../redux/location/location.actions';
 import { selectSubject } from '../../redux/subjects/subjects.selectors';
 
 import {
-    OutlineWrapper
+    OutlineWrapper,
+    CourseTitle,
+    SectionList,
+    SectionWrapper
 } from './subject-outline.styles';
 
+import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
 
-const SubjectOutline = ({ selectedSubject, subject }) => {
+
+const SubjectOutline = ({ selectedSubject, subject, setCourse, setLesson, unsetLesson, setSubject, history, closeSubjectMenu }) => {
 
     return (
         <OutlineWrapper>
@@ -19,18 +26,39 @@ const SubjectOutline = ({ selectedSubject, subject }) => {
 
                         return (
                             <li key={index}>
-                                <div style={{marginBottom: '0.5rem'}}>
-                                    <a href={courseUrl} style={{fontWeight: 700}}>{course.title}</a>
-                                </div>
-                                <ul style={{marginBottom: '2rem'}}>
+                                <CourseTitle onClick={() => {
+                                    setCourse(course.title);
+                                    setSubject(subject);
+                                    unsetLesson();
+                                    closeSubjectMenu();
+                                    history.push(courseUrl)
+                                }}>
+                                    {course.title}
+                                </CourseTitle>
+                                <SectionList>
                                     {
                                         course.sections.map((section, i) => {
-                                            const lessonUrl = encodeURI(`/subject/${subject}/${course.title}/${section.lessons[0].title}`);
-
-                                            return <li key={i} style={{marginBottom: '0.25rem'}}><a href={lessonUrl}>&rsaquo; {section.title}</a></li>
+                                            const lessonTitle = section.lessons[0].title;
+                                            const lessonUrl = encodeURI(`/subject/${subject}/${course.title}/${lessonTitle}`);
+                                            
+                                            return (
+                                                <li key={i}>
+                                                    <SectionWrapper
+                                                        onClick={() => {
+                                                            setCourse(course.title);
+                                                            setSubject(subject);
+                                                            setLesson(lessonTitle)
+                                                            closeSubjectMenu();
+                                                            history.push(lessonUrl)
+                                                        }}
+                                                    >
+                                                        &rsaquo; {section.title}
+                                                    </SectionWrapper>
+                                                </li>
+                                            )
                                         })
                                     }
-                                </ul>
+                                </SectionList>
                             </li>)
                     })
                 }
@@ -42,4 +70,12 @@ const mapStateToProps = (state, ownProps) => ({
     selectedSubject: selectSubject(ownProps.subject)(state)
 })
 
-export default connect(mapStateToProps)(SubjectOutline);
+const mapDispatchToProps = dispatch => ({
+    setSubject: (subject) => dispatch(updateSubject(subject)),
+    setCourse: (course) => dispatch(updateCourse(course)),
+    setLesson: (lesson) => dispatch(updateLesson(lesson)),
+    unsetLesson: () => dispatch(updateLesson(null)),
+    closeSubjectMenu: () => dispatch(closeSubjectMenu())
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SubjectOutline));

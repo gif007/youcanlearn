@@ -13,7 +13,7 @@ export const SubjectTitle = styled.h1`
     font-size: 1.5rem;
 `;
 
-export const CourseLink = styled.a`
+export const CourseLink = styled.div`
     display: flex;
     align-items: center;
     border: 1px solid #f0f0f0;
@@ -26,6 +26,7 @@ export const CourseLink = styled.a`
     margin: .7rem;
     color: black;
     text-decoration: none;
+    cursor: pointer;
 
     :hover {
         background: lightgrey;

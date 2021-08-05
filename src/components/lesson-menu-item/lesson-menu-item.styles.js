@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 
-export const LessonLink = styled.a`
+export const LessonLink = styled.div`
     color: black;
     text-decoration: none;
     border-bottom: 1px solid #f0f0f0;
@@ -10,6 +10,7 @@ export const LessonLink = styled.a`
     align-items: center;
     justify-content: space-between;
     padding: 1.5rem 1rem;
+    cursor: pointer;
 
     :hover {
         background: linear-gradient(0.25turn, #ffffff, #f0f0f0, #ffffff);

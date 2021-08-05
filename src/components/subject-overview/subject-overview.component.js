@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import {
     SubjectContainer,
@@ -11,11 +12,15 @@ import {
 
 import { connect } from 'react-redux'
 import { selectSubject } from '../../redux/subjects/subjects.selectors';
+import {
+    updateSubject,
+    updateCourse
+} from '../../redux/location/location.actions';
 
 import SubjectBanner from '../subject-banner/subject-banner.component';
 
 
-const SubjectOverview = ({ match, subject }) => {
+const SubjectOverview = ({ match, subject, history, setSubject, setCourse }) => {
     const param = match.params.subjectId;
 
     return (
@@ -24,13 +29,20 @@ const SubjectOverview = ({ match, subject }) => {
             <SubjectTitle>{param === 'math' ? 'Mathematics' : 'Science'}</SubjectTitle>
             <CourseLinksContainer>
                 {
-                    subject.map((section, index) => {
-                        const url = encodeURI(`/subject/${param}/${section.title}`);
+                    subject.map((course, index) => {
+                        const url = encodeURI(`/subject/${param}/${course.title}`);
   
                         return (
-                            <CourseLink href={url} key={index}>
-                                <Circle subject={param}>{section.title.slice(0, 1).toUpperCase()}</Circle>
-                                <CourseTitle>{section.title}</CourseTitle>
+                            <CourseLink
+                                onClick={() => {
+                                    history.push(url);
+                                    setSubject(param);
+                                    setCourse(course.title)
+                                }}
+                                key={index}
+                            >
+                                <Circle subject={param}>{course.title.slice(0, 1).toUpperCase()}</Circle>
+                                <CourseTitle>{course.title}</CourseTitle>
                             </CourseLink>
                         )
                     })
@@ -43,4 +55,9 @@ const mapStateToProps = (state, ownProps) => ({
     subject: selectSubject(ownProps.match.params.subjectId)(state)
 });
 
-export default connect(mapStateToProps)(SubjectOverview);
+const mapDispatchToProps = dispatch => ({
+    setSubject: (subject) => dispatch(updateSubject(subject)),
+    setCourse: (course) => dispatch(updateCourse(course))
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SubjectOverview));

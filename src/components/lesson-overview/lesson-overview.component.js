@@ -21,8 +21,6 @@ const LessonOverview = ({ match, subjectAsArray }) => {
 
     const sections = subjectAsArray.filter((crs) => crs.title === course)[0]['sections'];
     const section = sections.filter(sect => sect.lessons.find(lsn => lsn.title === lesson))[0];
-
-    console.log(section);
     
     return (
         <OverviewContainer>
