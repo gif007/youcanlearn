@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 
 import { connect } from 'react-redux';
 
@@ -44,18 +45,36 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
         const section2 = sections.filter(sect => sect.lessons.find(lsn => lsn.title === lesson))[0];
         setSection(section2);
     }, [allSubjects, course, lesson, subject])
+
+    let title = null;
+    if (subject === 'math') {
+        title = 'Mathematics';
+    } else if (subject === 'science') {
+        title = 'Science'
+    }
     
     return (
         <OverviewContainer>
-            <ContentWrapper>
-                <LessonTitle>{lesson}</LessonTitle>
+            <Helmet>
                 {
-                    section ? (
-                        <LessonMenuWrapper>
-                            <LessonMenu course={course} subject={subject} section={section} />
-                        </LessonMenuWrapper>
+                    title ? (
+                        <title>{title}</title>
                     ) : null
                 }
+                
+            </Helmet>
+            <LessonMenuWrapper>
+                <div id='border-container'>
+                    {
+                        section ? (
+                            <LessonMenu course={course} subject={subject} section={section} />
+                        ) : null
+                    }
+                </div>
+            </LessonMenuWrapper>
+            
+            <ContentWrapper>
+                <LessonTitle>{lesson}</LessonTitle>
             </ContentWrapper>
         </OverviewContainer>
     )

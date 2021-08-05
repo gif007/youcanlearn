@@ -13,5 +13,5 @@ export const SectionList = styled.ul`
 
 export const SectionWrapper = styled.li`
     margin-left: 1rem;
-    width: 400px;
+    width: 300px;
 `;

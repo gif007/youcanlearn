@@ -4,15 +4,15 @@ const selectDropdowns = state => state.dropdowns;
 
 export const selectIsSubjectMenuHidden = createSelector(
     [selectDropdowns],
-    dropdowns => dropdowns.subjectMenu
+    dropdowns => dropdowns.subjectMenuHidden
 );
 
 export const selectIsHomeMenuHidden = createSelector(
     [selectDropdowns],
-    dropdowns => dropdowns.homeMenu
+    dropdowns => dropdowns.homeMenuHidden
 );
 
 export const selectIsSettingsMenuHidden = createSelector(
     [selectDropdowns],
-    dropdowns => dropdowns.settingsMenu
+    dropdowns => dropdowns.settingsMenuHidden
 );

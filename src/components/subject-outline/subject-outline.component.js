@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { updateCourse, updateLesson, updateSubject } from '../../redux/location/location.actions';
@@ -15,7 +15,7 @@ import {
 import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
 
 
-const SubjectOutline = ({ selectedSubject, subject, setCourse, setLesson, unsetLesson, setSubject, history, closeSubjectMenu }) => {
+const SubjectOutline = ({ selectedSubject, subject, setCourse, setLesson, unsetLesson, setSubject, closeSubjectMenu }) => {
 
     return (
         <OutlineWrapper>
@@ -31,9 +31,10 @@ const SubjectOutline = ({ selectedSubject, subject, setCourse, setLesson, unsetL
                                     setSubject(subject);
                                     unsetLesson();
                                     closeSubjectMenu();
-                                    history.push(courseUrl)
                                 }}>
-                                    {course.title}
+                                    <Link to={courseUrl}>
+                                        {course.title}
+                                    </Link>
                                 </CourseTitle>
                                 <SectionList>
                                     {
@@ -49,10 +50,11 @@ const SubjectOutline = ({ selectedSubject, subject, setCourse, setLesson, unsetL
                                                             setSubject(subject);
                                                             setLesson(lessonTitle)
                                                             closeSubjectMenu();
-                                                            history.push(lessonUrl)
                                                         }}
                                                     >
-                                                        &rsaquo; {section.title}
+                                                        <Link to={lessonUrl}>
+                                                            &rsaquo; {section.title}
+                                                        </Link>
                                                     </SectionWrapper>
                                                 </li>
                                             )
@@ -78,4 +80,4 @@ const mapDispatchToProps = dispatch => ({
     closeSubjectMenu: () => dispatch(closeSubjectMenu())
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SubjectOutline));
+export default connect(mapStateToProps, mapDispatchToProps)(SubjectOutline);

@@ -83,6 +83,11 @@ export const LogoWrapper = styled.div`
     color: black;
     text-decoration: none;
 
+    a {
+        color: black;
+        text-decoration: none;
+    }
+
     :hover {
         cursor: pointer;
     }

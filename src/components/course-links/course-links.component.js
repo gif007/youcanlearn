@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
@@ -12,28 +12,32 @@ import {
     CourseLinkWrapper,
     Circle,
     CourseTitle,
-    CourseLinksContainer
+    CourseLinksContainer,
+    LinkWrapper
 } from './course-links.styles';
 
 
-const CourseLink = ({ subjectAsArray, subject, history, setSubject, setCourse }) => (
+const CourseLink = ({ subjectAsArray, subject, setSubject, setCourse }) => (
     <CourseLinksContainer>
         {
             subjectAsArray.map((course, index) => {
                 const url = encodeURI(`/subject/${subject}/${course.title}`);
 
                 return (
-                    <CourseLinkWrapper
-                        onClick={() => {
-                            history.push(url);
-                            setSubject(subject);
-                            setCourse(course.title)
-                        }}
-                        key={index}
-                    >
-                        <Circle subject={subject}>{course.title.slice(0, 1).toUpperCase()}</Circle>
-                        <CourseTitle>{course.title}</CourseTitle>
-                    </CourseLinkWrapper>
+                    <LinkWrapper>
+                        <Link to={url}>
+                            <CourseLinkWrapper
+                                onClick={() => {
+                                    setSubject(subject);
+                                    setCourse(course.title)
+                                }}
+                                key={index}
+                            >
+                                <Circle subject={subject}>{course.title.slice(0, 1).toUpperCase()}</Circle>
+                                <CourseTitle>{course.title}</CourseTitle>
+                            </CourseLinkWrapper>
+                        </Link>
+                    </LinkWrapper>
                 )
             })
         }
@@ -49,4 +53,4 @@ const mapDispatchToProps = dispatch => ({
     setCourse: course => dispatch(updateCourse(course))
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CourseLink));
+export default connect(mapStateToProps, mapDispatchToProps)(CourseLink);

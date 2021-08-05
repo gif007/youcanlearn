@@ -17,7 +17,7 @@ export const CourseLinkWrapper = styled.div`
     cursor: pointer;
 
     :hover {
-        background: lightgrey;
+        background: #f0f0f0;
     }
 `;
 
@@ -43,4 +43,10 @@ export const Circle = styled.div`
 
 export const CourseTitle = styled.div`
     margin-left: 12px;
+`;
+
+export const LinkWrapper = styled.div`
+    a {
+        text-decoration: none;
+    }
 `;

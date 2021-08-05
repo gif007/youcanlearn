@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import {
@@ -20,7 +20,7 @@ import {
 import SubjectOutline from '../subject-outline/subject-outline.component';
 
 
-const SubjectMenu = ({ closeSubjectMenu, history, setSubject, unsetCourse, unsetLesson }) => {
+const SubjectMenu = ({ closeSubjectMenu, setSubject, unsetCourse, unsetLesson }) => {
     const [hoveredSubject, setHoveredSubject] = useState('math');
     const [mathBg, setMathBg] = useState('rgb(99, 181, 61)');
     const [scienceBg, setScienceBg] = useState('white');
@@ -37,15 +37,16 @@ const SubjectMenu = ({ closeSubjectMenu, history, setSubject, unsetCourse, unset
                     }}
                     bg={mathBg}
                     onClick={() => {
-                        history.push('/subject/math');
                         setSubject('math');
                         unsetCourse();
                         unsetLesson();
                         closeSubjectMenu();
                     }}
                 >
-                    <span>Mathematics</span>
-                    <span style={{fontSize: '1.5rem', fontWeight: 700}}>&rsaquo;</span>
+                    <Link to='/subject/math'>
+                        <span>Mathematics</span>
+                        <span style={{fontSize: '1.5rem', fontWeight: 700}}>&rsaquo;</span>
+                    </Link>
                 </MenuItem>
 
                 <MenuItem
@@ -56,15 +57,16 @@ const SubjectMenu = ({ closeSubjectMenu, history, setSubject, unsetCourse, unset
                     }}
                     bg={scienceBg}
                     onClick={() => {
-                        history.push('/subject/science');
                         setSubject('science');
                         unsetCourse();
                         unsetLesson();
                         closeSubjectMenu();
                     }}
                 >
-                    <span>Science</span>
-                    <span style={{fontSize: '1.5rem', fontWeight: 700}}>&rsaquo;</span>
+                    <Link to='/subject/science'>
+                        <span>Science</span>
+                        <span style={{fontSize: '1.5rem', fontWeight: 700}}>&rsaquo;</span>
+                    </Link>
                 </MenuItem>
 
             </MenuArea>
@@ -82,4 +84,4 @@ const mapDispatchToProps = dispatch => ({
     closeSubjectMenu: () => dispatch(closeSubjectMenu())
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(SubjectMenu));
+export default connect(null, mapDispatchToProps)(SubjectMenu);

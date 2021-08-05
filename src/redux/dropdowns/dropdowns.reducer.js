@@ -1,9 +1,9 @@
 import DropdownsActionTypes from "./dropdowns.types";
 
 const INITIAL_STATE = {
-    subjectMenu: true,
-    homeMenu: true,
-    settingsMenu: true
+    subjectMenuHidden: true,
+    homeMenuHidden: true,
+    settingsMenuHidden: true
 };
 
 
@@ -12,23 +12,33 @@ const dropdownsReducer = (state=INITIAL_STATE, action) => {
         case DropdownsActionTypes.TOGGLE_SUBJECT_MENU:
             return {
                 ...state,
-                subjectMenu: !state.subjectMenu
+                subjectMenuHidden: !state.subjectMenuHidden
             };
         case DropdownsActionTypes.CLOSE_SUBJECT_MENU:
             return {
                 ...state,
-                subjectMenu: true
+                subjectMenuHidden: true
             };
         case DropdownsActionTypes.TOGGLE_HOME_MENU:
             return {
                 ...state,
-                homeMenu: !state.homeMenu
+                homeMenuHidden: !state.homeMenuHidden
+            };
+        case DropdownsActionTypes.CLOSE_HOME_MENU:
+            return {
+                ...state,
+                homeMenuHidden: true
             };
         case DropdownsActionTypes.TOGGLE_SETTINGS_MENU:
             return {
                 ...state,
-                settingsMenu: !state.settingsMenu
-            }
+                settingsMenuHidden: !state.settingsMenuHidden
+            };
+        case DropdownsActionTypes.CLOSE_SETTINGS_MENU:
+            return {
+                ...state,
+                settingsMenuHidden: true
+            };
         default: {
             return state;
         }

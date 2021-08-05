@@ -1,11 +1,13 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+
+import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { selectIsSubjectMenuHidden } from '../../redux/dropdowns/dropdowns.selector';
 import { toggleSubjectMenuHidden } from '../../redux/dropdowns/dropdowns.actions';
+
 import {
     updateSubject,
     updateCourse,
@@ -28,7 +30,7 @@ import HomeIcon from '../home-icon/home-icon.component';
 import SearchGlass from '../../assets/search.png';
 
 
-const Header = ({subjectMenuIsHidden, toggleSubjectMenuHidden, history, unsetSubject, unsetCourse, unsetLesson }) => {
+const Header = ({subjectMenuIsHidden, toggleSubjectMenuHidden, unsetSubject, unsetCourse, unsetLesson }) => {
     
     const handleClick = (e) => {
         e.preventDefault();
@@ -70,12 +72,13 @@ const Header = ({subjectMenuIsHidden, toggleSubjectMenuHidden, history, unsetSub
         </SubjectsGroup>
 
         <LogoWrapper onClick={() => {
-            history.push('/');
             unsetSubject();
             unsetCourse();
             unsetLesson();
         }}>
-            YouCanLearn
+            <Link to='/'>
+                YouCanLearn
+            </Link>
         </LogoWrapper>
 
         <SettingsGroup>
@@ -97,4 +100,4 @@ const mapDispatchToProps = dispatch => ({
     unsetLesson: () => dispatch(updateLesson(null))
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

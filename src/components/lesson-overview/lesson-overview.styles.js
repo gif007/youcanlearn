@@ -3,24 +3,30 @@ import styled from 'styled-components';
 
 export const OverviewContainer = styled.div`
     background: white;
+    display: flex;
+    padding: 2rem;
 `;
 
 export const LessonMenuWrapper = styled.div`
-    width: 400px;
-    position: absolute;
-    top: 36px;
-    left: 36px;
+    flex-grow: 0;
+    margin-left: 7.5rem;
+
+    div#border-container {
+        width: 300px;
+        border-right: 1px solid #f0f0f0;
+        padding-right: 2rem;
+        padding-bottom: 1rem;
+    }
 `;
 
 export const ContentWrapper = styled.div`
+    flex-grow: 1;
     display: flex;
-    padding: 2rem 0;
-    position: relative;
+    flex-direction: column;
     min-height: 400px;
+    padding-left: 2rem;
 `;
 
 export const LessonTitle = styled.h1`
-    text-align: center;
-    width: 100%;
     font-size: 1.5rem;
 `;

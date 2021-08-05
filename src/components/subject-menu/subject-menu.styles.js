@@ -18,14 +18,19 @@ export const MenuArea = styled.div`
 `;
 
 export const MenuItem = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
     border-bottom: 1px solid lightgrey;
     cursor: pointer;
     background: ${props => props.bg};
     color: ${props => props.bg === 'white' ? 'black' : 'white'};
+
+    a {
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+    }
     
 `;
 
