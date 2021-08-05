@@ -1,4 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+
+import {
+    selectSubject,
+    selectCourse,
+    selectLesson
+} from '../../redux/location/location.selectors';
+
+import { selectIsSubjectMenuHidden } from '../../redux/dropdowns/dropdowns.selector';
+import { toggleSubjectMenuHidden } from '../../redux/dropdowns/dropdowns.actions';
 
 import {
     HeaderWrapper,
@@ -16,16 +28,16 @@ import HomeIcon from '../home-icon/home-icon.component';
 import SearchGlass from '../../assets/search.png';
 
 
-const Header = ({ history }) => {
-    const [subjectsVisible, toggleSubjectsVisible] = useState(false);
+const Header = ({ subject, course, lesson, subjectMenuIsHidden, toggleSubjectMenuHidden }) => {
+    console.log('subject:', subject, 'course:', course, 'lesson:', lesson);
     
-
     const handleClick = (e) => {
         e.preventDefault();
         const searchInput = document.querySelector('input#search-bar');
         console.log(searchInput.value);
         searchInput.value = '';
         searchInput.focus();
+        
     }
 
     return (
@@ -33,7 +45,10 @@ const Header = ({ history }) => {
         <SubjectsGroup>
             <SubjectsButton
                 type='button'
-                onClick={() => toggleSubjectsVisible(!subjectsVisible)}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    toggleSubjectMenuHidden();
+                }}
             >
                 Subjects &#9660;
             </SubjectsButton>
@@ -49,9 +64,9 @@ const Header = ({ history }) => {
                 </fieldset>
             </SearchForm>
             {
-                subjectsVisible ? (
-                    <SubjectMenu toggleSubjectsVisible={toggleSubjectsVisible} />
-                ) : null
+                subjectMenuIsHidden ? (
+                    null
+                ) : <SubjectMenu />
             }
         </SubjectsGroup>
 
@@ -60,11 +75,22 @@ const Header = ({ history }) => {
         </LogoWrapper>
 
         <SettingsGroup>
-            <HomeIcon toggleSubjectsVisible={toggleSubjectsVisible} />
+            <HomeIcon />
             <SettingsIcon />
         </SettingsGroup>
 
     </HeaderWrapper>
 )};
 
-export default Header;
+const mapStateToProps = createStructuredSelector({
+    subject: selectSubject,
+    course: selectCourse,
+    lesson: selectLesson,
+    subjectMenuIsHidden: selectIsSubjectMenuHidden
+});
+
+const mapDispatchToProps = dispatch => ({
+    toggleSubjectMenuHidden: () => dispatch(toggleSubjectMenuHidden())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

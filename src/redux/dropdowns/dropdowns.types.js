@@ -1,0 +1,8 @@
+const DropdownsActionTypes = {
+    TOGGLE_SUBJECT_MENU: 'TOGGLE_SUBJECT_MENU',
+    TOGGLE_HOME_MENU: 'TOGGLE_HOME_MENU',
+    TOGGLE_SETTINGS_MENU: 'TOGGLE_SETTINGS_MENU',
+    CLOSE_SUBJECT_MENU: 'CLOSE_SUBJECT_MENU'
+};
+
+export default DropdownsActionTypes;

@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { updateSubject } from '../../redux/location/location.actions';
+import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
 
 import {
     SubjectMenuWrapper,
@@ -11,13 +14,13 @@ import {
 import SubjectOutline from '../subject-outline/subject-outline.component';
 
 
-const SubjectMenu = ({ toggleSubjectsVisible, history }) => {
+const SubjectMenu = ({ closeSubjectMenu, history, setSubject }) => {
     const [currentSubject, setCurrentSubject] = useState('math');
     const [mathBg, setMathBg] = useState('rgb(99, 181, 61)');
     const [scienceBg, setScienceBg] = useState('white');
 
     return (
-        <SubjectMenuWrapper>
+        <SubjectMenuWrapper onClick={(e) => e.stopPropagation()}>
             <MenuArea>
 
                 <MenuItem
@@ -29,7 +32,8 @@ const SubjectMenu = ({ toggleSubjectsVisible, history }) => {
                     bg={mathBg}
                     onClick={() => {
                         history.push('/subject/math');
-                        toggleSubjectsVisible(false);
+                        setSubject('math');
+                        closeSubjectMenu();
                     }}
                 >
                     <span>Mathematics</span>
@@ -45,7 +49,8 @@ const SubjectMenu = ({ toggleSubjectsVisible, history }) => {
                     bg={scienceBg}
                     onClick={() => {
                         history.push('/subject/science');
-                        toggleSubjectsVisible(false);
+                        setSubject('science');
+                        closeSubjectMenu();
                     }}
                 >
                     <span>Science</span>
@@ -60,6 +65,9 @@ const SubjectMenu = ({ toggleSubjectsVisible, history }) => {
     )
 };
 
+const mapDispatchToProps = dispatch => ({
+    setSubject: (subject) => dispatch(updateSubject(subject)),
+    closeSubjectMenu: () => dispatch(closeSubjectMenu())
+});
 
-
-export default withRouter(SubjectMenu);
+export default withRouter(connect(null, mapDispatchToProps)(SubjectMenu));

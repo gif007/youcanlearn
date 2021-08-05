@@ -1,5 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { closeSubjectMenu } from './redux/dropdowns/dropdowns.actions';
 
 import { GlobalStyle } from './global.styles';
 
@@ -10,10 +12,10 @@ const OverviewPage = lazy(() => import('./pages/overview/overview.component'));
 const SubjectPage = lazy(() => import('./pages/subject/subject.component'));
 
 
-const App = () => {
+const App = ({ closeSubjectMenu }) => {
   
   return (
-    <div>
+    <div onClick={() => closeSubjectMenu()}>
       <GlobalStyle />
       <Header />
       <Switch>
@@ -27,4 +29,8 @@ const App = () => {
   );
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  closeSubjectMenu: () => dispatch(closeSubjectMenu())
+});
+
+export default connect(null, mapDispatchToProps)(App);
