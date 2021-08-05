@@ -4,12 +4,6 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import {
-    selectSubject,
-    selectCourse,
-    selectLesson
-} from '../../redux/location/location.selectors';
-
 import { selectIsSubjectMenuHidden } from '../../redux/dropdowns/dropdowns.selector';
 import { toggleSubjectMenuHidden } from '../../redux/dropdowns/dropdowns.actions';
 import {
@@ -34,8 +28,7 @@ import HomeIcon from '../home-icon/home-icon.component';
 import SearchGlass from '../../assets/search.png';
 
 
-const Header = ({subject, course, lesson, subjectMenuIsHidden, toggleSubjectMenuHidden, history, unsetSubject, unsetCourse, unsetLesson }) => {
-    console.log('subject:', subject, 'course:', course, 'lesson:', lesson);
+const Header = ({subjectMenuIsHidden, toggleSubjectMenuHidden, history, unsetSubject, unsetCourse, unsetLesson }) => {
     
     const handleClick = (e) => {
         e.preventDefault();
@@ -94,9 +87,6 @@ const Header = ({subject, course, lesson, subjectMenuIsHidden, toggleSubjectMenu
 )};
 
 const mapStateToProps = createStructuredSelector({
-    subject: selectSubject,
-    course: selectCourse,
-    lesson: selectLesson,
     subjectMenuIsHidden: selectIsSubjectMenuHidden
 });
 

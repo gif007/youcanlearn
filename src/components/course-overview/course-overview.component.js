@@ -1,25 +1,55 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+
+import { createStructuredSelector } from 'reselect';
+
+import {
+    selectSubject,
+    selectCourse
+} from '../../redux/location/location.selectors';
+
+import {
+    updateSubject,
+    updateCourse
+} from '../../redux/location/location.actions';
+
 import {
     CourseOverviewWrapper,
     CourseTitle
 } from './course-overview.styles';
 
-import SubjectBanner from '../subject-banner/subject-banner.component';
 import CourseOutline from '../course-outline/course-outline.component';
 
 
-const CourseOverview = ({ match }) => {
-    const subject = match.params.subjectId;
-    const course = match.params.courseId;
+
+const CourseOverview = ({ match, subject, setSubject, course, setCourse }) => {
+    if (course === null) {
+        setSubject(match.params.subjectId);
+        setCourse(match.params.courseId);
+    }
 
     return (
     <CourseOverviewWrapper>
-        <SubjectBanner subject={subject} course={course} />
         <CourseTitle>{course}</CourseTitle>
-        <CourseOutline subject={subject} course={course} />
+        {
+            course ? (
+                <CourseOutline subject={subject} course={course} />
+            ) : null
+        }
+        
     </CourseOverviewWrapper>
     )
 };
 
-export default CourseOverview;
+const mapStateToProps = createStructuredSelector({
+    subject: selectSubject,
+    course: selectCourse
+});
+
+const mapDispatchToProps = dispatch => ({
+    setSubject: subject => dispatch(updateSubject(subject)),
+    setCourse: course => dispatch(updateCourse(course))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CourseOverview);

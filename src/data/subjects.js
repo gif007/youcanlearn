@@ -1,6 +1,6 @@
 const SUBJECTS = {
     'math': {
-        'Introduction': {
+        'Introduction to Mathematics': {
             'title': 'Introduction to Mathematics',
             'sections': [
                 {
@@ -115,7 +115,7 @@ const SUBJECTS = {
         }
     },
     'science': {
-        'Introduction': {
+        'Introduction to Science': {
             'title': 'Introduction to Science',
             'sections': [
                 {

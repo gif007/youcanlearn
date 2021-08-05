@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { connect } from 'react-redux';
-import { selectSubject } from '../../redux/subjects/subjects.selectors';
+
+import { selectSubjects } from '../../redux/subjects/subjects.selectors';
+
+import {
+    selectSubject,
+    selectCourse,
+    selectLesson
+} from '../../redux/location/location.selectors';
+
+import {
+    updateLesson,
+    updateSubject,
+    updateCourse
+} from '../../redux/location/location.actions';
 
 import {
     OverviewContainer,
@@ -10,36 +23,55 @@ import {
     LessonTitle
 } from './lesson-overview.styles';
 
-import SubjectBanner from '../subject-banner/subject-banner.component';
 import LessonMenu from '../lesson-menu/lesson-menu.component';
+import { createStructuredSelector } from 'reselect';
 
 
-const LessonOverview = ({ match, subjectAsArray }) => {
-    const lesson = match.params.lessonId;
-    const subject = match.params.subjectId;
-    const course = match.params.courseId;
+const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course, setCourse, allSubjects }) => {
+    const [ section, setSection ] = useState(null);
 
-    const sections = subjectAsArray.filter((crs) => crs.title === course)[0]['sections'];
-    const section = sections.filter(sect => sect.lessons.find(lsn => lsn.title === lesson))[0];
+    if (lesson === null) {
+        setLesson(match.params.lessonId);
+        setSubject(match.params.subjectId);
+        setCourse(match.params.courseId);
+    }
+
+    useEffect(() => {
+        if (!subject) {
+            return;
+        }
+        const sections = allSubjects[subject][course]['sections'];
+        const section2 = sections.filter(sect => sect.lessons.find(lsn => lsn.title === lesson))[0];
+        setSection(section2);
+    }, [allSubjects, course, lesson, subject])
     
     return (
         <OverviewContainer>
-            <SubjectBanner subject={subject} course={course} lesson={lesson} />
             <ContentWrapper>
-
                 <LessonTitle>{lesson}</LessonTitle>
-
-                <LessonMenuWrapper>
-                    <LessonMenu course={course} subject={subject} section={section} />
-                </LessonMenuWrapper>
-                
+                {
+                    section ? (
+                        <LessonMenuWrapper>
+                            <LessonMenu course={course} subject={subject} section={section} />
+                        </LessonMenuWrapper>
+                    ) : null
+                }
             </ContentWrapper>
         </OverviewContainer>
     )
 };
 
-const mapStateToProps = (state, ownProps) => ({
-    subjectAsArray: selectSubject(ownProps.match.params.subjectId)(state)
+const mapStateToProps = createStructuredSelector({
+    subject: selectSubject,
+    course: selectCourse,
+    lesson: selectLesson,
+    allSubjects: selectSubjects
 });
 
-export default connect(mapStateToProps)(LessonOverview);
+const mapDispatchToProps = dispatch => ({
+    setSubject: (subject) => dispatch(updateSubject(subject)),
+    setCourse: (course) => dispatch(updateCourse(course)),
+    setLesson: (lesson) => dispatch(updateLesson(lesson))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LessonOverview);

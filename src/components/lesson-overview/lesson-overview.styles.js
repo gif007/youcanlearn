@@ -22,5 +22,5 @@ export const ContentWrapper = styled.div`
 export const LessonTitle = styled.h1`
     text-align: center;
     width: 100%;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
 `;
