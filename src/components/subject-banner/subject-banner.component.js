@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import { createStructuredSelector } from 'reselect';
 import { updateCourse, updateLesson } from '../../redux/location/location.actions';
@@ -18,43 +17,47 @@ import {
 } from './subject-banner.styles';
 
 
-const SubjectBanner = ({ subject, course, lesson, history, unsetLesson, unsetCourse }) => {
+const SubjectBanner = ({ subject, course, lesson, unsetLesson, unsetCourse }) => {
     const subjectText = subject === 'math' ? 'Mathematics' : 'Science';
 
     return (
     <BannerWrapper subject={subject}>
         {
-            course === null ? (
-                <PlainText>{subjectText}</PlainText>
-            ) : (
-                <div style={{display: 'flex'}}>
+            lesson ? (
+                <>
                     <LinkWrapper
                         to={`/subject/${subject}`}
                         onClick={() => {
                             unsetLesson();
                             unsetCourse();
-                    }}>
+                        }}
+                    >
                         {subjectText}
-                    </LinkWrapper>{
-                        lesson === null ? (
-                            <PlainText>/{course} </PlainText>
-                        ) : (
-                            <div style={{display: 'flex'}}>
-                                <span>/</span>
-                                <div
-                                    style={{color: 'white', textDecoration: 'none', cursor: 'pointer'}}
-                                    onClick={() => {
-                                        history.push(`/subject/${subject}/${course}`);
-                                        unsetLesson();
-                                    }}
-                                >
-                                    {course}
-                                </div>
-                                <PlainText>/{lesson}</PlainText>
-                          </div>
-                        )
-                    }
-                </div>
+                    </LinkWrapper>
+                    <LinkWrapper
+                        to={`/subject/${subject}/${course}`}
+                        onClick={() => {
+                            unsetLesson();
+                        }}
+                    >
+                        {course}
+                    </LinkWrapper>
+                    <PlainText>{lesson}</PlainText>
+                </>
+            ) : course ? (
+                <>
+                    <LinkWrapper
+                        to={`/subject/${subject}`}
+                        onClick={() => {
+                            unsetCourse();
+                        }}
+                    >
+                        {subjectText}
+                    </LinkWrapper>
+                    <PlainText>{course}</PlainText>
+                </>
+            ) : (
+                <PlainText>{subjectText}</PlainText>
             )
         }
     </BannerWrapper>
@@ -71,4 +74,4 @@ const mapDispatchToProps = dispatch => ({
     unsetCourse: () => dispatch(updateCourse(null))
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SubjectBanner));
+export default connect(mapStateToProps, mapDispatchToProps)(SubjectBanner);
