@@ -4,13 +4,18 @@ import { withRouter } from 'react-router-dom';
 
 import { createStructuredSelector } from 'reselect';
 import { updateCourse, updateLesson } from '../../redux/location/location.actions';
+
 import {
     selectSubject,
     selectCourse,
     selectLesson
 } from '../../redux/location/location.selectors';
 
-import { BannerWrapper } from './subject-banner.styles';
+import {
+    BannerWrapper,
+    PlainText,
+    LinkWrapper
+} from './subject-banner.styles';
 
 
 const SubjectBanner = ({ subject, course, lesson, history, unsetLesson, unsetCourse }) => {
@@ -20,23 +25,22 @@ const SubjectBanner = ({ subject, course, lesson, history, unsetLesson, unsetCou
     <BannerWrapper subject={subject}>
         {
             course === null ? (
-                <div>{subjectText}</div>
-            ): (
+                <PlainText>{subjectText}</PlainText>
+            ) : (
                 <div style={{display: 'flex'}}>
-                    <div
-                        style={{color: 'white', textDecoration: 'none', cursor: 'pointer'}}
+                    <LinkWrapper
+                        to={`/subject/${subject}`}
                         onClick={() => {
-                            history.push(`/subject/${subject}`);
                             unsetLesson();
                             unsetCourse();
-                        }}>
+                    }}>
                         {subjectText}
-                    </div>{
+                    </LinkWrapper>{
                         lesson === null ? (
-                            <span> / {course} </span>
+                            <PlainText>/{course} </PlainText>
                         ) : (
                             <div style={{display: 'flex'}}>
-                                <span> / </span>
+                                <span>/</span>
                                 <div
                                     style={{color: 'white', textDecoration: 'none', cursor: 'pointer'}}
                                     onClick={() => {
@@ -46,8 +50,8 @@ const SubjectBanner = ({ subject, course, lesson, history, unsetLesson, unsetCou
                                 >
                                     {course}
                                 </div>
-                                <span> / {lesson}</span>
-                            </div>
+                                <PlainText>/{lesson}</PlainText>
+                          </div>
                         )
                     }
                 </div>

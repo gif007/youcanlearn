@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 import { connect } from 'react-redux';
 
@@ -52,6 +52,8 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
     } else if (subject === 'science') {
         title = 'Science'
     }
+
+    title = title + ' - ' + lesson;
     
     return (
         <OverviewContainer>

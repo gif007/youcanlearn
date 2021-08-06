@@ -5,8 +5,12 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { selectIsSubjectMenuHidden } from '../../redux/dropdowns/dropdowns.selector';
-import { toggleSubjectMenuHidden } from '../../redux/dropdowns/dropdowns.actions';
+import {
+    selectIsSubjectMenuHidden,
+    selectIsHomeMenuHidden,
+    selectIsSettingsMenuHidden
+} from '../../redux/dropdowns/dropdowns.selector';
+import { closeHomeMenu, closeSettingsMenu, toggleSubjectMenuHidden } from '../../redux/dropdowns/dropdowns.actions';
 
 import {
     updateSubject,
@@ -25,12 +29,14 @@ import {
 
 import SubjectMenu from '../subject-menu/subject-menu.component';
 import SettingsIcon from '../settings-icon/settings-icon.component';
+import SettingsMenu from '../settings-menu/settings-menu.component';
 import HomeIcon from '../home-icon/home-icon.component';
+import HomeMenu from '../home-menu/home-menu.component';
 
 import SearchGlass from '../../assets/search.png';
 
 
-const Header = ({subjectMenuIsHidden, toggleSubjectMenuHidden, unsetSubject, unsetCourse, unsetLesson }) => {
+const Header = ({subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden, toggleSubjectMenuHidden, unsetSubject, unsetCourse, unsetLesson, closeHomeMenu, closeSettingsMenu }) => {
     
     const handleClick = (e) => {
         e.preventDefault();
@@ -46,9 +52,10 @@ const Header = ({subjectMenuIsHidden, toggleSubjectMenuHidden, unsetSubject, uns
         <SubjectsGroup>
             <SubjectsButton
                 type='button'
-                onClick={(e) => {
-                    e.stopPropagation();
+                onClick={() => {
                     toggleSubjectMenuHidden();
+                    closeHomeMenu();
+                    closeSettingsMenu();
                 }}
             >
                 Subjects &#9660;
@@ -84,20 +91,34 @@ const Header = ({subjectMenuIsHidden, toggleSubjectMenuHidden, unsetSubject, uns
         <SettingsGroup>
             <HomeIcon />
             <SettingsIcon />
+            {
+                homeMenuIsHidden ? null : (
+                    <HomeMenu />
+                )
+            }
+            {
+                settingsMenuIsHidden ? null : (
+                    <SettingsMenu />
+                )
+            }
         </SettingsGroup>
 
     </HeaderWrapper>
 )};
 
 const mapStateToProps = createStructuredSelector({
-    subjectMenuIsHidden: selectIsSubjectMenuHidden
+    subjectMenuIsHidden: selectIsSubjectMenuHidden,
+    homeMenuIsHidden: selectIsHomeMenuHidden,
+    settingsMenuIsHidden: selectIsSettingsMenuHidden
 });
 
 const mapDispatchToProps = dispatch => ({
     toggleSubjectMenuHidden: () => dispatch(toggleSubjectMenuHidden()),
     unsetSubject: () => dispatch(updateSubject(null)),
     unsetCourse: () => dispatch(updateCourse(null)),
-    unsetLesson: () => dispatch(updateLesson(null))
+    unsetLesson: () => dispatch(updateLesson(null)),
+    closeHomeMenu: () => dispatch(closeHomeMenu()),
+    closeSettingsMenu: () => dispatch(closeSettingsMenu())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -24,14 +24,13 @@ const CourseLink = ({ subjectAsArray, subject, setSubject, setCourse }) => (
                 const url = encodeURI(`/subject/${subject}/${course.title}`);
 
                 return (
-                    <LinkWrapper>
+                    <LinkWrapper key={index}>
                         <Link to={url}>
                             <CourseLinkWrapper
                                 onClick={() => {
                                     setSubject(subject);
                                     setCourse(course.title)
                                 }}
-                                key={index}
                             >
                                 <Circle subject={subject}>{course.title.slice(0, 1).toUpperCase()}</Circle>
                                 <CourseTitle>{course.title}</CourseTitle>
