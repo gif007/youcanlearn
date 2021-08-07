@@ -39,6 +39,6 @@ export const QuizMenu = styled.div`
 
 `;
 
-export const Transcript = styled.div`
+export const TranscriptWrapper = styled.div`
 
 `;

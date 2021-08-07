@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import { selectSubjectsData } from '../../redux/subjects/subjects.selectors';
 
@@ -24,11 +25,11 @@ import {
     LessonTitle,
     MediaWrapper,
     QuizMenu,
-    Transcript
+    TranscriptWrapper
 } from './lesson-overview.styles';
 
 import LessonMenu from '../lesson-menu/lesson-menu.component';
-import { createStructuredSelector } from 'reselect';
+import Transcript from '../transcript/transcript.component';
 
 
 const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course, setCourse, allSubjects }) => {
@@ -44,7 +45,6 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
 
     useEffect(() => {
         if (!subject) {
-            console.log('no subject yet');
             return;
         }
         if (section) {
@@ -52,7 +52,6 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
             setMediaUrl(currentMediaUrl);
             return;
         }
-        console.log('subject acquired:', subject);
         const sections = allSubjects[subject][course]['sections'];
         const currentSection = sections.filter(sect => sect.lessons.find(lsn => lsn.title === lesson))[0];
         setSection(currentSection);
@@ -98,7 +97,9 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
                     }
                 </MediaWrapper>
                 <QuizMenu>QuizMenu: This is going to be its own component</QuizMenu>
-                <Transcript>Transcript: As will this</Transcript>
+                <TranscriptWrapper>
+                    <Transcript lesson={lesson} />
+                </TranscriptWrapper>
             </ContentWrapper>
         </OverviewContainer>
     )
