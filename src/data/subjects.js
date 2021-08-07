@@ -8,15 +8,18 @@ const SUBJECTS = {
                     'lessons': [
                         {
                             'title': 'The four basic arithmetical operations',
-                            'iconUrl': 'https://i.ibb.co/tZBBwz8/fourbasicarithmetics.png'
+                            'iconUrl': 'https://i.ibb.co/tZBBwz8/fourbasicarithmetics.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Order of operations',
-                            'iconUrl': 'https://i.ibb.co/WpHd4cz/orderofoperations.png'
+                            'iconUrl': 'https://i.ibb.co/WpHd4cz/orderofoperations.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Rounding and estimates',
-                            'iconUrl': 'https://i.ibb.co/jhDtLyc/roudingandestimates.png'
+                            'iconUrl': 'https://i.ibb.co/jhDtLyc/roudingandestimates.png',
+                            'mediaUrl': ''
                         }
                     ]
                 },
@@ -25,15 +28,18 @@ const SUBJECTS = {
                     'lessons': [
                         {
                             'title': 'Multiplication - calculate in rectangles',
-                            'iconUrl': 'https://i.ibb.co/XV65m1x/multiplicationscalculateinrectangles.png'
+                            'iconUrl': 'https://i.ibb.co/XV65m1x/multiplicationscalculateinrectangles.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Multiplication with decimal numbers',
-                            'iconUrl': 'https://i.ibb.co/L9ZWrNm/multiplicationwithdecimals.png'
+                            'iconUrl': 'https://i.ibb.co/L9ZWrNm/multiplicationwithdecimals.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Multiplication with fractions',
-                            'iconUrl': 'https://i.ibb.co/VHqMtQF/multiplicationwithfractions.png'
+                            'iconUrl': 'https://i.ibb.co/VHqMtQF/multiplicationwithfractions.png',
+                            'mediaUrl': ''
                         }
                     ]
                 }
@@ -47,15 +53,18 @@ const SUBJECTS = {
                     'lessons': [
                         {
                             'title': 'Algebraic expressions',
-                            'iconUrl': 'https://i.ibb.co/zn7z4s3/algebraicexpressions.png'
+                            'iconUrl': 'https://i.ibb.co/zn7z4s3/algebraicexpressions.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Multiplication with parenthesis',
-                            'iconUrl': 'https://i.ibb.co/WDCtY7C/multiplicationwithparenthesis.png'
+                            'iconUrl': 'https://i.ibb.co/WDCtY7C/multiplicationwithparenthesis.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Squaring the binomial',
-                            'iconUrl': 'https://i.ibb.co/BCWsZyv/squaringthebinomial.png'
+                            'iconUrl': 'https://i.ibb.co/BCWsZyv/squaringthebinomial.png',
+                            'mediaUrl': ''
                         }
                     ]
                 },
@@ -64,15 +73,18 @@ const SUBJECTS = {
                     'lessons': [
                         {
                             'title': 'Introduction to equations',
-                            'iconUrl': 'https://i.ibb.co/rZBxt5p/introtoequations.png'
+                            'iconUrl': 'https://i.ibb.co/rZBxt5p/introtoequations.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Writing equations',
-                            'iconUrl': 'https://i.ibb.co/mzvjJtT/writingequations.png'
+                            'iconUrl': 'https://i.ibb.co/mzvjJtT/writingequations.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Solving quadratic equations using the zero product method',
-                            'iconUrl': 'https://i.ibb.co/4fRpsjY/zeroproductmethod.png'
+                            'iconUrl': 'https://i.ibb.co/4fRpsjY/zeroproductmethod.png',
+                            'mediaUrl': ''
                         }
                     ]
                 }
@@ -86,11 +98,13 @@ const SUBJECTS = {
                     'lessons': [
                         {
                             'title': 'Introduction to geometry',
-                            'iconUrl': 'https://i.ibb.co/Hx6v5P4/introtogeometry.png'
+                            'iconUrl': 'https://i.ibb.co/Hx6v5P4/introtogeometry.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Angles',
-                            'iconUrl': 'https://i.ibb.co/mNdpBY2/angles.png'
+                            'iconUrl': 'https://i.ibb.co/mNdpBY2/angles.png',
+                            'mediaUrl': ''
                         }
                     ]
                 },
@@ -99,15 +113,18 @@ const SUBJECTS = {
                     'lessons': [
                         {
                             'title': 'The angles of a triangle',
-                            'iconUrl': 'https://i.ibb.co/hfV28G1/anglesofatriangle.png'
+                            'iconUrl': 'https://i.ibb.co/hfV28G1/anglesofatriangle.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'The perimeter of a triangle',
-                            'iconUrl': 'https://i.ibb.co/ccg3z1R/perimeterofatriangle.png'
+                            'iconUrl': 'https://i.ibb.co/ccg3z1R/perimeterofatriangle.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'The area of a triangle',
-                            'iconUrl': 'https://i.ibb.co/qxVhB2h/areaoftriangle.png'
+                            'iconUrl': 'https://i.ibb.co/qxVhB2h/areaoftriangle.png',
+                            'mediaUrl': ''
                         }
                     ]
                 }
@@ -123,15 +140,18 @@ const SUBJECTS = {
                     'lessons': [
                         {
                             'title': 'The history of biology',
-                            'iconUrl': 'https://i.ibb.co/Vx4qxrv/historyofbiology.png'
+                            'iconUrl': 'https://i.ibb.co/Vx4qxrv/historyofbiology.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Scientific notation',
-                            'iconUrl': 'https://i.ibb.co/Gcy1r5t/scientificnotation.png'
+                            'iconUrl': 'https://i.ibb.co/Gcy1r5t/scientificnotation.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Line graphs',
-                            'iconUrl': 'https://i.ibb.co/QMSNCff/linegraphs.png'
+                            'iconUrl': 'https://i.ibb.co/QMSNCff/linegraphs.png',
+                            'mediaUrl': ''
                         }
                     ]
                 },
@@ -140,15 +160,18 @@ const SUBJECTS = {
                     'lessons': [
                         {
                             'title': 'Bar and column graphs',
-                            'iconUrl': 'https://i.ibb.co/FBTM3VN/barandcolumngraphs.png'
+                            'iconUrl': 'https://i.ibb.co/FBTM3VN/barandcolumngraphs.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'The chemistry lab',
-                            'iconUrl': 'https://i.ibb.co/mz5YGSn/thechemistrylab.png'
+                            'iconUrl': 'https://i.ibb.co/mz5YGSn/thechemistrylab.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Scientific knowledge',
-                            'iconUrl': 'https://i.ibb.co/sWpD5cy/scientificknowledge.png'
+                            'iconUrl': 'https://i.ibb.co/sWpD5cy/scientificknowledge.png',
+                            'mediaUrl': ''
                         }
                     ]
                 }
@@ -162,15 +185,18 @@ const SUBJECTS = {
                     'lessons': [
                         {
                             'title': 'Water, ice and steam',
-                            'iconUrl': 'https://i.ibb.co/KGLKWKr/watericeandsteam.png'
+                            'iconUrl': 'https://i.ibb.co/KGLKWKr/watericeandsteam.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Heat and phase transitions',
-                            'iconUrl': 'https://i.ibb.co/XVQD7jK/heatandphasetransitions.png'
+                            'iconUrl': 'https://i.ibb.co/XVQD7jK/heatandphasetransitions.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'The particle theory of matter',
-                            'iconUrl': 'https://i.ibb.co/4WDnsMS/particletheoryofmatter.png'
+                            'iconUrl': 'https://i.ibb.co/4WDnsMS/particletheoryofmatter.png',
+                            'mediaUrl': ''
                         }
                     ]
                 },
@@ -179,15 +205,18 @@ const SUBJECTS = {
                     'lessons': [
                         {
                             'title': 'Molecules have covalent bonds',
-                            'iconUrl': 'https://i.ibb.co/9grr93Y/moleculeshavecovalentbonds.png'
+                            'iconUrl': 'https://i.ibb.co/9grr93Y/moleculeshavecovalentbonds.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Metallic bonding',
-                            'iconUrl': 'https://i.ibb.co/FhRYQs5/metallicbonding.png'
+                            'iconUrl': 'https://i.ibb.co/FhRYQs5/metallicbonding.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Soap',
-                            'iconUrl': 'https://i.ibb.co/jGpcrZr/soap.png'
+                            'iconUrl': 'https://i.ibb.co/jGpcrZr/soap.png',
+                            'mediaUrl': ''
                         }
                     ]
                 }
@@ -201,11 +230,13 @@ const SUBJECTS = {
                     'lessons': [
                         {
                             'title': 'Rocks and Minerals',
-                            'iconUrl': 'https://i.ibb.co/Xj6JvkN/rocksandminerals.png'
+                            'iconUrl': 'https://i.ibb.co/Xj6JvkN/rocksandminerals.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Tectonic plates',
-                            'iconUrl': 'https://i.ibb.co/XZQWKkz/tectonicplates.png'
+                            'iconUrl': 'https://i.ibb.co/XZQWKkz/tectonicplates.png',
+                            'mediaUrl': ''
                         }
                     ]
                 },
@@ -214,15 +245,18 @@ const SUBJECTS = {
                     'lessons': [
                         {
                             'title': 'Introduction to climate and weather',
-                            'iconUrl': 'https://i.ibb.co/Qc3sqb2/climateandweather.png'
+                            'iconUrl': 'https://i.ibb.co/Qc3sqb2/climateandweather.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Rain',
-                            'iconUrl': 'https://i.ibb.co/yYwgcXv/rain.png'
+                            'iconUrl': 'https://i.ibb.co/yYwgcXv/rain.png',
+                            'mediaUrl': ''
                         },
                         {
                             'title': 'Hurricanes',
-                            'iconUrl': 'https://i.ibb.co/nsy954v/hurricanes.png'
+                            'iconUrl': 'https://i.ibb.co/nsy954v/hurricanes.png',
+                            'mediaUrl': ''
                         }
                     ]
                 }

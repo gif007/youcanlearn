@@ -2,13 +2,18 @@ import { createSelector } from 'reselect';
 import memoize from 'lodash.memoize';
 
 
-export const selectSubjects = state => state.subjects;
+const selectSubjects = state => state.subjects;
+
+export const selectSubjectsData = createSelector(
+    [selectSubjects],
+    subjects => subjects.data
+);
 
 export const selectSubject = memoize((param) => (
     createSelector(
-        [selectSubjects],
-        subjects => subjects ? (
-            Object.keys(subjects[param]).map(key => subjects[param][key])
+        [selectSubjectsData],
+        data => data ? (
+            Object.keys(data[param]).map(key => data[param][key])
         ) : null
     )
 ));

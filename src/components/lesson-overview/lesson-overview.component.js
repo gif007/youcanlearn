@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 
 import { connect } from 'react-redux';
 
-import { selectSubjects } from '../../redux/subjects/subjects.selectors';
+import { selectSubjectsData } from '../../redux/subjects/subjects.selectors';
 
 import {
     selectSubject,
@@ -86,7 +86,7 @@ const mapStateToProps = createStructuredSelector({
     subject: selectSubject,
     course: selectCourse,
     lesson: selectLesson,
-    allSubjects: selectSubjects
+    allSubjects: selectSubjectsData
 });
 
 const mapDispatchToProps = dispatch => ({
