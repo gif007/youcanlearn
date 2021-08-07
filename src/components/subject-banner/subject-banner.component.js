@@ -13,12 +13,23 @@ import {
 import {
     BannerWrapper,
     PlainText,
-    LinkWrapper
+    LinkWrapper,
+    LinkText,
+    ArrowEnd
 } from './subject-banner.styles';
 
 
 const SubjectBanner = ({ subject, course, lesson, unsetLesson, unsetCourse }) => {
     const subjectText = subject === 'math' ? 'Mathematics' : 'Science';
+    let subjectWidth = subjectText.length * 11;
+    subjectWidth = subjectWidth + 'px';
+
+    let courseWidth = 0;
+    if (course !== null) {
+        courseWidth = course.length * 9;
+        courseWidth = courseWidth + 'px';
+    }
+
 
     return (
     <BannerWrapper subject={subject}>
@@ -32,17 +43,20 @@ const SubjectBanner = ({ subject, course, lesson, unsetLesson, unsetCourse }) =>
                             unsetCourse();
                         }}
                     >
-                        {subjectText}
+                        <LinkText style={{width: subjectWidth}}>{subjectText}</LinkText>
+                        <ArrowEnd />
                     </LinkWrapper>
                     <LinkWrapper
+                        style={{paddingLeft: '2rem'}}
                         to={`/subject/${subject}/${course}`}
                         onClick={() => {
                             unsetLesson();
                         }}
                     >
-                        {course}
+                        <LinkText style={{width: courseWidth}}>{course}</LinkText>
+                        <ArrowEnd />
                     </LinkWrapper>
-                    <PlainText>{lesson}</PlainText>
+                    <PlainText style={{paddingLeft: '2rem'}}>{lesson}</PlainText>
                 </>
             ) : course ? (
                 <>
@@ -52,9 +66,10 @@ const SubjectBanner = ({ subject, course, lesson, unsetLesson, unsetCourse }) =>
                             unsetCourse();
                         }}
                     >
-                        {subjectText}
+                        <LinkText style={{width: subjectWidth}}>{subjectText}</LinkText>
+                        <ArrowEnd />
                     </LinkWrapper>
-                    <PlainText>{course}</PlainText>
+                    <PlainText style={{paddingLeft: '2rem'}}>{course}</PlainText>
                 </>
             ) : (
                 <PlainText>{subjectText}</PlainText>
