@@ -30,3 +30,15 @@ export const ContentWrapper = styled.div`
 export const LessonTitle = styled.h1`
     font-size: 1.5rem;
 `;
+
+export const MediaWrapper = styled.div`
+
+`;
+
+export const QuizMenu = styled.div`
+
+`;
+
+export const Transcript = styled.div`
+
+`;

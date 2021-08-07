@@ -21,7 +21,10 @@ import {
     OverviewContainer,
     LessonMenuWrapper,
     ContentWrapper,
-    LessonTitle
+    LessonTitle,
+    MediaWrapper,
+    QuizMenu,
+    Transcript
 } from './lesson-overview.styles';
 
 import LessonMenu from '../lesson-menu/lesson-menu.component';
@@ -30,6 +33,8 @@ import { createStructuredSelector } from 'reselect';
 
 const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course, setCourse, allSubjects }) => {
     const [ section, setSection ] = useState(null);
+    const [ mediaUrl, setMediaUrl ] = useState(null);
+
 
     if (lesson === null) {
         setLesson(match.params.lessonId);
@@ -39,21 +44,29 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
 
     useEffect(() => {
         if (!subject) {
+            console.log('no subject yet');
             return;
         }
+        if (section) {
+            const currentMediaUrl = section['lessons'].find((lsn) => lsn.title === lesson).mediaUrl;
+            setMediaUrl(currentMediaUrl);
+            return;
+        }
+        console.log('subject acquired:', subject);
         const sections = allSubjects[subject][course]['sections'];
-        const section2 = sections.filter(sect => sect.lessons.find(lsn => lsn.title === lesson))[0];
-        setSection(section2);
-    }, [allSubjects, course, lesson, subject])
+        const currentSection = sections.filter(sect => sect.lessons.find(lsn => lsn.title === lesson))[0];
+        setSection(currentSection);
+    }, [allSubjects, course, lesson, subject, section])
 
     let title = null;
     if (subject === 'math') {
         title = 'Mathematics';
-    } else if (subject === 'science') {
+    } else {
         title = 'Science'
     }
 
     title = title + ' - ' + lesson;
+
     
     return (
         <OverviewContainer>
@@ -77,6 +90,15 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
             
             <ContentWrapper>
                 <LessonTitle>{lesson}</LessonTitle>
+                <MediaWrapper>
+                    {
+                        mediaUrl ? (
+                            <img src={mediaUrl} alt='media' />
+                        ) : null
+                    }
+                </MediaWrapper>
+                <QuizMenu>QuizMenu: This is going to be its own component</QuizMenu>
+                <Transcript>Transcript: As will this</Transcript>
             </ContentWrapper>
         </OverviewContainer>
     )
