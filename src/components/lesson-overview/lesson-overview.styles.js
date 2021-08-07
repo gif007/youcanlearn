@@ -29,14 +29,15 @@ export const ContentWrapper = styled.div`
 
 export const LessonTitle = styled.h1`
     font-size: 1.5rem;
+    margin-bottom: 1rem;
 `;
 
 export const MediaWrapper = styled.div`
-
+    margin-bottom: 1rem;
 `;
 
-export const QuizMenu = styled.div`
-
+export const QuizMenuWrapper = styled.div`
+    margin-bottom: 2rem;
 `;
 
 export const TranscriptWrapper = styled.div`

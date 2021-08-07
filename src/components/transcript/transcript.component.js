@@ -19,7 +19,7 @@ const Transcript = ({ lesson }) => {
 
     return (
         <TranscriptWrapper>
-            <HeadingWrapper></HeadingWrapper>
+            <HeadingWrapper>Transcript</HeadingWrapper>
                 {
                     text ? (
                         text.map((para, index) => {

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 
-export const LessonLink = styled.div`
+export const LessonLink = styled(Link)`
     border-bottom: 1px solid #f0f0f0;
     display: flex;
     align-items: center;
@@ -18,9 +19,24 @@ export const LessonLink = styled.div`
     }
 `;
 
+export const LessonWrapper = styled.div`
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+`;
+
 export const ChevronWrapper = styled.span`
     font-size: 1.5rem;
     color: lightgrey;
+    font-weight: 700;
+    padding-left: 12px;
+`;
+
+export const DoubleChevronWrapper = styled.span`
+    font-size: 1.5rem;
+    color: ${props => props.subject === 'math' ? `rgb(99,181,61)` : `rgb(0,161,113)`};
     font-weight: 700;
     padding-left: 12px;
 `;

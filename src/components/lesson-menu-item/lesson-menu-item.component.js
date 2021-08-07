@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 import {
     updateSubject,
     updateCourse,
@@ -12,28 +12,46 @@ import {
     LessonTitle,
     IconWrapper,
     ChevronWrapper,
-    LinkWrapper
+    DoubleChevronWrapper,
+    LinkWrapper,
+    LessonWrapper
 } from './lesson-menu-item.styles'
 
 
-const LessonMenuItem = ({url, subject, course, lesson, setSubject, setCourse, setLesson}) => (
-    <LinkWrapper>
-        <Link to={url}>
-            <LessonLink onClick={() => {
-                setSubject(subject);
-                setLesson(lesson.title);
-                setCourse(course);
-            }}>
+const LessonMenuItem = ({url, subject, course, lesson, setSubject, setCourse, setLesson, currentLesson}) => (
+    <>
+    {
+        currentLesson ? (
+            <LessonWrapper>
                 <LessonTitle>
                     <IconWrapper subject={subject}>
                         <img src={lesson.iconUrl} alt={lesson.title} />
                     </IconWrapper>
                     {lesson.title}
                 </LessonTitle>
-                <ChevronWrapper id='chevron'>&rsaquo;</ChevronWrapper>
-            </LessonLink>
-        </Link>
-    </LinkWrapper>
+                <DoubleChevronWrapper subject={subject}>&rsaquo;&rsaquo;</DoubleChevronWrapper>
+            </LessonWrapper>
+        ) : (
+            <LinkWrapper>
+                <LessonLink
+                    to={url}
+                    onClick={() => {
+                    setSubject(subject);
+                    setLesson(lesson.title);
+                    setCourse(course);
+                }}>
+                    <LessonTitle>
+                        <IconWrapper subject={subject}>
+                            <img src={lesson.iconUrl} alt={lesson.title} />
+                        </IconWrapper>
+                        {lesson.title}
+                    </LessonTitle>
+                    <ChevronWrapper id='chevron'>&rsaquo;</ChevronWrapper>
+                </LessonLink>
+            </LinkWrapper>
+        )
+    }
+    </>
 );
 
 const mapDispatchToProps = dispatch => ({

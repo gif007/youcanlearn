@@ -24,7 +24,7 @@ import {
     ContentWrapper,
     LessonTitle,
     MediaWrapper,
-    QuizMenu,
+    QuizMenuWrapper,
     TranscriptWrapper
 } from './lesson-overview.styles';
 
@@ -81,7 +81,7 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
                 <div id='border-container'>
                     {
                         section ? (
-                            <LessonMenu course={course} subject={subject} section={section} />
+                            <LessonMenu course={course} subject={subject} section={section} currentLesson={lesson} />
                         ) : null
                     }
                 </div>
@@ -96,7 +96,7 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
                         ) : null
                     }
                 </MediaWrapper>
-                <QuizMenu>QuizMenu: This is going to be its own component</QuizMenu>
+                <QuizMenuWrapper>QuizMenu: This is going to be its own component</QuizMenuWrapper>
                 <TranscriptWrapper>
                     <Transcript lesson={lesson} />
                 </TranscriptWrapper>
