@@ -38,25 +38,15 @@ import QuizMenu from '../quiz-menu/quiz-menu.component';
 const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course, setCourse, allSubjects, section, setSection }) => {
     const [ mediaUrl, setMediaUrl ] = useState(null);
 
-
-    if (lesson === null) {
+    useEffect(() => {
         setLesson(match.params.lessonId);
         setSubject(match.params.subjectId);
         setCourse(match.params.courseId);
-    }
-
-    useEffect(() => {
-        if (subject === null || course === null) {
-            return;
-        }
-        if (section !== null) {
-            const currentMediaUrl = section['lessons'].find((lsn) => lsn.title === lesson).mediaUrl;
-            setMediaUrl(currentMediaUrl);
-            return;
-        }
         const sections = allSubjects[subject][course]['sections'];
         const currentSection = sections.filter(sect => sect.lessons.find(lsn => lsn.title === lesson))[0];
         setSection(currentSection);
+        const currentMediaUrl = section['lessons'].find((lsn) => lsn.title === lesson).mediaUrl;
+        setMediaUrl(currentMediaUrl);
     }, [allSubjects, course, lesson, subject, section, setSection])
 
     let title = null;
