@@ -15,3 +15,8 @@ export const updateLesson = (lesson) => ({
     type: LocationActionsTypes.UPDATE_LESSON,
     payload: lesson
 });
+
+export const updateSection = (section) => ({
+    type: LocationActionsTypes.UPDATE_SECTION,
+    payload: section
+});

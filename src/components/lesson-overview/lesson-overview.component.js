@@ -9,13 +9,15 @@ import { selectSubjectsData } from '../../redux/subjects/subjects.selectors';
 import {
     selectSubject,
     selectCourse,
-    selectLesson
+    selectLesson,
+    selectSection
 } from '../../redux/location/location.selectors';
 
 import {
     updateLesson,
     updateSubject,
-    updateCourse
+    updateCourse,
+    updateSection
 } from '../../redux/location/location.actions';
 
 import {
@@ -32,8 +34,7 @@ import LessonMenu from '../lesson-menu/lesson-menu.component';
 import Transcript from '../transcript/transcript.component';
 
 
-const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course, setCourse, allSubjects }) => {
-    const [ section, setSection ] = useState(null);
+const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course, setCourse, allSubjects, section, setSection }) => {
     const [ mediaUrl, setMediaUrl ] = useState(null);
 
 
@@ -44,10 +45,10 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
     }
 
     useEffect(() => {
-        if (!subject) {
+        if (subject === null || course === null) {
             return;
         }
-        if (section) {
+        if (section !== null) {
             const currentMediaUrl = section['lessons'].find((lsn) => lsn.title === lesson).mediaUrl;
             setMediaUrl(currentMediaUrl);
             return;
@@ -55,7 +56,7 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
         const sections = allSubjects[subject][course]['sections'];
         const currentSection = sections.filter(sect => sect.lessons.find(lsn => lsn.title === lesson))[0];
         setSection(currentSection);
-    }, [allSubjects, course, lesson, subject, section])
+    }, [allSubjects, course, lesson, subject, section, setSection])
 
     let title = null;
     if (subject === 'math') {
@@ -92,13 +93,13 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
                 <MediaWrapper>
                     {
                         mediaUrl ? (
-                            <img src={mediaUrl} alt='media' />
+                            <div style={{background: `url(${mediaUrl})`}} />
                         ) : null
                     }
                 </MediaWrapper>
                 <QuizMenuWrapper>QuizMenu: This is going to be its own component</QuizMenuWrapper>
                 <TranscriptWrapper>
-                    <Transcript lesson={lesson} />
+                    <Transcript lesson={lesson} subject={subject} />
                 </TranscriptWrapper>
             </ContentWrapper>
         </OverviewContainer>
@@ -109,13 +110,15 @@ const mapStateToProps = createStructuredSelector({
     subject: selectSubject,
     course: selectCourse,
     lesson: selectLesson,
+    section: selectSection,
     allSubjects: selectSubjectsData
 });
 
 const mapDispatchToProps = dispatch => ({
     setSubject: (subject) => dispatch(updateSubject(subject)),
     setCourse: (course) => dispatch(updateCourse(course)),
-    setLesson: (lesson) => dispatch(updateLesson(lesson))
+    setLesson: (lesson) => dispatch(updateLesson(lesson)),
+    setSection: (section) => dispatch(updateSection(section))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LessonOverview);

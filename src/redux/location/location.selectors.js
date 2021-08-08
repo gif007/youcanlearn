@@ -18,3 +18,8 @@ export const selectLesson = createSelector(
     [selectLocation],
     location => location.lesson
 );
+
+export const selectSection = createSelector(
+    [selectLocation],
+    location => location.section
+);

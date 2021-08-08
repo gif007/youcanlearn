@@ -2,7 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
-import { updateCourse, updateLesson } from '../../redux/location/location.actions';
+import {
+    updateCourse,
+    updateLesson,
+    updateSection
+} from '../../redux/location/location.actions';
 
 import {
     selectSubject,
@@ -19,7 +23,7 @@ import {
 } from './subject-banner.styles';
 
 
-const SubjectBanner = ({ subject, course, lesson, unsetLesson, unsetCourse }) => {
+const SubjectBanner = ({ subject, course, lesson, unsetLesson, unsetCourse, unsetSection }) => {
     const subjectText = subject === 'math' ? 'Mathematics' : 'Science';
     let subjectWidth = subjectText.length * 11;
     subjectWidth = subjectWidth + 'px';
@@ -41,6 +45,7 @@ const SubjectBanner = ({ subject, course, lesson, unsetLesson, unsetCourse }) =>
                         onClick={() => {
                             unsetLesson();
                             unsetCourse();
+                            unsetSection();
                         }}
                     >
                         <LinkText style={{width: subjectWidth}}>{subjectText}</LinkText>
@@ -51,6 +56,7 @@ const SubjectBanner = ({ subject, course, lesson, unsetLesson, unsetCourse }) =>
                         to={`/subject/${subject}/${course}`}
                         onClick={() => {
                             unsetLesson();
+                            unsetSection();
                         }}
                     >
                         <LinkText style={{width: courseWidth}}>{course}</LinkText>
@@ -64,6 +70,7 @@ const SubjectBanner = ({ subject, course, lesson, unsetLesson, unsetCourse }) =>
                         to={`/subject/${subject}`}
                         onClick={() => {
                             unsetCourse();
+                            unsetSection();
                         }}
                     >
                         <LinkText style={{width: subjectWidth}}>{subjectText}</LinkText>
@@ -86,7 +93,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
     unsetLesson: () => dispatch(updateLesson(null)),
-    unsetCourse: () => dispatch(updateCourse(null))
+    unsetCourse: () => dispatch(updateCourse(null)),
+    unsetSection: () => dispatch(updateSection(null))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubjectBanner);

@@ -2,7 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { updateCourse, updateLesson, updateSubject } from '../../redux/location/location.actions';
+import {
+    updateCourse,
+    updateLesson,
+    updateSubject,
+    updateSection
+} from '../../redux/location/location.actions';
 import { selectSubject } from '../../redux/subjects/subjects.selectors';
 
 import {
@@ -15,7 +20,7 @@ import {
 import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
 
 
-const SubjectOutline = ({ selectedSubject, subject, setCourse, setLesson, unsetLesson, setSubject, closeSubjectMenu }) => {
+const SubjectOutline = ({ selectedSubject, subject, setCourse, setLesson, unsetLesson, unsetSubject, unsetCourse, unsetSection, setSubject, closeSubjectMenu }) => {
 
     return (
         <OutlineWrapper>
@@ -52,7 +57,15 @@ const SubjectOutline = ({ selectedSubject, subject, setCourse, setLesson, unsetL
                                                             closeSubjectMenu();
                                                         }}
                                                     >
-                                                        <Link to={lessonUrl}>
+                                                        <Link
+                                                            to={lessonUrl}
+                                                            onClick={() => {
+                                                                unsetSubject();
+                                                                unsetCourse();
+                                                                unsetLesson();
+                                                                unsetSection();
+                                                            }}
+                                                        >
                                                             &rsaquo; {section.title}
                                                         </Link>
                                                     </SectionWrapper>
@@ -77,6 +90,9 @@ const mapDispatchToProps = dispatch => ({
     setCourse: (course) => dispatch(updateCourse(course)),
     setLesson: (lesson) => dispatch(updateLesson(lesson)),
     unsetLesson: () => dispatch(updateLesson(null)),
+    unsetSubject: () => dispatch(updateSubject(null)),
+    unsetCourse: () => dispatch(updateCourse(null)),
+    unsetSection: () => dispatch(updateSection(null)),
     closeSubjectMenu: () => dispatch(closeSubjectMenu())
 })
 

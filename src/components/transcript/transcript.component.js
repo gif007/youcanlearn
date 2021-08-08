@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import {
     TranscriptWrapper,
     HeadingWrapper,
+    HeadingText,
     TextWrapper
 } from './transcript.styles';
 
 
-const Transcript = ({ lesson }) => {
+const Transcript = ({ lesson, subject }) => {
     const [text, setText] = useState(null);
 
     useEffect(() => {
@@ -19,7 +20,9 @@ const Transcript = ({ lesson }) => {
 
     return (
         <TranscriptWrapper>
-            <HeadingWrapper>Transcript</HeadingWrapper>
+            <HeadingWrapper>
+                <HeadingText subject={subject}>Transcript</HeadingText>
+            </HeadingWrapper>
                 {
                     text ? (
                         text.map((para, index) => {
