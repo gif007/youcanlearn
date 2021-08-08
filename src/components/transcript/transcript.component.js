@@ -28,7 +28,7 @@ const Transcript = ({ lesson, subject }) => {
                         text.map((para, index) => {
                             return <TextWrapper key={index}>{para}</TextWrapper>
                         })
-                    ) : null
+                    ) : <div>Loading...</div>
                 }
         </TranscriptWrapper>
     )

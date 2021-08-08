@@ -8,17 +8,9 @@ import { createStructuredSelector } from 'reselect';
 import { selectSubjectsData } from '../../redux/subjects/subjects.selectors';
 
 import {
-    selectSubject,
-    selectCourse,
-    selectLesson,
-    selectSection
-} from '../../redux/location/location.selectors';
-
-import {
     updateLesson,
     updateSubject,
-    updateCourse,
-    updateSection
+    updateCourse
 } from '../../redux/location/location.actions';
 
 import {
@@ -36,26 +28,23 @@ import Transcript from '../transcript/transcript.component';
 import QuizMenu from '../quiz-menu/quiz-menu.component';
 
 
-const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course, setCourse, allSubjects, section, setSection, unsetSubject, unsetCourse, unsetLesson, unsetSection }) => {
+const LessonOverview = ({ match, setSubject, setLesson, setCourse, allSubjects }) => {
     const [ mediaUrl, setMediaUrl ] = useState(null);
     const [ locationReset, toggleLocationReset ] = useState(false);
+    const subject = match.params.subjectId;
+    const course = match.params.courseId;
+    const lesson = match.params.lessonId
 
     const history = useHistory();
 
     useEffect(() => {
         if (locationReset !== true || history.action === 'POP') {
-            unsetSubject();
-            unsetCourse();
-            unsetLesson();
-            unsetSection();
-            toggleLocationReset(!locationReset);
-            history.action = '';
-            return;
-        }
-        if (lesson === null) {
             setLesson(match.params.lessonId);
             setSubject(match.params.subjectId);
             setCourse(match.params.courseId);
+            unsetSection();
+            toggleLocationReset(!locationReset);
+            history.action = '';
             return;
         }
         if (section === null) {
@@ -67,14 +56,14 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
         const currentMediaUrl = section['lessons'].find((lsn) => lsn.title === lesson).mediaUrl;
         setMediaUrl(currentMediaUrl);
     }, [allSubjects, course, lesson, subject, section, setSection, locationReset, match.params.courseId,
-        match.params.subjectId, match.params.lessonId, setCourse, setLesson, setSubject, unsetCourse,
-        unsetLesson, unsetSection, unsetSubject, history, history.action])
+        match.params.subjectId, match.params.lessonId, setCourse, setLesson, setSubject, unsetSection,
+        history, history.action])
 
     let title = null;
     if (subject === 'math') {
         title = 'Mathematics';
     } else {
-        title = 'Science'
+        title = 'Science';
     }
 
     title = title + ' - ' + lesson;
@@ -106,7 +95,7 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
                     {
                         mediaUrl ? (
                             <div style={{background: `url(${mediaUrl})`}} />
-                        ) : null
+                        ) : <div />
                     }
                 </MediaWrapper>
                 <QuizMenuWrapper>
@@ -121,22 +110,13 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
 };
 
 const mapStateToProps = createStructuredSelector({
-    subject: selectSubject,
-    course: selectCourse,
-    lesson: selectLesson,
-    section: selectSection,
     allSubjects: selectSubjectsData
 });
 
 const mapDispatchToProps = dispatch => ({
     setSubject: (subject) => dispatch(updateSubject(subject)),
     setCourse: (course) => dispatch(updateCourse(course)),
-    setLesson: (lesson) => dispatch(updateLesson(lesson)),
-    setSection: (section) => dispatch(updateSection(section)),
-    unsetSubject: () => dispatch(updateSubject(null)),
-    unsetCourse: () => dispatch(updateCourse(null)),
-    unsetLesson: () => dispatch(updateLesson(null)),
-    unsetSection: () => dispatch(updateSection(null))
+    setLesson: (lesson) => dispatch(updateLesson(lesson))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LessonOverview);

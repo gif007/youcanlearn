@@ -29,7 +29,7 @@ const CourseLink = ({ subjectAsArray, subject, setSubject, setCourse }) => (
                             <CourseLinkWrapper
                                 onClick={() => {
                                     setSubject(subject);
-                                    setCourse(course.title)
+                                    setCourse(course.title);
                                 }}
                             >
                                 <Circle subject={subject}>{course.title.slice(0, 1).toUpperCase()}</Circle>
