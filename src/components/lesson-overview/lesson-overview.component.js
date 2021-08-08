@@ -35,19 +35,36 @@ import Transcript from '../transcript/transcript.component';
 import QuizMenu from '../quiz-menu/quiz-menu.component';
 
 
-const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course, setCourse, allSubjects, section, setSection }) => {
+const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course, setCourse, allSubjects, section, setSection, unsetSubject, unsetCourse, unsetLesson, unsetSection }) => {
     const [ mediaUrl, setMediaUrl ] = useState(null);
+    const [ locationReset, toggleLocationReset ] = useState(false);
 
     useEffect(() => {
-        setLesson(match.params.lessonId);
-        setSubject(match.params.subjectId);
-        setCourse(match.params.courseId);
-        const sections = allSubjects[subject][course]['sections'];
-        const currentSection = sections.filter(sect => sect.lessons.find(lsn => lsn.title === lesson))[0];
-        setSection(currentSection);
+        if (locationReset !== true) {
+            unsetSubject();
+            unsetCourse();
+            unsetLesson();
+            unsetSection();
+            toggleLocationReset(!locationReset);
+            return;
+        }
+        if (lesson === null) {
+            setLesson(match.params.lessonId);
+            setSubject(match.params.subjectId);
+            setCourse(match.params.courseId);
+            return;
+        }
+        if (section === null) {
+            const sections = allSubjects[subject][course]['sections'];
+            const currentSection = sections.filter(sect => sect.lessons.find(lsn => lsn.title === lesson))[0];
+            setSection(currentSection);
+            return;
+        }
         const currentMediaUrl = section['lessons'].find((lsn) => lsn.title === lesson).mediaUrl;
         setMediaUrl(currentMediaUrl);
-    }, [allSubjects, course, lesson, subject, section, setSection])
+    }, [allSubjects, course, lesson, subject, section, setSection, locationReset, match.params.courseId,
+        match.params.subjectId, match.params.lessonId, setCourse, setLesson, setSubject, unsetCourse,
+        unsetLesson, unsetSection, unsetSubject])
 
     let title = null;
     if (subject === 'math') {
@@ -111,7 +128,11 @@ const mapDispatchToProps = dispatch => ({
     setSubject: (subject) => dispatch(updateSubject(subject)),
     setCourse: (course) => dispatch(updateCourse(course)),
     setLesson: (lesson) => dispatch(updateLesson(lesson)),
-    setSection: (section) => dispatch(updateSection(section))
+    setSection: (section) => dispatch(updateSection(section)),
+    unsetSubject: () => dispatch(updateSubject(null)),
+    unsetCourse: () => dispatch(updateCourse(null)),
+    unsetLesson: () => dispatch(updateLesson(null)),
+    unsetSection: () => dispatch(updateSection(null))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LessonOverview);
