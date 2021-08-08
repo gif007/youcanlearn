@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 import { connect } from 'react-redux';
@@ -39,13 +40,16 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
     const [ mediaUrl, setMediaUrl ] = useState(null);
     const [ locationReset, toggleLocationReset ] = useState(false);
 
+    const history = useHistory();
+
     useEffect(() => {
-        if (locationReset !== true) {
+        if (locationReset !== true || history.action === 'POP') {
             unsetSubject();
             unsetCourse();
             unsetLesson();
             unsetSection();
             toggleLocationReset(!locationReset);
+            history.action = '';
             return;
         }
         if (lesson === null) {
@@ -64,7 +68,7 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
         setMediaUrl(currentMediaUrl);
     }, [allSubjects, course, lesson, subject, section, setSection, locationReset, match.params.courseId,
         match.params.subjectId, match.params.lessonId, setCourse, setLesson, setSubject, unsetCourse,
-        unsetLesson, unsetSection, unsetSubject])
+        unsetLesson, unsetSection, unsetSubject, history, history.action])
 
     let title = null;
     if (subject === 'math') {
