@@ -32,6 +32,7 @@ const SubjectOutline = ({ selectedSubject, subject, setCourse, setLesson, unsetL
                         return (
                             <li key={index}>
                                 <CourseTitle onClick={() => {
+                                    unsetSection();
                                     setCourse(course.title);
                                     setSubject(subject);
                                     unsetLesson();
@@ -51,6 +52,7 @@ const SubjectOutline = ({ selectedSubject, subject, setCourse, setLesson, unsetL
                                                 <li key={i}>
                                                     <SectionWrapper
                                                         onClick={() => {
+                                                            unsetSection();
                                                             setCourse(course.title);
                                                             setSubject(subject);
                                                             setLesson(lessonTitle)
@@ -59,12 +61,6 @@ const SubjectOutline = ({ selectedSubject, subject, setCourse, setLesson, unsetL
                                                     >
                                                         <Link
                                                             to={lessonUrl}
-                                                            onClick={() => {
-                                                                unsetSubject();
-                                                                unsetCourse();
-                                                                unsetLesson();
-                                                                unsetSection();
-                                                            }}
                                                         >
                                                             &rsaquo; {section.title}
                                                         </Link>

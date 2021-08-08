@@ -11,17 +11,19 @@ export const TranscriptWrapper = styled.div`
 export const HeadingWrapper = styled.div`
     margin-bottom: 1.5rem;
     border-bottom: 1px solid lightgrey;
-    height: 20px;
+    height: 30px;
+    cursor: pointer;
 `;
 
 export const HeadingText = styled.span`
     border-bottom: 1px solid ${props => props.subject === 'math' ? `rgb(99,181,61)` : `rgb(0,161,113)`};
-    padding: 0 12px;
-    line-height: 20px;
-    z-index: 1001;
+    padding: 5px 20px;
+    line-height: 30px;
+
     background: white;
 `;
 
 export const TextWrapper = styled.p`
     line-height: 1.25rem;
+    color: #444;
 `;

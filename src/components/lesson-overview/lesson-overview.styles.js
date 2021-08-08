@@ -46,9 +46,7 @@ export const MediaWrapper = styled.div`
 
 export const QuizMenuWrapper = styled.div`
     margin-bottom: 2rem;
-    border: 1px solid black;
-    border-radius: 8px;
-    padding: 1rem;
+    width: 100%;
 `;
 
 export const TranscriptWrapper = styled.div`

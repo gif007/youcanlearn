@@ -32,6 +32,7 @@ import {
 
 import LessonMenu from '../lesson-menu/lesson-menu.component';
 import Transcript from '../transcript/transcript.component';
+import QuizMenu from '../quiz-menu/quiz-menu.component';
 
 
 const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course, setCourse, allSubjects, section, setSection }) => {
@@ -97,7 +98,9 @@ const LessonOverview = ({ match, subject, setSubject, lesson, setLesson, course,
                         ) : null
                     }
                 </MediaWrapper>
-                <QuizMenuWrapper>QuizMenu: This is going to be its own component</QuizMenuWrapper>
+                <QuizMenuWrapper>
+                    <QuizMenu lesson={lesson} />
+                </QuizMenuWrapper>
                 <TranscriptWrapper>
                     <Transcript lesson={lesson} subject={subject} />
                 </TranscriptWrapper>

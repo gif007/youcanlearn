@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import {
     updateSubject,
     updateCourse,
-    updateLesson
+    updateLesson,
+    updateSection
 } from '../../redux/location/location.actions';
 import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
 
@@ -20,7 +21,7 @@ import {
 import SubjectOutline from '../subject-outline/subject-outline.component';
 
 
-const SubjectMenu = ({ closeSubjectMenu, setSubject, unsetCourse, unsetLesson }) => {
+const SubjectMenu = ({ closeSubjectMenu, setSubject, unsetCourse, unsetLesson, unsetSection }) => {
     const [hoveredSubject, setHoveredSubject] = useState('math');
     const [mathBg, setMathBg] = useState('rgb(99, 181, 61)');
     const [scienceBg, setScienceBg] = useState('white');
@@ -40,6 +41,7 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, unsetCourse, unsetLesson })
                         setSubject('math');
                         unsetCourse();
                         unsetLesson();
+                        unsetSection();
                         closeSubjectMenu();
                     }}
                 >
@@ -61,6 +63,7 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, unsetCourse, unsetLesson })
                         unsetCourse();
                         unsetLesson();
                         closeSubjectMenu();
+                        unsetSection();
                     }}
                 >
                     <Link to='/subject/science'>
@@ -81,6 +84,7 @@ const mapDispatchToProps = dispatch => ({
     setSubject: (subject) => dispatch(updateSubject(subject)),
     unsetCourse: () => dispatch(updateCourse(null)),
     unsetLesson: () => dispatch(updateLesson(null)),
+    unsetSection: () => dispatch(updateSection(null)),
     closeSubjectMenu: () => dispatch(closeSubjectMenu())
 });
 
