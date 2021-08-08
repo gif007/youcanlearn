@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 import { connect } from 'react-redux';
@@ -30,45 +29,34 @@ import QuizMenu from '../quiz-menu/quiz-menu.component';
 
 const LessonOverview = ({ match, setSubject, setLesson, setCourse, allSubjects }) => {
     const [ mediaUrl, setMediaUrl ] = useState(null);
-    const [ locationReset, toggleLocationReset ] = useState(false);
+    const [ section, setSection ] = useState(false);
+
     const subject = match.params.subjectId;
     const course = match.params.courseId;
     const lesson = match.params.lessonId
 
-    const history = useHistory();
-
-    useEffect(() => {
-        if (locationReset !== true || history.action === 'POP') {
-            setLesson(match.params.lessonId);
-            setSubject(match.params.subjectId);
-            setCourse(match.params.courseId);
-            unsetSection();
-            toggleLocationReset(!locationReset);
-            history.action = '';
-            return;
-        }
-        if (section === null) {
-            const sections = allSubjects[subject][course]['sections'];
-            const currentSection = sections.filter(sect => sect.lessons.find(lsn => lsn.title === lesson))[0];
-            setSection(currentSection);
-            return;
-        }
-        const currentMediaUrl = section['lessons'].find((lsn) => lsn.title === lesson).mediaUrl;
-        setMediaUrl(currentMediaUrl);
-    }, [allSubjects, course, lesson, subject, section, setSection, locationReset, match.params.courseId,
-        match.params.subjectId, match.params.lessonId, setCourse, setLesson, setSubject, unsetSection,
-        history, history.action])
-
     let title = null;
     if (subject === 'math') {
-        title = 'Mathematics';
+        title = 'Mathematics - ' + lesson;
     } else {
-        title = 'Science';
+        title = 'Science - ' + lesson;
     }
 
-    title = title + ' - ' + lesson;
+    useEffect(() => {
+        // Set up the location variables so the subject banner can properly render
+        setLesson(lesson);
+        setSubject(subject);
+        setCourse(course);
+        // Set up the section variable for the lesson menu component
+        const sections = allSubjects[subject][course]['sections'];
+        const currentSection = sections.filter(sect => sect.lessons.find(lsn => lsn.title === lesson))[0];
+        setSection(currentSection);
+        // Prepare the media url
+        const currentMediaUrl = currentSection['lessons'].find((lsn) => lsn.title === lesson).mediaUrl;
+        setMediaUrl(currentMediaUrl);
+    }, [allSubjects, course, lesson, subject, setSection, setCourse, setLesson, setSubject])
 
-    
+
     return (
         <OverviewContainer>
             <Helmet>
@@ -77,7 +65,6 @@ const LessonOverview = ({ match, setSubject, setLesson, setCourse, allSubjects }
                         <title>{title}</title>
                     ) : null
                 }
-                
             </Helmet>
             <LessonMenuWrapper>
                 <div id='border-container'>
