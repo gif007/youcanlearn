@@ -3,8 +3,7 @@ import LocationActionsTypes from "./location.types";
 const INITIAL_STATE = {
     subject: null,
     course: null,
-    lesson: null,
-    section: null
+    lesson: null
 };
 
 const locationReducer = (state = INITIAL_STATE, action) => {
@@ -23,11 +22,6 @@ const locationReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 lesson: action.payload
-            };
-        case LocationActionsTypes.UPDATE_SECTION:
-            return {
-                ...state,
-                section: action.payload
             };
         default:
             return state;

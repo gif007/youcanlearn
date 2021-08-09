@@ -2,11 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
-import {
-    updateCourse,
-    updateLesson,
-    updateSection
-} from '../../redux/location/location.actions';
 
 import {
     selectSubject,
@@ -23,7 +18,7 @@ import {
 } from './subject-banner.styles';
 
 
-const SubjectBanner = ({ subject, course, lesson, unsetLesson, unsetCourse, unsetSection }) => {
+const SubjectBanner = ({ subject, course, lesson }) => {
     const subjectText = subject === 'math' ? 'Mathematics' : 'Science';
     let subjectWidth = subjectText.length * 11;
     subjectWidth = subjectWidth + 'px';
@@ -40,24 +35,13 @@ const SubjectBanner = ({ subject, course, lesson, unsetLesson, unsetCourse, unse
         {
             lesson ? (
                 <>
-                    <LinkWrapper
-                        to={`/subject/${subject}`}
-                        onClick={() => {
-                            unsetLesson();
-                            unsetCourse();
-                            unsetSection();
-                        }}
-                    >
+                    <LinkWrapper to={`/subject/${subject}`}>
                         <LinkText style={{width: subjectWidth}}>{subjectText}</LinkText>
                         <ArrowEnd />
                     </LinkWrapper>
                     <LinkWrapper
                         style={{paddingLeft: '2rem'}}
                         to={`/subject/${subject}/${course}`}
-                        onClick={() => {
-                            unsetLesson();
-                            unsetSection();
-                        }}
                     >
                         <LinkText style={{width: courseWidth}}>{course}</LinkText>
                         <ArrowEnd />
@@ -66,13 +50,7 @@ const SubjectBanner = ({ subject, course, lesson, unsetLesson, unsetCourse, unse
                 </>
             ) : course ? (
                 <>
-                    <LinkWrapper
-                        to={`/subject/${subject}`}
-                        onClick={() => {
-                            unsetCourse();
-                            unsetSection();
-                        }}
-                    >
+                    <LinkWrapper to={`/subject/${subject}`}>
                         <LinkText style={{width: subjectWidth}}>{subjectText}</LinkText>
                         <ArrowEnd />
                     </LinkWrapper>
@@ -91,10 +69,4 @@ const mapStateToProps = createStructuredSelector({
     lesson: selectLesson
 });
 
-const mapDispatchToProps = dispatch => ({
-    unsetLesson: () => dispatch(updateLesson(null)),
-    unsetCourse: () => dispatch(updateCourse(null)),
-    unsetSection: () => dispatch(updateSection(null))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(SubjectBanner);
+export default connect(mapStateToProps)(SubjectBanner);

@@ -12,8 +12,7 @@ import {
 import {
     updateSubject,
     updateCourse,
-    updateLesson,
-    updateSection
+    updateLesson
 } from '../../redux/location/location.actions';
 
 import {
@@ -25,7 +24,7 @@ import CourseOutline from '../course-outline/course-outline.component';
 
 
 
-const CourseOverview = ({ match, subject, setSubject, course, setCourse, unsetLesson, unsetSection }) => {
+const CourseOverview = ({ match, subject, setSubject, course, setCourse, unsetLesson }) => {
     if (course === null) {
         setSubject(match.params.subjectId);
         setCourse(match.params.courseId);
@@ -33,8 +32,7 @@ const CourseOverview = ({ match, subject, setSubject, course, setCourse, unsetLe
 
     useEffect(() => {
         unsetLesson();
-        unsetSection();
-    }, [unsetLesson, unsetSection])
+    }, [unsetLesson])
 
     return (
     <CourseOverviewWrapper>
@@ -57,8 +55,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
     setSubject: subject => dispatch(updateSubject(subject)),
     setCourse: course => dispatch(updateCourse(course)),
-    unsetLesson: () => dispatch(updateLesson(null)),
-    unsetSection: () => dispatch(updateSection(null))
+    unsetLesson: () => dispatch(updateLesson(null))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseOverview);

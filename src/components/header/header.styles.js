@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 
 export const HeaderWrapper = styled.div`
@@ -75,20 +76,11 @@ export const SettingsGroup = styled.div`
     justify-content: flex-end;
 `;
 
-export const LogoWrapper = styled.div`
+export const LogoWrapper = styled(Link)`
     flex: 1;
     text-align: center;
     font-weight: 700;
     font-size: 1.5rem;
     color: black;
     text-decoration: none;
-
-    a {
-        color: black;
-        text-decoration: none;
-    }
-
-    :hover {
-        cursor: pointer;
-    }
 `;

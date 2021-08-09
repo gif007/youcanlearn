@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
-
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -78,14 +76,8 @@ const Header = ({subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden, to
             }
         </SubjectsGroup>
 
-        <LogoWrapper onClick={() => {
-            unsetSubject();
-            unsetCourse();
-            unsetLesson();
-        }}>
-            <Link to='/'>
-                YouCanLearn
-            </Link>
+        <LogoWrapper to='/'>
+            YouCanLearn
         </LogoWrapper>
 
         <SettingsGroup>

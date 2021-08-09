@@ -1,11 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
-import {
-    updateSubject,
-    updateCourse,
-    updateLesson
-} from '../../redux/location/location.actions';
 
 import {
     LessonLink,
@@ -18,7 +11,7 @@ import {
 } from './lesson-menu-item.styles'
 
 
-const LessonMenuItem = ({url, subject, course, lesson, setSubject, setCourse, setLesson, currentLesson}) => (
+const LessonMenuItem = ({url, subject, lesson, currentLesson}) => (
     <>
     {
         currentLesson ? (
@@ -33,13 +26,7 @@ const LessonMenuItem = ({url, subject, course, lesson, setSubject, setCourse, se
             </LessonWrapper>
         ) : (
             <LinkWrapper>
-                <LessonLink
-                    to={url}
-                    onClick={() => {
-                    setSubject(subject);
-                    setLesson(lesson.title);
-                    setCourse(course);
-                }}>
+                <LessonLink to={url}>
                     <LessonTitle>
                         <IconWrapper subject={subject}>
                             <img src={lesson.iconUrl} alt={lesson.title} />
@@ -54,10 +41,4 @@ const LessonMenuItem = ({url, subject, course, lesson, setSubject, setCourse, se
     </>
 );
 
-const mapDispatchToProps = dispatch => ({
-    setSubject: subject => dispatch(updateSubject(subject)),
-    setCourse: course => dispatch(updateCourse(course)),
-    setLesson: lesson => dispatch(updateLesson(lesson))
-});
-
-export default connect(null, mapDispatchToProps)(LessonMenuItem);
+export default LessonMenuItem;

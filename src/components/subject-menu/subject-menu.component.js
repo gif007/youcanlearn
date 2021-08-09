@@ -3,12 +3,7 @@ import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import {
-    updateSubject,
-    updateCourse,
-    updateLesson,
-    updateSection
-} from '../../redux/location/location.actions';
+
 import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
 
 import {
@@ -21,7 +16,7 @@ import {
 import SubjectOutline from '../subject-outline/subject-outline.component';
 
 
-const SubjectMenu = ({ closeSubjectMenu, setSubject, unsetCourse, unsetLesson, unsetSection }) => {
+const SubjectMenu = ({ closeSubjectMenu}) => {
     const [hoveredSubject, setHoveredSubject] = useState('math');
     const [mathBg, setMathBg] = useState('rgb(99, 181, 61)');
     const [scienceBg, setScienceBg] = useState('white');
@@ -37,13 +32,7 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, unsetCourse, unsetLesson, u
                         setScienceBg('white');
                     }}
                     bg={mathBg}
-                    onClick={() => {
-                        setSubject('math');
-                        unsetCourse();
-                        unsetLesson();
-                        unsetSection();
-                        closeSubjectMenu();
-                    }}
+                    onClick={() => closeSubjectMenu()}
                 >
                     <Link to='/subject/math'>
                         <span>Mathematics</span>
@@ -58,13 +47,7 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, unsetCourse, unsetLesson, u
                         setScienceBg('rgb(0, 161, 113)');
                     }}
                     bg={scienceBg}
-                    onClick={() => {
-                        setSubject('science');
-                        unsetCourse();
-                        unsetLesson();
-                        closeSubjectMenu();
-                        unsetSection();
-                    }}
+                    onClick={() => closeSubjectMenu()}
                 >
                     <Link to='/subject/science'>
                         <span>Science</span>
@@ -81,10 +64,6 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, unsetCourse, unsetLesson, u
 };
 
 const mapDispatchToProps = dispatch => ({
-    setSubject: (subject) => dispatch(updateSubject(subject)),
-    unsetCourse: () => dispatch(updateCourse(null)),
-    unsetLesson: () => dispatch(updateLesson(null)),
-    unsetSection: () => dispatch(updateSection(null)),
     closeSubjectMenu: () => dispatch(closeSubjectMenu())
 });
 

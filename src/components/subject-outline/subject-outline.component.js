@@ -2,12 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import {
-    updateCourse,
-    updateLesson,
-    updateSubject,
-    updateSection
-} from '../../redux/location/location.actions';
+
 import { selectSubject } from '../../redux/subjects/subjects.selectors';
 
 import {
@@ -20,7 +15,7 @@ import {
 import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
 
 
-const SubjectOutline = ({ selectedSubject, subject, setCourse, setLesson, unsetLesson, unsetSubject, unsetCourse, unsetSection, setSubject, closeSubjectMenu }) => {
+const SubjectOutline = ({ selectedSubject, subject, closeSubjectMenu }) => {
 
     return (
         <OutlineWrapper>
@@ -31,13 +26,7 @@ const SubjectOutline = ({ selectedSubject, subject, setCourse, setLesson, unsetL
 
                         return (
                             <li key={index}>
-                                <CourseTitle onClick={() => {
-                                    unsetSection();
-                                    setCourse(course.title);
-                                    setSubject(subject);
-                                    unsetLesson();
-                                    closeSubjectMenu();
-                                }}>
+                                <CourseTitle onClick={() => closeSubjectMenu()}>
                                     <Link to={courseUrl}>
                                         {course.title}
                                     </Link>
@@ -51,13 +40,7 @@ const SubjectOutline = ({ selectedSubject, subject, setCourse, setLesson, unsetL
                                             return (
                                                 <li key={i}>
                                                     <SectionWrapper
-                                                        onClick={() => {
-                                                            unsetSection();
-                                                            setCourse(course.title);
-                                                            setSubject(subject);
-                                                            setLesson(lessonTitle)
-                                                            closeSubjectMenu();
-                                                        }}
+                                                        onClick={() => closeSubjectMenu()}
                                                     >
                                                         <Link
                                                             to={lessonUrl}
@@ -82,13 +65,6 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    setSubject: (subject) => dispatch(updateSubject(subject)),
-    setCourse: (course) => dispatch(updateCourse(course)),
-    setLesson: (lesson) => dispatch(updateLesson(lesson)),
-    unsetLesson: () => dispatch(updateLesson(null)),
-    unsetSubject: () => dispatch(updateSubject(null)),
-    unsetCourse: () => dispatch(updateCourse(null)),
-    unsetSection: () => dispatch(updateSection(null)),
     closeSubjectMenu: () => dispatch(closeSubjectMenu())
 })
 

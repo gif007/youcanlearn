@@ -6,8 +6,6 @@ import { connect } from 'react-redux';
 
 import { selectSubject } from '../../redux/subjects/subjects.selectors';
 
-import { updateSubject, updateCourse } from '../../redux/location/location.actions';
-
 import { 
     CourseLinkWrapper,
     Circle,
@@ -17,7 +15,7 @@ import {
 } from './course-links.styles';
 
 
-const CourseLink = ({ subjectAsArray, subject, setSubject, setCourse }) => (
+const CourseLink = ({ subjectAsArray, subject}) => (
     <CourseLinksContainer>
         {
             subjectAsArray.map((course, index) => {
@@ -26,12 +24,7 @@ const CourseLink = ({ subjectAsArray, subject, setSubject, setCourse }) => (
                 return (
                     <LinkWrapper key={index}>
                         <Link to={url}>
-                            <CourseLinkWrapper
-                                onClick={() => {
-                                    setSubject(subject);
-                                    setCourse(course.title);
-                                }}
-                            >
+                            <CourseLinkWrapper>
                                 <Circle subject={subject}>{course.title.slice(0, 1).toUpperCase()}</Circle>
                                 <CourseTitle>{course.title}</CourseTitle>
                             </CourseLinkWrapper>
@@ -47,9 +40,4 @@ const mapStateToProps = (state, ownProps) => ({
     subjectAsArray: selectSubject(ownProps.subject)(state)
 });
 
-const mapDispatchToProps = dispatch => ({
-    setSubject: subject => dispatch(updateSubject(subject)),
-    setCourse: course => dispatch(updateCourse(course))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CourseLink);
+export default connect(mapStateToProps)(CourseLink);
