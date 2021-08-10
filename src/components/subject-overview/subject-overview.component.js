@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
 
 import {
     SubjectContainer,
@@ -8,7 +7,6 @@ import {
 
 import { connect } from 'react-redux'
 
-import { selectSubject } from '../../redux/location/location.selectors';
 import {
     updateSubject,
     updateCourse,
@@ -16,18 +14,16 @@ import {
 } from '../../redux/location/location.actions';
 
 import CourseLinks from '../course-links/course-links.component';
-import { createStructuredSelector } from 'reselect';
 
 
-const SubjectOverview = ({ match, subject, setSubject, unsetCourse, unsetLesson }) => {
-    if (subject === null) {
-        setSubject(match.params.subjectId)
-    }
+const SubjectOverview = ({ match, setSubject, unsetCourse, unsetLesson }) => {
+    const subject = match.params.subjectId;
 
     useEffect(() => {
+        setSubject(subject);
         unsetCourse();
         unsetLesson();
-    }, [unsetCourse, unsetLesson])
+    }, [unsetCourse, unsetLesson, setSubject, subject])
 
 
     return (
@@ -41,14 +37,10 @@ const SubjectOverview = ({ match, subject, setSubject, unsetCourse, unsetLesson 
     </SubjectContainer>
 )};
 
-const mapStateToProps = createStructuredSelector({
-    subject: selectSubject
-});
-
 const mapDispatchToProps = dispatch => ({
     setSubject: (subject) => dispatch(updateSubject(subject)),
     unsetCourse: () => dispatch(updateCourse(null)),
     unsetLesson: () => dispatch(updateLesson(null))
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SubjectOverview));
+export default connect(null, mapDispatchToProps)(SubjectOverview);

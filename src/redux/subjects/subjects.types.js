@@ -1,1 +1,7 @@
-// to be developed after subject data is persisted to firebase
+const SubjectActionsTypes = {
+    FETCH_SUBJECTS_START: 'FETCH_SUBJECTS_START',
+    FETCH_SUBJECTS_SUCCESS: 'FETCH_SUBJECTS_SUCCESS',
+    FETCH_SUBJECTS_FAILURE: 'FETCH_SUBJECTS_FAILURE'
+};
+
+export default SubjectActionsTypes;

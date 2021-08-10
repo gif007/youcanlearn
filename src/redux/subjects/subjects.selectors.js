@@ -9,6 +9,16 @@ export const selectSubjectsData = createSelector(
     subjects => subjects.data
 );
 
+export const selectSubjectsIsFetching = createSelector(
+    [selectSubjects],
+    subjects => subjects.isFetching
+);
+
+export const selectSubjectsError = createSelector(
+    [selectSubjects],
+    subjects => subjects.error
+);
+
 export const selectSubjectsDataAsArray = createSelector(
     [selectSubjectsData],
     data => data ? (

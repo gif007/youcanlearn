@@ -1,15 +1,22 @@
 import React, { Suspense } from 'react';
 import { Route } from 'react-router-dom';
 
+import { connect } from 'react-redux';
+import { selectSubjectsIsFetching } from '../../redux/subjects/subjects.selectors';
+import { createStructuredSelector } from 'reselect';
+
 import SubjectOverview from '../../components/subject-overview/subject-overview.component';
 import CourseOverview from '../../components/course-overview/course-overview.component';
 import LessonOverview from '../../components/lesson-overview/lesson-overview.component';
 import SubjectBanner from '../../components/subject-banner/subject-banner.component';
 
 
-const SubjectPage = ({ match }) => {
+
+const SubjectPage = ({ match, isLoading }) => {
     
-    return (
+    return isLoading ? (
+        <div>Wait!  I'm loading...</div>
+    ) : (
     <div>
         <SubjectBanner />
         <Suspense fallback={<div>Loading ...</div>} />
@@ -19,4 +26,8 @@ const SubjectPage = ({ match }) => {
     </div>
 )};
 
-export default SubjectPage;
+const mapStateToProps = createStructuredSelector({
+    isLoading: selectSubjectsIsFetching
+})
+
+export default connect(mapStateToProps)(SubjectPage);

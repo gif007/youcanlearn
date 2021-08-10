@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -13,6 +13,7 @@ import { GlobalStyle } from './global.styles';
 
 import Header from './components/header/header.component';
 import Footer from './components/footer/footer.component';
+
 import { createStructuredSelector } from 'reselect';
 
 import {
@@ -21,11 +22,16 @@ import {
   selectIsSettingsMenuHidden
 } from './redux/dropdowns/dropdowns.selector';
 
+import { fetchSubjectStart } from './redux/subjects/subjects.actions';
+
 const OverviewPage = lazy(() => import('./pages/overview/overview.component'));
 const SubjectPage = lazy(() => import('./pages/subject/subject.component'));
 
 
-const App = ({ closeSubjectMenu, closeHomeMenu, closeSettingsMenu, subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden }) => {
+const App = ({ fetchSubjects, closeSubjectMenu, closeHomeMenu, closeSettingsMenu, subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden }) => {
+  useEffect(() => {
+    fetchSubjects();
+  }, [fetchSubjects])
 
   return (
     <div onClick={() => {
@@ -58,7 +64,8 @@ const App = ({ closeSubjectMenu, closeHomeMenu, closeSettingsMenu, subjectMenuIs
 const mapDispatchToProps = dispatch => ({
   closeSubjectMenu: () => dispatch(closeSubjectMenu()),
   closeSettingsMenu: () => dispatch(closeSettingsMenu()),
-  closeHomeMenu: () => dispatch(closeHomeMenu())
+  closeHomeMenu: () => dispatch(closeHomeMenu()),
+  fetchSubjects: () => dispatch(fetchSubjectStart())
 });
 
 const mapStateToProps = createStructuredSelector({

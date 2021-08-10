@@ -3,9 +3,11 @@ import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
 import { updateSubject } from '../../redux/location/location.actions';
+import { selectSubjectsIsFetching } from '../../redux/subjects/subjects.selectors';
 
 import {
     SubjectMenuWrapper,
@@ -17,7 +19,8 @@ import {
 import SubjectOutline from '../subject-outline/subject-outline.component';
 
 
-const SubjectMenu = ({ closeSubjectMenu, setSubject }) => {
+
+const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
     const [hoveredSubject, setHoveredSubject] = useState('math');
     const [mathBg, setMathBg] = useState('rgb(99, 181, 61)');
     const [scienceBg, setScienceBg] = useState('white');
@@ -64,7 +67,11 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject }) => {
 
             </MenuArea>
             <ContentArea subject={hoveredSubject}>
-                <SubjectOutline subject={hoveredSubject} />
+                {
+                    isLoading ? <div>Loading...</div> : (
+                        <SubjectOutline subject={hoveredSubject} />
+                    )
+                }
             </ContentArea>
         </SubjectMenuWrapper>
     )
@@ -75,4 +82,8 @@ const mapDispatchToProps = dispatch => ({
     setSubject: subject => dispatch(updateSubject(subject))
 });
 
-export default connect(null, mapDispatchToProps)(SubjectMenu);
+const mapStateToProps = createStructuredSelector({
+    isLoading: selectSubjectsIsFetching
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubjectMenu);
