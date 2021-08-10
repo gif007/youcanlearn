@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
+import { updateSubject } from '../../redux/location/location.actions';
 
 import {
     SubjectMenuWrapper,
@@ -16,7 +17,7 @@ import {
 import SubjectOutline from '../subject-outline/subject-outline.component';
 
 
-const SubjectMenu = ({ closeSubjectMenu}) => {
+const SubjectMenu = ({ closeSubjectMenu, setSubject }) => {
     const [hoveredSubject, setHoveredSubject] = useState('math');
     const [mathBg, setMathBg] = useState('rgb(99, 181, 61)');
     const [scienceBg, setScienceBg] = useState('white');
@@ -32,7 +33,10 @@ const SubjectMenu = ({ closeSubjectMenu}) => {
                         setScienceBg('white');
                     }}
                     bg={mathBg}
-                    onClick={() => closeSubjectMenu()}
+                    onClick={() => {
+                        closeSubjectMenu();
+                        setSubject('math');
+                    }}
                 >
                     <Link to='/subject/math'>
                         <span>Mathematics</span>
@@ -47,7 +51,10 @@ const SubjectMenu = ({ closeSubjectMenu}) => {
                         setScienceBg('rgb(0, 161, 113)');
                     }}
                     bg={scienceBg}
-                    onClick={() => closeSubjectMenu()}
+                    onClick={() => {
+                        closeSubjectMenu();
+                        setSubject('science');
+                    }}
                 >
                     <Link to='/subject/science'>
                         <span>Science</span>
@@ -64,7 +71,8 @@ const SubjectMenu = ({ closeSubjectMenu}) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    closeSubjectMenu: () => dispatch(closeSubjectMenu())
+    closeSubjectMenu: () => dispatch(closeSubjectMenu()),
+    setSubject: subject => dispatch(updateSubject(subject))
 });
 
 export default connect(null, mapDispatchToProps)(SubjectMenu);

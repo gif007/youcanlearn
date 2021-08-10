@@ -15,10 +15,10 @@ import {
 } from './course-links.styles';
 
 
-const CourseLink = ({ subjectAsArray, subject}) => (
+const CourseLink = ({ subjectObject, subject}) => (
     <CourseLinksContainer>
         {
-            subjectAsArray.map((course, index) => {
+            subjectObject['courses'].map((course, index) => {
                 const url = encodeURI(`/subject/${subject}/${course.title}`);
 
                 return (
@@ -37,7 +37,7 @@ const CourseLink = ({ subjectAsArray, subject}) => (
 );
 
 const mapStateToProps = (state, ownProps) => ({
-    subjectAsArray: selectSubject(ownProps.subject)(state)
+    subjectObject: selectSubject(ownProps.subject)(state)
 });
 
 export default connect(mapStateToProps)(CourseLink);

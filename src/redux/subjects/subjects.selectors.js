@@ -9,11 +9,16 @@ export const selectSubjectsData = createSelector(
     subjects => subjects.data
 );
 
-export const selectSubject = memoize((param) => (
+export const selectSubjectsDataAsArray = createSelector(
+    [selectSubjectsData],
+    data => data ? (
+        Object.keys(data).map(key => data[key])
+    ) : null
+);
+
+export const selectSubject = memoize((subject) => (
     createSelector(
         [selectSubjectsData],
-        data => data ? (
-            Object.keys(data[param]).map(key => data[param][key])
-        ) : null
+        data => data ? data[subject] : null
     )
 ));

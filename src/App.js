@@ -26,7 +26,7 @@ const SubjectPage = lazy(() => import('./pages/subject/subject.component'));
 
 
 const App = ({ closeSubjectMenu, closeHomeMenu, closeSettingsMenu, subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden }) => {
-  
+
   return (
     <div onClick={() => {
       if (!subjectMenuIsHidden) {

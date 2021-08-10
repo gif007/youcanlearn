@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-
 import { selectSubjectsData } from '../../redux/subjects/subjects.selectors';
 
 import {
@@ -48,7 +47,7 @@ const LessonOverview = ({ match, setSubject, setLesson, setCourse, allSubjects }
         setSubject(subject);
         setCourse(course);
         // Set up the section variable for the lesson menu component
-        const sections = allSubjects[subject][course]['sections'];
+        const sections = allSubjects[subject]['courses'].find((crs) => crs.title === course)['sections'];
         const currentSection = sections.filter(sect => sect.lessons.find(lsn => lsn.title === lesson))[0];
         setSection(currentSection);
         // Prepare the media url

@@ -21,7 +21,7 @@ const SubjectOutline = ({ selectedSubject, subject, closeSubjectMenu }) => {
         <OutlineWrapper>
             <ul>
                 {
-                    selectedSubject.map((course, index) => {
+                    selectedSubject.courses.map((course, index) => {
                         const courseUrl = encodeURI(`/subject/${subject}/${course.title}`);
 
                         return (

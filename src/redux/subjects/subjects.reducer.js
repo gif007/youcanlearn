@@ -1,4 +1,4 @@
-import SUBJECTS from "../../data/subjects";
+import SUBJECTS from "./subjects.data";
 
 const INITIAL_STATE = {
     data: SUBJECTS
