@@ -11,7 +11,6 @@ export function* fetchCollectionsAsync() {
         const collectionRef = yield firestore.collection('subjects');
         const snapshot = yield collectionRef.get();
         const subjectsMap = yield call(convertCollectionsSnapshotToMap, snapshot);
-        console.log(subjectsMap);
         yield put(fetchSubjectsSuccess(subjectsMap));
     } catch (error) {
         yield put(fetchSubjectsFailure(error.message));
