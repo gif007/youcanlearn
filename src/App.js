@@ -26,6 +26,7 @@ import { fetchSubjectStart } from './redux/subjects/subjects.actions';
 
 const OverviewPage = lazy(() => import('./pages/overview/overview.component'));
 const SubjectPage = lazy(() => import('./pages/subject/subject.component'));
+const SearchPage = lazy(() => import ('./pages/search/search.component'));
 
 
 const App = ({ fetchSubjects, closeSubjectMenu, closeHomeMenu, closeSettingsMenu, subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden }) => {
@@ -54,6 +55,7 @@ const App = ({ fetchSubjects, closeSubjectMenu, closeHomeMenu, closeSettingsMenu
         <Suspense fallback={<div>Loading...</div>}>
         <Route exact path="/" component={OverviewPage} />
         <Route path="/subject" component={SubjectPage} />
+        <Route path="/search" component={SearchPage} />
         </Suspense>
       </Switch>
       <Footer />

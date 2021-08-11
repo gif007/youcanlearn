@@ -36,15 +36,6 @@ import SearchGlass from '../../assets/search.png';
 
 const Header = ({subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden, toggleSubjectMenuHidden, unsetSubject, unsetCourse, unsetLesson, closeHomeMenu, closeSettingsMenu }) => {
     
-    const handleClick = (e) => {
-        e.preventDefault();
-        const searchInput = document.querySelector('input#search-bar');
-        console.log(searchInput.value);
-        searchInput.value = '';
-        searchInput.focus();
-        
-    }
-
     return (
     <HeaderWrapper>
         <SubjectsGroup>
@@ -58,13 +49,10 @@ const Header = ({subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden, to
             >
                 Subjects &#9660;
             </SubjectsButton>
-            <SearchForm>
+            <SearchForm action='/search'>
                 <fieldset>
                     <input type='search' name='q' id='search-bar' placeholder='Search lessons' />
-                    <button
-                        type='submit'
-                        onClick={handleClick}
-                    >
+                    <button type='submit'>
                         <img src={SearchGlass} alt='Search Glass' />
                     </button>
                 </fieldset>
