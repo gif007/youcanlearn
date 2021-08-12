@@ -13,7 +13,9 @@ import {
     SubjectMenuWrapper,
     MenuArea,
     MenuItem,
-    ContentArea
+    ContentArea,
+    MobileMenuItem,
+    MobileContentHeading
 } from './subject-menu.styles';
 
 import SubjectOutline from '../subject-outline/subject-outline.component';
@@ -24,10 +26,30 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
     const [hoveredSubject, setHoveredSubject] = useState('math');
     const [mathBg, setMathBg] = useState('rgb(99, 181, 61)');
     const [scienceBg, setScienceBg] = useState('white');
+    const [contentVisible, setContentVisible] = useState(false);
 
     return (
         <SubjectMenuWrapper onClick={(e) => e.stopPropagation()}>
-            <MenuArea>
+            <MenuArea contentVisible={contentVisible}>
+                <MobileMenuItem
+                    onClick={() => {
+                        setHoveredSubject('math');
+                        setContentVisible(true);
+                    }}
+                >
+                    Mathematics
+                    <span style={{fontWeight: 700}}>&rsaquo;</span>
+                </MobileMenuItem>
+
+                <MobileMenuItem
+                    onClick={() => {
+                        setHoveredSubject('science');
+                        setContentVisible(true);
+                    }}
+                >
+                    Science
+                    <span style={{fontWeight: 700}}>&rsaquo;</span>
+                </MobileMenuItem>
 
                 <MenuItem
                     onMouseEnter={() => {
@@ -66,10 +88,15 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
                 </MenuItem>
 
             </MenuArea>
-            <ContentArea subject={hoveredSubject}>
+            <ContentArea subject={hoveredSubject} contentVisible={contentVisible}>
                 {
                     isLoading ? <div>Loading...</div> : (
-                        <SubjectOutline subject={hoveredSubject} />
+                        <>
+                            <MobileContentHeading onClick={() => setContentVisible(false)}>
+                                <div>&rsaquo;</div> All Subjects
+                            </MobileContentHeading>
+                            <SubjectOutline subject={hoveredSubject} />
+                        </>
                     )
                 }
             </ContentArea>

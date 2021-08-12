@@ -6,7 +6,7 @@ import {
     AssignmentWrapper
 } from './home-menu.styles';
 
-import HomeIcon from '../../assets/home-30x30.png';
+import HomeIcon from '../../assets/home-26x26.png';
 
 
 const HomeMenu = () => (

@@ -10,6 +10,15 @@ export const HeaderWrapper = styled.div`
     height: 75px;
     position: relative;
     background: white;
+
+    @media screen and (max-width: 800px) {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        border-top: 1px solid lightgrey;
+        padding: unset;
+        z-index: 9000;
+    }
 `;
 
 export const SubjectsGroup = styled.div`
@@ -25,6 +34,10 @@ export const SubjectsButton = styled.button`
     height: 25px;
     cursor: pointer;
     font-size: 0.9rem;
+
+    @media screen and (max-width: 800px) {
+        display: none;
+    }
 `;
 
 export const SearchForm = styled.form`
@@ -36,6 +49,10 @@ export const SearchForm = styled.form`
     height: ${props => props.stretch ? `60px` : `40px`};
     width: ${props => props.stretch ? `90vw` : `250px` };
     background: white;
+
+    @media screen and (max-width: 800px) {
+        display: none;
+    }
 
     fieldset {
         height: 100%;
@@ -79,6 +96,10 @@ export const SettingsGroup = styled.div`
     flex: 1;
     display: flex;
     justify-content: flex-end;
+
+    @media screen and (max-width: 800px) {
+        display: none;
+    }
 `;
 
 export const LogoWrapper = styled(Link)`
@@ -88,4 +109,8 @@ export const LogoWrapper = styled(Link)`
     font-size: 1.5rem;
     color: black;
     text-decoration: none;
+
+    @media screen and (max-width: 800px) {
+        display: none;
+    }
 `;

@@ -11,10 +11,57 @@ export const SubjectMenuWrapper = styled.div`
     height: 500px;
     z-index: 9001;
     background: white;
+
+    @media screen and (max-width: 800px) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: calc(100% - 75px);
+        z-index: 9001;
+        background: rgba(255,255,255,.97);
+    }
 `;
 
 export const MenuArea = styled.div`
     width: 20%;
+
+    @media screen and (max-width: 800px) {
+        width: 100%;
+        display: ${props => props.contentVisible ? `none` : `block`};
+    }
+`;
+
+export const MobileMenuItem = styled.div`
+    padding: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: .9rem;
+    cursor: pointer;
+
+    span {
+        float: right;
+    }
+
+    @media screen and (min-width: 800px) {
+        display: none;
+    }
+`;
+
+export const MobileContentHeading = styled.div`
+    cursor: pointer;
+    margin-bottom: 2rem;
+    color: white;
+    font-weight: 700;
+
+    div {
+        transform: rotate(180deg);
+        float: left;
+        margin-right: .5rem;
+    }
+
+    @media screen and (min-width: 800px) {
+        display: none;
+    }
 `;
 
 export const MenuItem = styled.div`
@@ -30,6 +77,10 @@ export const MenuItem = styled.div`
         align-items: center;
         justify-content: space-between;
         padding: 1rem;
+    }
+
+    @media screen and (max-width: 800px) {
+        display: none;
     }
     
 `;
@@ -47,5 +98,10 @@ export const ContentArea = styled.div`
         :hover {
             text-decoration: underline;
         }
+    }
+
+    @media screen and (max-width: 800px) {
+        display: ${props => props.contentVisible ? 'block' : 'none'};
+        width: 100%;
     }
 `;

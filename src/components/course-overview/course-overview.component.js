@@ -28,10 +28,10 @@ const CourseOverview = ({ match, setSubject, setCourse, unsetLesson }) => {
     }, [unsetLesson, setSubject, subject, setCourse, course])
 
     return (
-    <CourseOverviewWrapper>
-        <CourseTitle>{course}</CourseTitle>
-        <CourseOutline subject={subject} course={course} />
-    </CourseOverviewWrapper>
+        <CourseOverviewWrapper>
+            <CourseTitle>{course}</CourseTitle>
+            <CourseOutline subject={subject} course={course} />
+        </CourseOverviewWrapper>
     )
 };
 

@@ -8,13 +8,8 @@ import {
     selectIsHomeMenuHidden,
     selectIsSettingsMenuHidden
 } from '../../redux/dropdowns/dropdowns.selector';
-import { closeHomeMenu, closeSettingsMenu, toggleSubjectMenuHidden } from '../../redux/dropdowns/dropdowns.actions';
 
-import {
-    updateSubject,
-    updateCourse,
-    updateLesson
-} from '../../redux/location/location.actions';
+import { closeHomeMenu, closeSettingsMenu, toggleSubjectMenuHidden } from '../../redux/dropdowns/dropdowns.actions';
 
 import {
     HeaderWrapper,
@@ -25,19 +20,56 @@ import {
     SettingsGroup
 } from './header.styles';
 
+import {
+    MobileButton,
+    MobileLink,
+    MobileButtonsContainer
+} from './header-mobile.styles';
+
 import SubjectMenu from '../subject-menu/subject-menu.component';
 import SettingsIcon from '../settings-icon/settings-icon.component';
 import SettingsMenu from '../settings-menu/settings-menu.component';
 import HomeIcon from '../home-icon/home-icon.component';
 import HomeMenu from '../home-menu/home-menu.component';
 
-import SearchGlass from '../../assets/search.png';
+import SearchGlass from '../../assets/search-20x20.png';
+import Home from '../../assets/home-20x20.png';
+import SubjectsIcon from '../../assets/subjects-20x20.png';
+import LoginIcon from '../../assets/login-20x20.png';
 
 
-const Header = ({subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden, toggleSubjectMenuHidden, unsetSubject, unsetCourse, unsetLesson, closeHomeMenu, closeSettingsMenu }) => {
+const Header = ({subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden, toggleSubjectMenuHidden, closeHomeMenu, closeSettingsMenu }) => {
     
     return (
     <HeaderWrapper>
+        <MobileButtonsContainer>
+
+            <MobileButton
+                onClick={() => {
+                    toggleSubjectMenuHidden();
+                }}
+            >
+                <img src={SubjectsIcon} alt='subjects'></img>
+                <span>Subjects</span>
+            </MobileButton>
+
+            <MobileLink to='/'>
+                <img src={Home} alt='home'></img>
+                <span>Start Here</span>
+            </MobileLink>
+
+            <MobileButton>
+                <img src={SearchGlass} alt='search'></img>
+                <span>Search</span>
+            </MobileButton>
+
+            <MobileButton>
+                <img src={LoginIcon} alt='login'></img>
+                <span>Login</span>
+            </MobileButton>
+
+        </MobileButtonsContainer>
+
         <SubjectsGroup>
             <SubjectsButton
                 type='button'
@@ -94,9 +126,6 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
     toggleSubjectMenuHidden: () => dispatch(toggleSubjectMenuHidden()),
-    unsetSubject: () => dispatch(updateSubject(null)),
-    unsetCourse: () => dispatch(updateCourse(null)),
-    unsetLesson: () => dispatch(updateLesson(null)),
     closeHomeMenu: () => dispatch(closeHomeMenu()),
     closeSettingsMenu: () => dispatch(closeSettingsMenu())
 });

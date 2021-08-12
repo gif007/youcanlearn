@@ -9,7 +9,11 @@ export const BannerWrapper = styled.div`
         25deg
         ,#0abb97,#2295da);
     min-height: 8rem;
-    padding: 0 8rem
+    padding: 0 8rem;
+
+    @media screen and (max-width: 800px) {
+        padding: 0 2rem;
+    }
 `;
 
 export const Nameplate = styled.div`

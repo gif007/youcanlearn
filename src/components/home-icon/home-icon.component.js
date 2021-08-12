@@ -6,7 +6,7 @@ import { closeSettingsMenu, closeSubjectMenu, toggleHomeMenuHidden } from '../..
 
 import { IconWrapper } from '../settings-icon/settings-icon.styles';
 
-import Home from '../../assets/home-30x30.png';
+import Home from '../../assets/home-26x26.png';
 
 
 const HomeIcon = ({ toggleHomeMenu, closeSubjectMenu, closeSettingsMenu }) => (

@@ -15,6 +15,13 @@ export const PreviewList = styled.div`
     align-items: center;
     margin: 1rem 0;
     width: 80vw;
+
+    @media screen and (max-width: 800px) {
+        flex-direction: column;
+        a + a {
+            margin-top: 1rem;
+        }
+    }
 `;
 
 export const PreviewHeader = styled.h2`
@@ -55,6 +62,7 @@ export const PreviewListItem = styled(Link)`
     justify-content: center;
     align-items: flex-end;
     text-decoration: none;
+    z-index: 0;
 
     :hover {
         cursor: pointer;
@@ -68,6 +76,10 @@ export const PreviewListItem = styled(Link)`
             width: 90%;
             border-radius: 8px;
         }
+    }
+
+    @media screen and (max-width: 800px) {
+        width: 90vw;
     }
 
 `;

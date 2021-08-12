@@ -17,6 +17,10 @@ export const LessonMenuWrapper = styled.div`
         padding-right: 2rem;
         padding-bottom: 1rem;
     }
+
+    @media screen and (max-width: 800px) {
+        display: none;
+    }
 `;
 
 export const ContentWrapper = styled.div`

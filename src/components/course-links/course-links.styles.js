@@ -19,12 +19,21 @@ export const CourseLinkWrapper = styled.div`
     :hover {
         background: #f0f0f0;
     }
+
+    @media screen and (max-width: 800px) {
+        width: 90vw;
+    }
+
 `;
 
 export const CourseLinksContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media screen and (max-width: 800px) {
+        flex-direction: column;
+    }
 `;
 
 export const Circle = styled.div`
