@@ -33,8 +33,9 @@ export const SearchForm = styled.form`
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
-    width: 250px;
+    height: ${props => props.stretch ? `60px` : `40px`};
+    width: ${props => props.stretch ? `90vw` : `250px` };
+    background: white;
 
     fieldset {
         height: 100%;
@@ -43,6 +44,10 @@ export const SearchForm = styled.form`
         align-items: center;
         justify-content: space-between;
         padding-left: 8px;
+    }
+
+    input {
+        width: 100%;
     }
 
     input, button {

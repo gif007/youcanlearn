@@ -29,8 +29,8 @@ export const CourseLinksContainer = styled.div`
 
 export const Circle = styled.div`
     background: ${props => props.subject === 'math' ? 'rgb(99,181,61)' : 'rgb(0,161,113)'};
-    width: 50px;
-    height: 50px;
+    width: ${props => props.stretch ? `75px` : `50px`};
+    height: ${props => props.stretch ? `75px` : `50px`};
     border-radius: 100px;
     display: flex;
     align-items: center;

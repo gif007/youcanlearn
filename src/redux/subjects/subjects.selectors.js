@@ -41,7 +41,12 @@ export const selectCourses = createSelector(
             subjectsArray.forEach(
                 subject => subject.courses.forEach(
                     course => coursesArray.push(
-                        {type: 'course', title: course.title, url: encodeURI(`/subject/${subject.title}/${course.title}`)}
+                        {
+                            type: 'course',
+                            title: course.title,
+                            url: encodeURI(`/subject/${subject.title}/${course.title}`),
+                            subject: subject.title
+                        }
                     )
                 )
             );
@@ -60,7 +65,13 @@ export const selectLessons = createSelector(
                     course => course.sections.forEach(
                         section => section.lessons.forEach(
                             lesson => lessonsArray.push(
-                                {type: 'lesson', title: lesson.title, url: encodeURI(`/subject/${subject.title}/${course.title}/${lesson.title}`)}
+                                {
+                                    type: 'lesson',
+                                    title: lesson.title,
+                                    subject: subject.title,
+                                    url: encodeURI(`/subject/${subject.title}/${course.title}/${lesson.title}`),
+                                    media: lesson.mediaUrl
+                                }
                             )
                         )
                     )

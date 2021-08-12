@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -15,9 +14,24 @@ import { selectCourses, selectLessons } from '../../redux/subjects/subjects.sele
 import { withRouter } from 'react-router-dom';
 
 import {
-    BannerWrapper,
-    SearchPageContainer
+    SearchPageContainer,
+    ResultContainer,
+    LessonMediaWrapper,
+    DetailsWrapper,
+    ItemHeading,
+    ItemSubheading,
+    ParentSubject,
+    ResultsHeading,
+    ResultsContainer,
+    ResultsList,
+    CircleWrapper
 } from './search.styles';
+
+import { BannerWrapper } from '../../components/overview-banner/overview-banner.styles';
+import { SearchForm } from '../../components/header/header.styles';
+import { Circle } from '../../components/course-links/course-links.styles';
+
+import SearchGlass from '../../assets/search.png';
 
 
 const SearchPage = ({ history, unsetSubject, unsetCourse, unsetLesson, allCourses, allLessons }) => {
@@ -41,18 +55,56 @@ const SearchPage = ({ history, unsetSubject, unsetCourse, unsetLesson, allCourse
 
     return (
         <SearchPageContainer>
-            <BannerWrapper>Search lessons</BannerWrapper>
+            <BannerWrapper>
+                <SearchForm stretch={true} action='/search'>
+                    <fieldset>
+                        <input type='search' name='q' id='search-bar' placeholder='Search lessons' />
+                        <button type='submit'>
+                            <img src={SearchGlass} alt='Search Glass' />
+                        </button>
+                    </fieldset>
+                </SearchForm>
+            </BannerWrapper>
             {
                 results ? (
                     results.length > 0 ? (
-                        <div>
-                            <h1>Results:</h1>
-                            <ul>
+                        <ResultsContainer>
+                            <ResultsHeading>Results ({results.length})</ResultsHeading>
+                            <ResultsList>
                                 {results.map((result, index) => {
-                                    return <li key={index}><Link to={result.url}>{result.title} - {result.type}</Link></li>
+                                    return result.type === 'lesson' ? (
+                                        <li key={index}>
+                                            <ResultContainer to={result.url}>
+                                                <LessonMediaWrapper src={result.media} />
+                                                <DetailsWrapper>
+                                                    <ItemHeading>{result.title}</ItemHeading>
+                                                    <ItemSubheading>{result.type}</ItemSubheading>
+                                                    <ParentSubject subject={result.subject}>{result.subject}</ParentSubject>
+                                                </DetailsWrapper>
+                                            </ResultContainer>
+                                        </li>
+                                    ) : (
+                                        <li key={index}>
+                                            <ResultContainer to={result.url}>
+                                                <CircleWrapper>
+                                                    <Circle
+                                                        stretch={true}
+                                                        subject={result.subject}
+                                                    >
+                                                        {result.title.slice(0, 1).toUpperCase()}
+                                                    </Circle>
+                                                </CircleWrapper>
+                                                <DetailsWrapper>
+                                                    <ItemHeading>{result.title}</ItemHeading>
+                                                    <ItemSubheading>{result.type}</ItemSubheading>
+                                                    <ParentSubject subject={result.subject}>{result.subject}</ParentSubject>
+                                                </DetailsWrapper>
+                                            </ResultContainer>
+                                        </li>
+                                    )
                                 })}
-                            </ul>
-                        </div>
+                            </ResultsList>
+                        </ResultsContainer>
                     ) : <div>Nothing found</div>
                 ) : <div>Searching for <span style={{fontWeight: 700}}>{query.toLowerCase()}</span>...</div>
             }
