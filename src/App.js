@@ -30,6 +30,7 @@ const SearchPage = lazy(() => import ('./pages/search/search.component'));
 
 
 const App = ({ fetchSubjects, closeSubjectMenu, closeHomeMenu, closeSettingsMenu, subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden }) => {
+
   useEffect(() => {
     fetchSubjects();
   }, [fetchSubjects])

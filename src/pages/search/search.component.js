@@ -10,7 +10,7 @@ import {
     updateLesson
 } from '../../redux/location/location.actions';
 
-import { selectSubjectsDataAsArray } from '../../redux/subjects/subjects.selectors';
+import { selectCourses, selectLessons } from '../../redux/subjects/subjects.selectors';
 
 import { withRouter } from 'react-router-dom';
 
@@ -20,10 +20,11 @@ import {
 } from './search.styles';
 
 
-const SearchPage = ({ history, unsetSubject, unsetCourse, unsetLesson, subjectsArray }) => {
+const SearchPage = ({ history, unsetSubject, unsetCourse, unsetLesson, allCourses, allLessons }) => {
+
     const params = new URLSearchParams(history.location.search);
     const query = params.get('q');
-    const [allLessons, setAllLessons] = useState(null);
+
     const [results, setResults] = useState(null);
 
     useEffect(() => {
@@ -32,43 +33,28 @@ const SearchPage = ({ history, unsetSubject, unsetCourse, unsetLesson, subjectsA
         unsetLesson();
     }, [unsetSubject, unsetCourse, unsetLesson])
 
-    if (subjectsArray !== null && allLessons === null) {
-        const lessonsArray = [];
-        subjectsArray.forEach(
-            subject => subject.courses.forEach(
-                course => course.sections.forEach(
-                    section => section.lessons.forEach(
-                        lesson => lessonsArray.push(
-                            {title: lesson.title, url: encodeURI(`/subject/${subject.title}/${course.title}/${lesson.title}`)}
-                        )
-                    )
-                )
-            )
-        );
-        setAllLessons(lessonsArray);
-    }
-
-    if (allLessons !== null && results === null) {
-        const res = allLessons.filter((lesson) => lesson.title.toLowerCase().includes(query.toLowerCase()));
+    if (allLessons !== null && allCourses !== null && results === null) {
+        let res = allLessons.filter((lesson) => lesson.title.toLowerCase().includes(query.toLowerCase()));
+        res = res.concat(allCourses.filter((course) => course.title.toLowerCase().includes(query.toLowerCase())));
         setResults(res);
     }
 
     return (
         <SearchPageContainer>
-            <BannerWrapper>Search</BannerWrapper>
+            <BannerWrapper>Search lessons</BannerWrapper>
             {
                 results ? (
                     results.length > 0 ? (
                         <div>
                             <h1>Results:</h1>
                             <ul>
-                            {results.map((result, index) => {
-                                return <li key={index}><Link to={result.url}>{result.title}</Link></li>
-                            })}
+                                {results.map((result, index) => {
+                                    return <li key={index}><Link to={result.url}>{result.title} - {result.type}</Link></li>
+                                })}
                             </ul>
                         </div>
                     ) : <div>Nothing found</div>
-                ) : <div>Searching for <span style={{fontWeight: 700}}>{query}</span>...</div>
+                ) : <div>Searching for <span style={{fontWeight: 700}}>{query.toLowerCase()}</span>...</div>
             }
         </SearchPageContainer>
     )
@@ -81,7 +67,8 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = createStructuredSelector({
-    subjectsArray: selectSubjectsDataAsArray
+    allCourses: selectCourses,
+    allLessons: selectLessons
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchPage));
