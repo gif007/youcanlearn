@@ -5,6 +5,11 @@ export const OverviewContainer = styled.div`
     background: white;
     display: flex;
     padding: 2rem;
+
+    @media screen and (max-width: 420px) {
+        padding: 2rem 0;
+        justify-content: center;
+    }
 `;
 
 export const LessonMenuWrapper = styled.div`
@@ -28,23 +33,40 @@ export const ContentWrapper = styled.div`
     flex-direction: column;
     width: 640px;
     margin-left: 32px;
+
+    @media screen and (max-width: 420px) {
+        margin: unset;
+        width: 90vw;
+    }
 `;
 
 export const LessonTitle = styled.h1`
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
+
+    @media screen and (max-width: 420px) {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
 `;
 
 export const MediaWrapper = styled.div`
     margin-bottom: 2rem;
     width: 640px;
     height: 359px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    div {
-        width: 100%;
-        height: 100%;
-        background-position: center;
-        background-size: cover;
+    @media screen and (max-width: 420px) {
+        width: 90vw;
+        height: unset;
+    }
+
+    img {
+        @media screen and (max-width: 420px) {
+            width: 90vw;
+        }
     }
 `;
 

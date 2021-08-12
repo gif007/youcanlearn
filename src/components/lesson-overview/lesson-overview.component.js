@@ -80,8 +80,8 @@ const LessonOverview = ({ match, setSubject, setLesson, setCourse, allSubjects }
                 <MediaWrapper>
                     {
                         mediaUrl ? (
-                            <div style={{background: `url(${mediaUrl})`}} />
-                        ) : <div />
+                            <img src={mediaUrl} alt='media' />
+                        ) : null
                     }
                 </MediaWrapper>
                 <QuizMenuWrapper>
