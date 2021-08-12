@@ -12,10 +12,16 @@ export const SectionList = styled.ul`
 
     @media screen and (max-width: 800px) {
         flex-direction: column;
+        margin-left: 1rem;
     }
 `;
 
 export const SectionWrapper = styled.li`
     margin-left: 1rem;
     width: 300px;
+
+    @media screen and (max-width: 800px) {
+        width: 90vw;
+        margin: unset;
+    }
 `;

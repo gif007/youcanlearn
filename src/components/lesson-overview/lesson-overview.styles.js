@@ -6,7 +6,7 @@ export const OverviewContainer = styled.div`
     display: flex;
     padding: 2rem;
 
-    @media screen and (max-width: 420px) {
+    @media screen and (max-width: 800px) {
         padding: 2rem 0;
         justify-content: center;
     }
@@ -34,7 +34,7 @@ export const ContentWrapper = styled.div`
     width: 640px;
     margin-left: 32px;
 
-    @media screen and (max-width: 420px) {
+    @media screen and (max-width: 800px) {
         margin: unset;
         width: 90vw;
     }
@@ -45,7 +45,8 @@ export const LessonTitle = styled.h1`
     margin-bottom: 1.5rem;
 
     @media screen and (max-width: 420px) {
-        font-size: 1rem;
+        font-size: 1.25rem;
+        text-align: center;
         margin-bottom: 1rem;
     }
 `;
@@ -58,13 +59,13 @@ export const MediaWrapper = styled.div`
     align-items: center;
     justify-content: center;
 
-    @media screen and (max-width: 420px) {
+    @media screen and (max-width: 800px) {
         width: 90vw;
         height: unset;
     }
 
     img {
-        @media screen and (max-width: 420px) {
+        @media screen and (max-width: 800px) {
             width: 90vw;
         }
     }
