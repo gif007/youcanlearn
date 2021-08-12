@@ -1,6 +1,7 @@
 import React, { Suspense, lazy, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Switch, Route } from 'react-router-dom';
+import ErrorBoundary from './components/error-boundary/error-boundary.component';
 import { connect } from 'react-redux';
 
 import {
@@ -53,11 +54,13 @@ const App = ({ fetchSubjects, closeSubjectMenu, closeHomeMenu, closeSettingsMenu
       <GlobalStyle />
       <Header />
       <Switch>
-        <Suspense fallback={<div>Loading...</div>}>
-        <Route exact path="/" component={OverviewPage} />
-        <Route path="/subject" component={SubjectPage} />
-        <Route path="/search" component={SearchPage} />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Route exact path="/" component={OverviewPage} />
+            <Route path="/subject" component={SubjectPage} />
+            <Route path="/search" component={SearchPage} />
+          </Suspense>
+        </ErrorBoundary>
       </Switch>
       <Footer />
     </div>

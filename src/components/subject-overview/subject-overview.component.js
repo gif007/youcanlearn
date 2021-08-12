@@ -17,6 +17,7 @@ import CourseLinks from '../course-links/course-links.component';
 
 
 const SubjectOverview = ({ match, setSubject, unsetCourse, unsetLesson }) => {
+    
     const subject = match.params.subjectId;
 
     useEffect(() => {
