@@ -34,7 +34,7 @@ const LessonsList = ({section, subject, course, closeSubjectMenu}) => {
                                     key={index}
                                 >
                                     <Link
-                                        style={{fontSize: '1.125rem'}}
+                                        style={{fontSize: '1.125rem', color: 'black'}}
                                         to={lessonUrl}
                                         onClick={() => closeSubjectMenu()}
                                     >

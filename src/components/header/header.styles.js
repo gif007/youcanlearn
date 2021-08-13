@@ -17,7 +17,7 @@ export const HeaderWrapper = styled.div`
         width: 100%;
         border-top: 1px solid lightgrey;
         padding: unset;
-        z-index: 9000;
+        z-index: 9999;
     }
 `;
 

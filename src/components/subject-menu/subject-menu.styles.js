@@ -17,9 +17,10 @@ export const SubjectMenuWrapper = styled.div`
         top: 0;
         left: 0;
         width: 100%;
-        height: calc(100% - 75px);
+        height: calc(100vh - 75px);
         z-index: 9001;
         background: rgba(255,255,255,.97);
+        overflow: auto;
     }
 `;
 
@@ -50,7 +51,7 @@ export const MobileMenuItem = styled.div`
 export const MobileContentHeading = styled.div`
     cursor: pointer;
     margin-bottom: 2rem;
-    color: white;
+    color: black;
     font-weight: 700;
     font-size: 1.25rem;
 
@@ -104,5 +105,6 @@ export const ContentArea = styled.div`
     @media screen and (max-width: 800px) {
         display: ${props => props.contentVisible ? 'block' : 'none'};
         width: 100%;
+        background: white;
     }
 `;
