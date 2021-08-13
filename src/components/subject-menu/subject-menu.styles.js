@@ -28,7 +28,7 @@ export const MenuArea = styled.div`
 
     @media screen and (max-width: 800px) {
         width: 100%;
-        display: ${props => props.contentVisible ? `none` : `block`};
+        display: ${props => props.subjectsVisible ? `block` : `none`};
     }
 `;
 

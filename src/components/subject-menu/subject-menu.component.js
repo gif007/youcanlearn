@@ -27,14 +27,16 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
     const [mathBg, setMathBg] = useState('rgb(99, 181, 61)');
     const [scienceBg, setScienceBg] = useState('white');
     const [contentVisible, setContentVisible] = useState(false);
+    const [subjectsVisible, setSubjectsVisible] = useState(true);
 
     return (
         <SubjectMenuWrapper onClick={(e) => e.stopPropagation()}>
-            <MenuArea contentVisible={contentVisible}>
+            <MenuArea subjectsVisible={subjectsVisible}>
                 <MobileMenuItem
                     onClick={() => {
                         setHoveredSubject('math');
                         setContentVisible(true);
+                        setSubjectsVisible(false);
                     }}
                 >
                     Mathematics
@@ -45,6 +47,7 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
                     onClick={() => {
                         setHoveredSubject('science');
                         setContentVisible(true);
+                        setSubjectsVisible(false);
                     }}
                 >
                     Science
@@ -92,7 +95,10 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
                 {
                     isLoading ? <div>Loading...</div> : (
                         <>
-                            <MobileContentHeading onClick={() => setContentVisible(false)}>
+                            <MobileContentHeading onClick={() => {
+                                setContentVisible(false);
+                                setSubjectsVisible(true);
+                            }}>
                                 <div>&rsaquo;</div> All Subjects
                             </MobileContentHeading>
                             <SubjectOutline subject={hoveredSubject} />

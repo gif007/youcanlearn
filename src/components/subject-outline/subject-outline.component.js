@@ -4,18 +4,20 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { selectSubject } from '../../redux/subjects/subjects.selectors';
+import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
 
 import {
     OutlineWrapper,
     CourseTitle,
     SectionList,
-    SectionWrapper
+    SectionWrapper,
+    MobileSectionWrapper
 } from './subject-outline.styles';
 
-import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
+import LessonsList from './lessons-list.component';
 
 
-const SubjectOutline = ({ selectedSubject, subject, closeSubjectMenu }) => {
+const SubjectOutline = ({ selectedSubject, subject, closeSubjectMenu}) => {
 
     return (
         <OutlineWrapper>
@@ -31,6 +33,7 @@ const SubjectOutline = ({ selectedSubject, subject, closeSubjectMenu }) => {
                                         {course.title}
                                     </Link>
                                 </CourseTitle>
+                                
                                 <SectionList>
                                     {
                                         course.sections.map((section, i) => {
@@ -48,6 +51,9 @@ const SubjectOutline = ({ selectedSubject, subject, closeSubjectMenu }) => {
                                                             &rsaquo; {section.title}
                                                         </Link>
                                                     </SectionWrapper>
+                                                    <MobileSectionWrapper>
+                                                        <LessonsList section={section} subject={subject} course={course} />
+                                                    </MobileSectionWrapper>
                                                 </li>
                                             )
                                         })
