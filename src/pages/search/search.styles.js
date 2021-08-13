@@ -22,6 +22,10 @@ export const ResultsContainer = styled.div`
     display: flex;
     flex-direction: column;
     padding: 2rem 8rem;
+
+    @media screen and (max-width: 800px) {
+        padding: 2rem 1rem;
+    }
 `;
 
 export const ResultContainer = styled(Link)`
@@ -32,6 +36,11 @@ export const ResultContainer = styled(Link)`
     width: 50vw;
     border: 1px solid lightgrey;
 
+    @media screen and (max-width: 800px) {
+        width: 90vw;
+        margin: 0 auto;
+    }
+
     :hover {
         box-shadow: 0 0.7rem 2rem rgb(0 0 0 / 15%);
     }
@@ -39,7 +48,7 @@ export const ResultContainer = styled(Link)`
 
 export const CircleWrapper = styled.div`
     height: 100%;
-    width: 300px;
+    width: 40%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,7 +56,7 @@ export const CircleWrapper = styled.div`
 
 export const LessonMediaWrapper = styled.img`
     height: 100%;
-    width: 300px;
+    width: 40%;
 `;
 
 export const DetailsWrapper = styled.div`
