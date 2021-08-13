@@ -5,7 +5,7 @@ import { FooterWrapper } from './footer.styles';
 
 const Footer = () => (
     <FooterWrapper>
-        <span>&copy; 2021</span>
+        <span>DISCLAIMER: ALL IMAGES ARE COPYRIGHT TO BINOGI.CA AND WILL BE REMOVED UPON REQUEST</span>
     </FooterWrapper>
 );
 

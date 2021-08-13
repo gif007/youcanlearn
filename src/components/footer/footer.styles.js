@@ -7,4 +7,9 @@ export const FooterWrapper = styled.div`
     padding-top: 70px;
     background: #f0f0f0;
     height: 200px;
+    font-size: .7rem;
+
+    span {
+        text-align: center;
+    }
 `;
