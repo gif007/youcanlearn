@@ -40,8 +40,12 @@ export const MobileButtonsContainer = styled.div`
     height: 100%;
     width: 100%;
 
-    a + a {
+    button, a {
         border-left: 1px solid lightgrey;
+    }
+
+    button:first-child {
+        border-left: none;
     }
 
     @media screen and (min-width: 800px) {

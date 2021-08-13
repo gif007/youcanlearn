@@ -43,7 +43,6 @@ const Header = ({subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden, to
     return (
     <HeaderWrapper>
         <MobileButtonsContainer>
-
             <MobileButton
                 onClick={() => {
                     toggleSubjectMenuHidden();
@@ -67,7 +66,6 @@ const Header = ({subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden, to
                 <img src={LoginIcon} alt='login'></img>
                 <span>Login</span>
             </MobileButton>
-
         </MobileButtonsContainer>
 
         <SubjectsGroup>
