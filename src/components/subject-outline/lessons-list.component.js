@@ -4,18 +4,23 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
 
+import {
+    SectionTitle,
+    Chevron
+} from './lessons-list.styles';
+
 
 const LessonsList = ({section, subject, course, closeSubjectMenu}) => {
     const [lessonsVisible, setLessonsVisible] = useState(false);
 
     return (
         <div>
-            <h2
-                style={{margin: '1rem 0 .25rem 0', fontWeight: 700}}
+            <SectionTitle
+                style={{margin: '1rem 0', fontWeight: 700}}
                 onClick={() => setLessonsVisible(!lessonsVisible)}
             >
-                &rsaquo; {section.title}
-            </h2>
+                <div><Chevron lessonsVisible={lessonsVisible}>&rsaquo;</Chevron></div> {section.title}
+            </SectionTitle>
             {
                 lessonsVisible ? (
                     <ul>
@@ -25,10 +30,11 @@ const LessonsList = ({section, subject, course, closeSubjectMenu}) => {
                             
                             return (
                                 <li
-                                    style={{padding: '2px 10px'}}
+                                    style={{padding: '10px'}}
                                     key={index}
                                 >
                                     <Link
+                                        style={{fontSize: '1.125rem'}}
                                         to={lessonUrl}
                                         onClick={() => closeSubjectMenu()}
                                     >

@@ -35,7 +35,7 @@ export const MenuArea = styled.div`
 export const MobileMenuItem = styled.div`
     padding: 1rem;
     border-bottom: 1px solid #f0f0f0;
-    font-size: .9rem;
+    font-size: 1.25rem;
     cursor: pointer;
 
     span {
@@ -52,6 +52,7 @@ export const MobileContentHeading = styled.div`
     margin-bottom: 2rem;
     color: white;
     font-weight: 700;
+    font-size: 1.25rem;
 
     div {
         transform: rotate(180deg);
