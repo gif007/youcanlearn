@@ -82,8 +82,8 @@ const Header = ({searchMenuIsHidden, toggleSearchMenuHidden, subjectMenuIsHidden
 
             {
                 searchMenuIsHidden ? null : (
-                    <MobileSearchForm action='/search'>
-                        <fieldset onClick={(e) => e.stopPropagation()}>
+                    <MobileSearchForm action='/search'  onClick={(e) => e.stopPropagation()}>
+                        <fieldset>
                             <input type='search' name='q' id='search-bar' placeholder='Search lessons' />
                             <button type='submit'>
                                 <img src={SearchGlass} alt='Search Glass' />

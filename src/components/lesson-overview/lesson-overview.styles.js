@@ -59,16 +59,16 @@ export const MediaWrapper = styled.div`
     align-items: center;
     justify-content: center;
 
+    img {
+        width: 100%;
+    }
+
     @media screen and (max-width: 800px) {
         width: 90vw;
         height: unset;
+
     }
 
-    img {
-        @media screen and (max-width: 800px) {
-            width: 90vw;
-        }
-    }
 `;
 
 export const QuizMenuWrapper = styled.div`
