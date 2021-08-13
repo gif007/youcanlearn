@@ -51,7 +51,7 @@ export const SearchForm = styled.form`
     background: white;
 
     @media screen and (max-width: 800px) {
-        display: none;
+        display: ${props => props.stretch ? `block` : `none`};
     }
 
     fieldset {
