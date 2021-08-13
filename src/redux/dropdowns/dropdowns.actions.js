@@ -24,3 +24,11 @@ export const toggleSettingsMenuHidden = () => ({
 export const closeSettingsMenu = () => ({
     type: DropdownsActionTypes.CLOSE_SETTINGS_MENU
 });
+
+export const toggleSearchMenuHidden = () => ({
+    type: DropdownsActionTypes.TOGGLE_SEARCH_MENU
+});
+
+export const closeSearchMenu = () => ({
+    type: DropdownsActionTypes.CLOSE_SEARCH_MENU
+});

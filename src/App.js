@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import {
   closeSubjectMenu,
   closeHomeMenu,
-  closeSettingsMenu
+  closeSettingsMenu,
+  closeSearchMenu
 } from './redux/dropdowns/dropdowns.actions';
 
 import { GlobalStyle } from './global.styles';
@@ -20,7 +21,8 @@ import { createStructuredSelector } from 'reselect';
 import {
   selectIsSubjectMenuHidden,
   selectIsHomeMenuHidden,
-  selectIsSettingsMenuHidden
+  selectIsSettingsMenuHidden,
+  selectIsSearchMenuHidden
 } from './redux/dropdowns/dropdowns.selector';
 
 import { fetchSubjectStart } from './redux/subjects/subjects.actions';
@@ -30,7 +32,7 @@ const SubjectPage = lazy(() => import('./pages/subject/subject.component'));
 const SearchPage = lazy(() => import ('./pages/search/search.component'));
 
 
-const App = ({ fetchSubjects, closeSubjectMenu, closeHomeMenu, closeSettingsMenu, subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden }) => {
+const App = ({ searchMenuIsHidden, closeSearchMenu, fetchSubjects, closeSubjectMenu, closeHomeMenu, closeSettingsMenu, subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden }) => {
 
   useEffect(() => {
     fetchSubjects();
@@ -46,6 +48,9 @@ const App = ({ fetchSubjects, closeSubjectMenu, closeHomeMenu, closeSettingsMenu
       }
       if (!settingsMenuIsHidden) {
         closeSettingsMenu();
+      }
+      if (!searchMenuIsHidden) {
+        closeSearchMenu();
       }
     }}>
       <Helmet>
@@ -71,13 +76,15 @@ const mapDispatchToProps = dispatch => ({
   closeSubjectMenu: () => dispatch(closeSubjectMenu()),
   closeSettingsMenu: () => dispatch(closeSettingsMenu()),
   closeHomeMenu: () => dispatch(closeHomeMenu()),
+  closeSearchMenu: () => dispatch(closeSearchMenu()),
   fetchSubjects: () => dispatch(fetchSubjectStart())
 });
 
 const mapStateToProps = createStructuredSelector({
   subjectMenuIsHidden: selectIsSubjectMenuHidden,
   homeMenuIsHidden: selectIsHomeMenuHidden,
-  settingsMenuIsHidden: selectIsSettingsMenuHidden
+  settingsMenuIsHidden: selectIsSettingsMenuHidden,
+  searchMenuIsHidden: selectIsSearchMenuHidden
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

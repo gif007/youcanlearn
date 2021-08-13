@@ -52,3 +52,42 @@ export const MobileButtonsContainer = styled.div`
         display: none;
     }
 `;
+
+export const MobileSearchForm = styled.form`
+    height: calc(100vh - 75px);
+    width: 100%;
+    background: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 3rem;
+
+    fieldset {
+        width: 90vw;
+        margin: 0 auto;
+        display: flex;
+        padding-left: 8px;
+        height: 40px;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    input:focus {
+        outline: unset;
+    }
+
+    button {
+        padding: 0 8px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    button:hover {
+        cursor: pointer;
+        border-left: 1px solid grey;
+        background: lightgrey;
+    }
+
+`;

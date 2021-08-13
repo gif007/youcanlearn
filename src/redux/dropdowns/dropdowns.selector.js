@@ -16,3 +16,8 @@ export const selectIsSettingsMenuHidden = createSelector(
     [selectDropdowns],
     dropdowns => dropdowns.settingsMenuHidden
 );
+
+export const selectIsSearchMenuHidden = createSelector(
+    [selectDropdowns],
+    dropdowns => dropdowns.searchMenuHidden
+);

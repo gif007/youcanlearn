@@ -6,14 +6,16 @@ import { createStructuredSelector } from 'reselect';
 import {
     selectIsSubjectMenuHidden,
     selectIsHomeMenuHidden,
-    selectIsSettingsMenuHidden
+    selectIsSettingsMenuHidden,
+    selectIsSearchMenuHidden
 } from '../../redux/dropdowns/dropdowns.selector';
 
 import {
     closeHomeMenu,
     closeSettingsMenu,
     toggleSubjectMenuHidden,
-    toggleSettingsMenuHidden
+    toggleSettingsMenuHidden,
+    toggleSearchMenuHidden
 } from '../../redux/dropdowns/dropdowns.actions';
 
 import {
@@ -29,7 +31,8 @@ import {
 import {
     MobileButton,
     MobileLink,
-    MobileButtonsContainer
+    MobileButtonsContainer,
+    MobileSearchForm
 } from './header-mobile.styles';
 
 import SubjectMenu from '../subject-menu/subject-menu.component';
@@ -44,7 +47,7 @@ import SubjectsIcon from '../../assets/subjects-20x20.png';
 import LoginIcon from '../../assets/login-20x20.png';
 
 
-const Header = ({subjectMenuIsHidden, toggleSettingsMenuHidden, homeMenuIsHidden, settingsMenuIsHidden, toggleSubjectMenuHidden, closeHomeMenu, closeSettingsMenu }) => {
+const Header = ({searchMenuIsHidden, toggleSearchMenuHidden, subjectMenuIsHidden, toggleSettingsMenuHidden, homeMenuIsHidden, settingsMenuIsHidden, toggleSubjectMenuHidden, closeHomeMenu, closeSettingsMenu }) => {
     
     return (
     <HeaderWrapper>
@@ -63,7 +66,9 @@ const Header = ({subjectMenuIsHidden, toggleSettingsMenuHidden, homeMenuIsHidden
                 <span>Start Here</span>
             </MobileLink>
 
-            <MobileButton>
+            <MobileButton onClick={() => {
+                toggleSearchMenuHidden();
+            }}>
                 <img src={SearchGlass} alt='search'></img>
                 <span>Search</span>
             </MobileButton>
@@ -72,8 +77,21 @@ const Header = ({subjectMenuIsHidden, toggleSettingsMenuHidden, homeMenuIsHidden
                 toggleSettingsMenuHidden();
             }}>
                 <img src={LoginIcon} alt='login'></img>
-                <span>Login</span>
+                <span>More</span>
             </MobileButton>
+
+            {
+                searchMenuIsHidden ? null : (
+                    <MobileSearchForm action='/search'>
+                        <fieldset onClick={(e) => e.stopPropagation()}>
+                            <input type='search' name='q' id='search-bar' placeholder='Search lessons' />
+                            <button type='submit'>
+                                <img src={SearchGlass} alt='Search Glass' />
+                            </button>
+                        </fieldset>
+                    </MobileSearchForm>
+                )
+            }
         </MobileButtonsContainer>
 
         <SubjectsGroup>
@@ -129,12 +147,14 @@ const Header = ({subjectMenuIsHidden, toggleSettingsMenuHidden, homeMenuIsHidden
 const mapStateToProps = createStructuredSelector({
     subjectMenuIsHidden: selectIsSubjectMenuHidden,
     homeMenuIsHidden: selectIsHomeMenuHidden,
-    settingsMenuIsHidden: selectIsSettingsMenuHidden
+    settingsMenuIsHidden: selectIsSettingsMenuHidden,
+    searchMenuIsHidden: selectIsSearchMenuHidden
 });
 
 const mapDispatchToProps = dispatch => ({
     toggleSubjectMenuHidden: () => dispatch(toggleSubjectMenuHidden()),
     toggleSettingsMenuHidden: () => dispatch(toggleSettingsMenuHidden()),
+    toggleSearchMenuHidden: () => dispatch(toggleSearchMenuHidden()),
     closeHomeMenu: () => dispatch(closeHomeMenu()),
     closeSettingsMenu: () => dispatch(closeSettingsMenu())
 });
