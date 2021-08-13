@@ -96,7 +96,10 @@ export const SettingsGroup = styled.div`
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    
+`;
 
+export const SettingsButtons = styled.div`
     @media screen and (max-width: 800px) {
         display: none;
     }

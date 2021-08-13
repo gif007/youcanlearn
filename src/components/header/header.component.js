@@ -9,7 +9,12 @@ import {
     selectIsSettingsMenuHidden
 } from '../../redux/dropdowns/dropdowns.selector';
 
-import { closeHomeMenu, closeSettingsMenu, toggleSubjectMenuHidden } from '../../redux/dropdowns/dropdowns.actions';
+import {
+    closeHomeMenu,
+    closeSettingsMenu,
+    toggleSubjectMenuHidden,
+    toggleSettingsMenuHidden
+} from '../../redux/dropdowns/dropdowns.actions';
 
 import {
     HeaderWrapper,
@@ -17,7 +22,8 @@ import {
     SubjectsButton,
     SearchForm,
     LogoWrapper,
-    SettingsGroup
+    SettingsGroup,
+    SettingsButtons
 } from './header.styles';
 
 import {
@@ -38,7 +44,7 @@ import SubjectsIcon from '../../assets/subjects-20x20.png';
 import LoginIcon from '../../assets/login-20x20.png';
 
 
-const Header = ({subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden, toggleSubjectMenuHidden, closeHomeMenu, closeSettingsMenu }) => {
+const Header = ({subjectMenuIsHidden, toggleSettingsMenuHidden, homeMenuIsHidden, settingsMenuIsHidden, toggleSubjectMenuHidden, closeHomeMenu, closeSettingsMenu }) => {
     
     return (
     <HeaderWrapper>
@@ -62,7 +68,9 @@ const Header = ({subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden, to
                 <span>Search</span>
             </MobileButton>
 
-            <MobileButton>
+            <MobileButton onClick={() => {
+                toggleSettingsMenuHidden();
+            }}>
                 <img src={LoginIcon} alt='login'></img>
                 <span>Login</span>
             </MobileButton>
@@ -99,8 +107,10 @@ const Header = ({subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden, to
         </LogoWrapper>
 
         <SettingsGroup>
-            <HomeIcon />
-            <SettingsIcon />
+            <SettingsButtons>
+                <HomeIcon />
+                <SettingsIcon />
+            </SettingsButtons>
             {
                 homeMenuIsHidden ? null : (
                     <HomeMenu />
@@ -124,6 +134,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
     toggleSubjectMenuHidden: () => dispatch(toggleSubjectMenuHidden()),
+    toggleSettingsMenuHidden: () => dispatch(toggleSettingsMenuHidden()),
     closeHomeMenu: () => dispatch(closeHomeMenu()),
     closeSettingsMenu: () => dispatch(closeSettingsMenu())
 });

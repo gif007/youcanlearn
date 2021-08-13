@@ -13,6 +13,14 @@ export const MenuWrapper = styled.div`
     display: flex;
     flex-direction: column;
     font-size: .9rem;
+
+    @media screen and (max-width: 800px) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 75px);
+    }
 `;
 
 export const LinkWrapper = styled(Link)`
