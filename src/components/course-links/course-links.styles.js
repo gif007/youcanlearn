@@ -48,6 +48,11 @@ export const Circle = styled.div`
     color: white;
     font-weight: 700;
     font-size: 18px;
+
+    @media screen and (max-width: 420px) {
+        width: 45px;
+        height: 45px;
+    }
 `;
 
 export const CourseTitle = styled.div`

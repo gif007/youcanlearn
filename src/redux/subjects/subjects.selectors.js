@@ -70,7 +70,8 @@ export const selectLessons = createSelector(
                                     title: lesson.title,
                                     subject: subject.title,
                                     url: encodeURI(`/subject/${subject.title}/${course.title}/${lesson.title}`),
-                                    media: lesson.mediaUrl
+                                    media: lesson.mediaUrl,
+                                    icon: lesson.iconUrl
                                 }
                             )
                         )

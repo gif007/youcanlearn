@@ -17,6 +17,7 @@ import {
     SearchPageContainer,
     ResultContainer,
     LessonMediaWrapper,
+    MobileLessonMediaWrapper,
     DetailsWrapper,
     ItemHeading,
     ItemSubheading,
@@ -24,7 +25,8 @@ import {
     ResultsHeading,
     ResultsContainer,
     ResultsList,
-    CircleWrapper
+    CircleWrapper,
+    IconWrapper
 } from './search.styles';
 
 import { BannerWrapper } from '../../components/overview-banner/overview-banner.styles';
@@ -76,6 +78,11 @@ const SearchPage = ({ history, unsetSubject, unsetCourse, unsetLesson, allCourse
                                         <li key={index}>
                                             <ResultContainer to={result.url}>
                                                 <LessonMediaWrapper src={result.media} />
+                                                <MobileLessonMediaWrapper>
+                                                    <IconWrapper>
+                                                        <img src={result.icon} alt={result.title}/>
+                                                    </IconWrapper>
+                                                </MobileLessonMediaWrapper>
                                                 <DetailsWrapper>
                                                     <ItemHeading>{result.title}</ItemHeading>
                                                     <ItemSubheading>{result.type}</ItemSubheading>

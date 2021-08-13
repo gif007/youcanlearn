@@ -41,6 +41,10 @@ export const ResultContainer = styled(Link)`
         margin: 0 auto;
     }
 
+    @media screen and (max-width: 420px) {
+        height: 150px;
+    }
+
     :hover {
         box-shadow: 0 0.7rem 2rem rgb(0 0 0 / 15%);
     }
@@ -57,6 +61,34 @@ export const CircleWrapper = styled.div`
 export const LessonMediaWrapper = styled.img`
     height: 100%;
     width: 40%;
+
+    @media screen and (max-width: 420px) {
+        display: none;
+    }
+`;
+
+export const MobileLessonMediaWrapper = styled.div`
+    height: 100%;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (min-width: 420px) {
+        display: none;
+    }
+`;
+
+export const IconWrapper = styled.span`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    height: 45px;
+    width: 45px;
+    flex-shrink: 0;
+    border-radius: 100px;
+    background: ${props => props.subject==='math' ? `rgb(99, 181, 61)`: `rgb(0, 161, 113)`};
 `;
 
 export const DetailsWrapper = styled.div`
