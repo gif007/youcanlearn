@@ -44,7 +44,7 @@ import HomeMenu from '../home-menu/home-menu.component';
 import SearchGlass from '../../assets/search-20x20.png';
 import Home from '../../assets/home-20x20.png';
 import SubjectsIcon from '../../assets/subjects-20x20.png';
-import LoginIcon from '../../assets/login-20x20.png';
+import Dots from '../../assets/dots.png';
 
 
 const Header = ({searchMenuIsHidden, toggleSearchMenuHidden, subjectMenuIsHidden, toggleSettingsMenuHidden, homeMenuIsHidden, settingsMenuIsHidden, toggleSubjectMenuHidden, closeHomeMenu, closeSettingsMenu }) => {
@@ -76,7 +76,7 @@ const Header = ({searchMenuIsHidden, toggleSearchMenuHidden, subjectMenuIsHidden
             <MobileButton onClick={() => {
                 toggleSettingsMenuHidden();
             }}>
-                <img src={LoginIcon} alt='login'></img>
+                <img src={Dots} alt='login'></img>
                 <span>More</span>
             </MobileButton>
 
