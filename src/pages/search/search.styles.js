@@ -56,6 +56,13 @@ export const CircleWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media screen and (max-width: 420px) {
+        width: 20%;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 1rem;
+    }
 `;
 
 export const LessonMediaWrapper = styled.img`
@@ -69,10 +76,10 @@ export const LessonMediaWrapper = styled.img`
 
 export const MobileLessonMediaWrapper = styled.div`
     height: 100%;
-    width: 40%;
+    width: 20%;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    padding-top: 1rem;
+    justify-content: flex-end;
 
     @media screen and (min-width: 420px) {
         display: none;
@@ -94,7 +101,13 @@ export const IconWrapper = styled.span`
 export const DetailsWrapper = styled.div`
     display: flex;
     flex-direction: column;
+    width: 60%;
     padding: 1rem;
+
+    @media screen and (max-width: 420px) {
+        width: 80%;
+        padding: 1rem 0;
+    }
 `;
 
 export const ItemHeading = styled.h2`

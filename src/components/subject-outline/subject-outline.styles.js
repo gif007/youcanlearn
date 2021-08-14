@@ -15,13 +15,23 @@ export const CourseTitle = styled.div`
     }
 
     @media screen and (max-width: 800px) {
-        font-size: 1.125rem;
+        font-size: 1.25rem;
+        border-bottom: 1px solid lightgrey;
+        padding-bottom: 6px;
+
+        a {
+            color: black;
+        }
     }
 
 `;
 
 export const SectionList = styled.ul`
     margin-bottom: 2rem;
+
+    @media screen and (max-width: 800px) {
+        margin-top: 2rem;
+    }
 
 `;
 
@@ -39,9 +49,9 @@ export const SectionWrapper = styled.div`
 `;
 
 export const MobileSectionWrapper = styled.div`
-    margin-bottom: 0.25rem;
+    margin: 1rem 0 2rem 0;
     cursor: pointer;
-    font-size: 1.25rem;
+    font-size: 1.125rem;
 
     @media screen and (min-width: 800px) {
         display: none;

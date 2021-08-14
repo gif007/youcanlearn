@@ -6,7 +6,9 @@ import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
 
 import {
     SectionTitle,
-    Chevron
+    Chevron,
+    LessonItem,
+    ListWrapper
 } from './lessons-list.styles';
 
 
@@ -23,14 +25,13 @@ const LessonsList = ({section, subject, course, closeSubjectMenu}) => {
             </SectionTitle>
             {
                 lessonsVisible ? (
-                    <ul>
+                    <ListWrapper>
                     {
                         section.lessons.map((lesson, index) => {
                             const lessonUrl = encodeURI(`/subject/${subject}/${course.title}/${lesson.title}`)
                             
                             return (
-                                <li
-                                    style={{padding: '10px'}}
+                                <LessonItem
                                     key={index}
                                 >
                                     <Link
@@ -40,11 +41,11 @@ const LessonsList = ({section, subject, course, closeSubjectMenu}) => {
                                     >
                                         {lesson.title}
                                     </Link>
-                                </li>
+                                </LessonItem>
                             )
                         })
                     }
-                    </ul>
+                    </ListWrapper>
                 ) : null
             }
         </div>
