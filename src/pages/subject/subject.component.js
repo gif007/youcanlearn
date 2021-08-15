@@ -10,12 +10,14 @@ import CourseOverview from '../../components/course-overview/course-overview.com
 import LessonOverview from '../../components/lesson-overview/lesson-overview.component';
 import SubjectBanner from '../../components/subject-banner/subject-banner.component';
 
+import Spinner from '../../components/spinner/spinner.component';
+
 
 
 const SubjectPage = ({ match, isLoading }) => {
     
     return isLoading ? (
-        <div>Wait!  I'm loading...</div>
+        <div style={{height: '60vh', background: 'white'}}><Spinner /></div>
     ) : (
     <div>
         <SubjectBanner />

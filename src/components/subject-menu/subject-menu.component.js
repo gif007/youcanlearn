@@ -20,6 +20,8 @@ import {
 
 import SubjectOutline from '../subject-outline/subject-outline.component';
 
+import Spinner from '../spinner/spinner.component';
+
 
 
 const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
@@ -93,7 +95,7 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
             </MenuArea>
             <ContentArea subject={hoveredSubject} contentVisible={contentVisible}>
                 {
-                    isLoading ? <div>Loading...</div> : (
+                    isLoading ? <Spinner /> : (
                         <>
                             <MobileContentHeading onClick={() => {
                                 setContentVisible(false);

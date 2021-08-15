@@ -7,6 +7,8 @@ import {
     TextWrapper
 } from './transcript.styles';
 
+import Spinner from '../spinner/spinner.component';
+
 
 const Transcript = ({ lesson, subject }) => {
     const [text, setText] = useState(null);
@@ -28,7 +30,7 @@ const Transcript = ({ lesson, subject }) => {
                         text.map((para, index) => {
                             return <TextWrapper key={index}>{para}</TextWrapper>
                         })
-                    ) : <div>Loading...</div>
+                    ) : <Spinner />
                 }
         </TranscriptWrapper>
     )

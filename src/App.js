@@ -15,6 +15,7 @@ import { GlobalStyle } from './global.styles';
 
 import Header from './components/header/header.component';
 import Footer from './components/footer/footer.component';
+import Spinner from './components/spinner/spinner.component';
 
 import { createStructuredSelector } from 'reselect';
 
@@ -60,7 +61,7 @@ const App = ({ searchMenuIsHidden, closeSearchMenu, fetchSubjects, closeSubjectM
       <Header />
       <Switch>
         <ErrorBoundary>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div style={{height: '60vh', background: 'white'}}><Spinner /></div>}>
             <Route exact path="/" component={OverviewPage} />
             <Route path="/subject" component={SubjectPage} />
             <Route path="/search" component={SearchPage} />
