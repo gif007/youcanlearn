@@ -112,8 +112,8 @@ const SearchPage = ({ history, unsetSubject, unsetCourse, unsetLesson, allCourse
                                 })}
                             </ResultsList>
                         </ResultsContainer>
-                    ) : <div>Nothing found</div>
-                ) : <div>Searching for <span style={{fontWeight: 700}}>{query.toLowerCase()}</span>...</div>
+                    ) : <div style={{textAlign: 'center', marginTop: '3rem', fontSize: '1.5rem'}}>Nothing found</div>
+                ) : <div style={{textAlign: 'center', marginTop: '3rem', fontSize: '1.5rem'}}>Searching for <span style={{fontWeight: 700}}>{query ? query.toLowerCase() : 'everything'}</span>...</div>
             }
         </SearchPageContainer>
     )
