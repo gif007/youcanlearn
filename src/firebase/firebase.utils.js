@@ -2,6 +2,8 @@
 import firebase from 'firebase/app';
 // import firestore API
 import 'firebase/firestore';
+// import OAuth API
+import 'firebase/auth';
 
 // configuration object obtained from firebase console
 const config = {
@@ -33,9 +35,10 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
 
 export const convertCollectionsSnapshotToMap = collections => {
     const transformedCollection = collections.docs.map(doc => {
-        const { title, courses } = doc.data();
+        const { title, courses, id } = doc.data();
 
         return {
+            id,
             title,
             courses
         };
@@ -47,8 +50,72 @@ export const convertCollectionsSnapshotToMap = collections => {
     }, {})
 };
 
+// creates a firestore user object if one does not exist and returns a reference
+export const createUserProfileDocument = async (userAuth, otherData) => {
+    if (!userAuth) {return;} // if no valid userAuth, abort
+
+     // get a firestore reference using userAuth.uid
+    const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+    // request snapshot for current reference
+    const snapShot = await userRef.get(); 
+
+    // if no snapshot exists, create one using userAuth
+    if(!snapShot.exists) { 
+        // grab displayName and email from userAuth
+        const { displayName, email } = userAuth;
+        // create new timestamp
+        const createdAt = new Date();
+
+        // attempt to create the snapshot
+        try {
+            await userRef.set({
+                displayName,
+                email,
+                createdAt,
+                points: 0,
+                ...otherData
+            })
+        } catch (err) {
+            console.log('error creating user', err.message);
+        }
+    }
+
+    // return the firestore reference based on userAuth.uid
+    // which should now have a snapshot associated with it
+    return userRef;
+};
+
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = auth.onAuthStateChanged(userAuth => {
+            unsubscribe();
+            resolve(userAuth);
+        }, reject)
+    });
+}
+
+export const getAuthToken = async () => {
+    const user = await getCurrentUser();
+    if (!user) {
+        return null;
+    }
+    const token = await auth.currentUser.getIdToken();
+    return token;
+}
+
 firebase.initializeApp(config); // initialize app with firebase configuration settings
 
 export const firestore = firebase.firestore(); // export firestore API
+export const auth = firebase.auth(); // export OAuth API
+
+// create a Good signin provider
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+// select prompt parameter on provider
+googleProvider.setCustomParameters({ prompt: 'select_account' });
+
+// export function which triggers Google signin popup
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export default firebase;

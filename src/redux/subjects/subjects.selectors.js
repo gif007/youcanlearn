@@ -36,18 +36,23 @@ export const selectSubject = memoize((subject) => (
 export const selectCourses = createSelector(
     [selectSubjectsDataAsArray],
     subjectsArray => {
+        let index = 1;
         if (subjectsArray !== null) { 
             const coursesArray = [];
             subjectsArray.forEach(
                 subject => subject.courses.forEach(
-                    course => coursesArray.push(
-                        {
-                            type: 'course',
-                            title: course.title,
-                            url: encodeURI(`/subject/${subject.title}/${course.title}`),
-                            subject: subject.title
-                        }
-                    )
+                    course => {
+                        coursesArray.push(
+                            {
+                                id: index,
+                                type: 'course',
+                                title: course.title,
+                                url: encodeURI(`/subject/${subject.title}/${course.title}`),
+                                subject: subject.title
+                            }
+                        );
+                        index++;
+                    }
                 )
             );
             return coursesArray;
@@ -58,22 +63,27 @@ export const selectCourses = createSelector(
 export const selectLessons = createSelector(
     [selectSubjectsDataAsArray],
     subjectsArray => {
+        let index = 1;
         if (subjectsArray !== null) { 
             const lessonsArray = [];
             subjectsArray.forEach(
                 subject => subject.courses.forEach(
                     course => course.sections.forEach(
                         section => section.lessons.forEach(
-                            lesson => lessonsArray.push(
-                                {
-                                    type: 'lesson',
-                                    title: lesson.title,
-                                    subject: subject.title,
-                                    url: encodeURI(`/subject/${subject.title}/${course.title}/${lesson.title}`),
-                                    media: lesson.mediaUrl,
-                                    icon: lesson.iconUrl
-                                }
-                            )
+                            (lesson) => {
+                                lessonsArray.push(
+                                    {
+                                        id: index,
+                                        type: 'lesson',
+                                        title: lesson.title,
+                                        subject: subject.title,
+                                        url: encodeURI(`/subject/${subject.title}/${course.title}/${lesson.title}`),
+                                        media: lesson.mediaUrl,
+                                        icon: lesson.iconUrl
+                                    }
+                                );
+                                index++;
+                            }
                         )
                     )
                 )

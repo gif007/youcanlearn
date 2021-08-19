@@ -37,6 +37,8 @@ import SearchGlass from '../../assets/search.png';
 
 
 const SearchPage = ({ history, unsetSubject, unsetCourse, unsetLesson, allCourses, allLessons }) => {
+    console.log(allLessons);
+    console.log(allCourses);
 
     const params = new URLSearchParams(history.location.search);
     const query = params.get('q');

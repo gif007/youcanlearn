@@ -13,15 +13,13 @@ import HomeIcon from '../../assets/home-40x40.png';
 
 const OverviewBanner = () => (
     <BannerWrapper>
-
         <Nameplate><img src={HomeIcon} alt='home icon' /><span>Guest</span></Nameplate>
-
         <Points>
             <PointsTitle>Points earned</PointsTitle>
             <PointsContainer>
                 <span></span>
-                <span>2</span>
-                <span>5</span>
+                <span></span>
+                <span></span>
                 <span>0</span>
             </PointsContainer>
         </Points>
