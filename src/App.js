@@ -28,7 +28,9 @@ import {
 
 
 const OverviewPage = lazy(() => import('./pages/overview/overview.component'));
-const SubjectPage = lazy(() => import('./pages/subject/subject.component'));
+const SubjectPage = lazy(() => import('./pages/subject/subject.page'));
+const CoursePage = lazy(() => import('./pages/course/course.page'));
+const LessonPage = lazy(() => import('./pages/lesson/lesson.page'));
 const SearchPage = lazy(() => import ('./pages/search/search.component'));
 const DataDump = lazy(() => import ('./pages/data-dump/data-dump.component'));
 
@@ -59,7 +61,9 @@ const App = ({ searchMenuIsHidden, closeSearchMenu, closeSubjectMenu, closeHomeM
         <ErrorBoundary>
           <Suspense fallback={<div style={{height: '60vh', background: 'white'}}><Spinner /></div>}>
             <Route exact path="/" component={OverviewPage} />
-            <Route path="/subject" component={SubjectPage} />
+            <Route path="/s/:subjectId" component={SubjectPage} />
+            <Route path="/c/:courseId" component={CoursePage} />
+            <Route path="/l/:lessonId" component={LessonPage} />
             <Route path="/search" component={SearchPage} />
             <Route path="/datadump" component={DataDump} />
           </Suspense>

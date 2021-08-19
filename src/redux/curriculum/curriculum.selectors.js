@@ -4,11 +4,6 @@ import memoize from 'lodash.memoize';
 
 const selectCurriculum = state => state.curriculum;
 
-export const selectSubjects = createSelector(
-    [selectCurriculum],
-    curriculum => curriculum.subjects
-);
-
 export const selectIsCurriculumFetching = createSelector(
     [selectCurriculum],
     curriculum => curriculum.isFetching
@@ -19,6 +14,11 @@ export const selectCurriculumError = createSelector(
     curriculum => curriculum.error
 );
 
+export const selectSubjects = createSelector(
+    [selectCurriculum],
+    curriculum => curriculum.subjects
+);
+
 // Gives you an array of objects
 export const selectSubjectsAsArray = createSelector(
     [selectSubjects],
@@ -27,11 +27,11 @@ export const selectSubjectsAsArray = createSelector(
     ) : null
 );
 
-export const selectSubjectByName = memoize((name) => (
+export const selectSubjectById = memoize((id) => (
     createSelector(
         [selectSubjectsAsArray],
         subjectsArray => subjectsArray ? (
-            subjectsArray.filter(subject => subject.title === name)[0]
+            subjectsArray.filter(subject => subject.id.toString() === id)[0]
         ) : null
     )
 ));
@@ -40,6 +40,38 @@ export const selectCourses = createSelector(
     [selectCurriculum],
     curriculum => curriculum.courses
 );
+
+export const selectCoursesAsArray = createSelector(
+    [selectCourses],
+    courses => courses ? (
+        Object.keys(courses).map(key => courses[key])
+    ) : null
+);
+
+export const selectCourseById = memoize((id) => (
+    createSelector(
+        [selectCoursesAsArray],
+        courseArray => courseArray ? (
+            courseArray.filter(course => course.id.toString() === id)[0]
+        ) : null
+    )
+));
+
+export const selectCoursesBySubject = memoize((id) => (
+    createSelector(
+        [selectCoursesAsArray, selectSubjectsAsArray],
+        (coursesArray, subjectsArray) => {
+            if (subjectsArray == null || coursesArray === null) {
+                return null;
+            } else {
+                const subject = subjectsArray.filter(subject => subject.id.toString() === id)[0];
+                const courses = coursesArray.filter(course => subject.courses.includes(course.id));
+
+                return courses;
+            }
+        }
+    )
+));
 
 export const selectSections = createSelector(
     [selectCurriculum],

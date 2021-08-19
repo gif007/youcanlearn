@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
-import { selectSubjectByName } from '../../redux/curriculum/curriculum.selectors';
+import { selectSubjectById } from '../../redux/curriculum/curriculum.selectors';
 import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
 
 import {
@@ -67,7 +67,7 @@ const SubjectOutline = ({ selectedSubject, subject, closeSubjectMenu}) => {
 )};
 
 const mapStateToProps = (state, ownProps) => ({
-    selectedSubject: selectSubjectByName(ownProps.subject)(state)
+    selectedSubject: selectSubjectById(ownProps.subject)(state)
 })
 
 const mapDispatchToProps = dispatch => ({
