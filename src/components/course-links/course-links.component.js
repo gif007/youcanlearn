@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
-import { selectSubject } from '../../redux/subjects/subjects.selectors';
+import { selectSubjectByName } from '../../redux/curriculum/curriculum.selectors';
 
 import { 
     CourseLinkWrapper,
@@ -37,7 +37,7 @@ const CourseLink = ({ subjectObject, subject}) => (
 );
 
 const mapStateToProps = (state, ownProps) => ({
-    subjectObject: selectSubject(ownProps.subject)(state)
+    subjectObject: selectSubjectByName(ownProps.subject)(state)
 });
 
 export default connect(mapStateToProps)(CourseLink);

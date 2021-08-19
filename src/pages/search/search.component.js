@@ -9,7 +9,7 @@ import {
     updateLesson
 } from '../../redux/location/location.actions';
 
-import { selectCourses, selectLessons } from '../../redux/subjects/subjects.selectors';
+import { selectCourses, selectLessons } from '../../redux/curriculum/curriculum.selectors';
 
 import { withRouter } from 'react-router-dom';
 

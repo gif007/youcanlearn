@@ -3,7 +3,10 @@ import { Helmet } from 'react-helmet-async';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectSubjectsData } from '../../redux/subjects/subjects.selectors';
+import {
+    selectLessonByName,
+    selectSectionByLessonName
+} from '../../redux/curriculum/curriculum.selectors';
 
 import {
     updateLesson,
@@ -26,13 +29,12 @@ import Transcript from '../transcript/transcript.component';
 import QuizMenu from '../quiz-menu/quiz-menu.component';
 
 
-const LessonOverview = ({ match, setSubject, setLesson, setCourse, allSubjects }) => {
+const LessonOverview = ({ match, setSubject, setLesson, setCourse, lesson }) => {
     const [ mediaUrl, setMediaUrl ] = useState(null);
     const [ section, setSection ] = useState(false);
 
     const subject = match.params.subjectId;
     const course = match.params.courseId;
-    const lesson = match.params.lessonId
 
     let title = null;
     if (subject === 'math') {
@@ -43,9 +45,7 @@ const LessonOverview = ({ match, setSubject, setLesson, setCourse, allSubjects }
 
     useEffect(() => {
         // Set up the location variables so the subject banner can properly render
-        setLesson(lesson);
-        setSubject(subject);
-        setCourse(course);
+
         // Set up the section variable for the lesson menu component
         const sections = allSubjects[subject]['courses'].find((crs) => crs.title === course)['sections'];
         const currentSection = sections.filter(sect => sect.lessons.find(lsn => lsn.title === lesson))[0];
@@ -76,27 +76,23 @@ const LessonOverview = ({ match, setSubject, setLesson, setCourse, allSubjects }
             </LessonMenuWrapper>
             
             <ContentWrapper>
-                <LessonTitle>{lesson}</LessonTitle>
+                <LessonTitle>{lesson.title}</LessonTitle>
                 <MediaWrapper>
-                    {
-                        mediaUrl ? (
-                            <img src={mediaUrl} alt='media' />
-                        ) : null
-                    }
+                    <img src={lesson.mediaUrl} alt='media' />
                 </MediaWrapper>
                 <QuizMenuWrapper>
-                    <QuizMenu lesson={lesson} />
+                    <QuizMenu lesson={lesson.title} />
                 </QuizMenuWrapper>
                 <TranscriptWrapper>
-                    <Transcript lesson={lesson} subject={subject} />
+                    <Transcript lesson={lesson.title} subject={subject} />
                 </TranscriptWrapper>
             </ContentWrapper>
         </OverviewContainer>
     )
 };
 
-const mapStateToProps = createStructuredSelector({
-    allSubjects: selectSubjectsData
+const mapStateToProps = (state, ownProps) => ({
+    lesson: selectLessonByName(ownProps.match.params.lessonId)(state)
 });
 
 const mapDispatchToProps = dispatch => ({

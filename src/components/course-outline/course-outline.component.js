@@ -7,7 +7,7 @@ import {
 } from './course-outline.styles';
 
 import { connect } from 'react-redux'
-import { selectSubject } from '../../redux/subjects/subjects.selectors';
+import { selectSubjectByName } from '../../redux/curriculum/curriculum.selectors';
 
 import LessonMenu from '../lesson-menu/lesson-menu.component';
 
@@ -31,7 +31,7 @@ const CourseOutline = ({ course, subjectObject, subject }) => {
 )};
 
 const mapStateToProps = (state, ownProps) => ({
-    subjectObject: selectSubject(ownProps.subject)(state)
+    subjectObject: selectSubjectByName(ownProps.subject)(state)
 });
 
 export default connect(mapStateToProps)(CourseOutline);

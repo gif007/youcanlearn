@@ -7,7 +7,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
 import { updateSubject } from '../../redux/location/location.actions';
-import { selectSubjectsIsFetching } from '../../redux/subjects/subjects.selectors';
+import { selectIsCurriculumFetching } from '../../redux/curriculum/curriculum.selectors';
 
 import {
     SubjectMenuWrapper,
@@ -118,7 +118,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = createStructuredSelector({
-    isLoading: selectSubjectsIsFetching
+    isLoading: selectIsCurriculumFetching
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubjectMenu);

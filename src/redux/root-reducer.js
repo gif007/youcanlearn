@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 
-import subjectsReducer from './subjects/subjects.reducer';
+import curriculumReducer from './curriculum/curriculum.reducer';
 import locationReducer from './location/location.reducer';
 import dropdownsReducer from './dropdowns/dropdowns.reducer';
 import userReducer from './user/user.reducer';
 
 export default combineReducers({
     user: userReducer,
-    subjects: subjectsReducer,
+    curriculum: curriculumReducer,
     location: locationReducer,
     dropdowns: dropdownsReducer
 });

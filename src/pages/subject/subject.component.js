@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { Route } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { selectSubjectsIsFetching } from '../../redux/subjects/subjects.selectors';
+import { selectIsCurriculumFetching } from '../../redux/curriculum/curriculum.selectors';
 import { createStructuredSelector } from 'reselect';
 
 import SubjectOverview from '../../components/subject-overview/subject-overview.component';
@@ -29,7 +29,7 @@ const SubjectPage = ({ match, isLoading }) => {
 )};
 
 const mapStateToProps = createStructuredSelector({
-    isLoading: selectSubjectsIsFetching
+    isLoading: selectIsCurriculumFetching
 })
 
 export default connect(mapStateToProps)(SubjectPage);
