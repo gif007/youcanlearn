@@ -25,7 +25,7 @@ import Spinner from '../spinner/spinner.component';
 
 
 const SubjectMenu = ({ closeSubjectMenu, isLoading }) => {
-    const [hoveredSubject, setHoveredSubject] = useState('math');
+    const [hoveredSubject, setHoveredSubject] = useState(1);
     const [mathBg, setMathBg] = useState('rgb(99, 181, 61)');
     const [scienceBg, setScienceBg] = useState('white');
     const [contentVisible, setContentVisible] = useState(false);
@@ -36,7 +36,7 @@ const SubjectMenu = ({ closeSubjectMenu, isLoading }) => {
             <MenuArea subjectsVisible={subjectsVisible}>
                 <MobileMenuItem
                     onClick={() => {
-                        setHoveredSubject('math');
+                        setHoveredSubject(1);
                         setContentVisible(true);
                         setSubjectsVisible(false);
                     }}
@@ -47,7 +47,7 @@ const SubjectMenu = ({ closeSubjectMenu, isLoading }) => {
 
                 <MobileMenuItem
                     onClick={() => {
-                        setHoveredSubject('science');
+                        setHoveredSubject(2);
                         setContentVisible(true);
                         setSubjectsVisible(false);
                     }}
@@ -58,7 +58,7 @@ const SubjectMenu = ({ closeSubjectMenu, isLoading }) => {
 
                 <MenuItem
                     onMouseEnter={() => {
-                        setHoveredSubject('math');
+                        setHoveredSubject(1);
                         setMathBg('rgb(99, 181, 61)');
                         setScienceBg('white');
                     }}
@@ -67,7 +67,7 @@ const SubjectMenu = ({ closeSubjectMenu, isLoading }) => {
                         closeSubjectMenu();
                     }}
                 >
-                    <Link to='/subject/math'>
+                    <Link to='/s/1'>
                         <span>Mathematics</span>
                         <span style={{fontSize: '1.5rem', fontWeight: 700}}>&rsaquo;</span>
                     </Link>
@@ -75,7 +75,7 @@ const SubjectMenu = ({ closeSubjectMenu, isLoading }) => {
 
                 <MenuItem
                     onMouseEnter={() => {
-                        setHoveredSubject('science');
+                        setHoveredSubject(2);
                         setMathBg('white');
                         setScienceBg('rgb(0, 161, 113)');
                     }}
@@ -84,7 +84,7 @@ const SubjectMenu = ({ closeSubjectMenu, isLoading }) => {
                         closeSubjectMenu();
                     }}
                 >
-                    <Link to='/subject/science'>
+                    <Link to='/s/2'>
                         <span>Science</span>
                         <span style={{fontSize: '1.5rem', fontWeight: 700}}>&rsaquo;</span>
                     </Link>
@@ -101,7 +101,7 @@ const SubjectMenu = ({ closeSubjectMenu, isLoading }) => {
                             }}>
                                 <div>&rsaquo;</div> All Subjects
                             </MobileContentHeading>
-                            <SubjectOutline subject={hoveredSubject} />
+                            <SubjectOutline subjectId={hoveredSubject} />
                         </>
                     )
                 }

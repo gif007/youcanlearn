@@ -90,7 +90,7 @@ export const MenuItem = styled.div`
 export const ContentArea = styled.div`
     padding: 3rem 2rem;
     width: 80%;
-    background: ${props => props.subject === 'math' ? `rgb(99, 181, 61)`: `rgb(0, 161, 113)`};
+    background: ${props => props.subject === 1 ? `rgb(99, 181, 61)`: `rgb(0, 161, 113)`};
     font-size: .9rem;
 
     a {

@@ -10,9 +10,10 @@ import {
     LessonItem,
     ListWrapper
 } from './lessons-list.styles';
+import { selectLessonsBySection, selectSectionById } from '../../redux/curriculum/curriculum.selectors';
 
 
-const LessonsList = ({section, subject, course, closeSubjectMenu}) => {
+const LessonsList = ({section, closeSubjectMenu, lessons}) => {
     const [lessonsVisible, setLessonsVisible] = useState(false);
 
     return (
@@ -27,8 +28,8 @@ const LessonsList = ({section, subject, course, closeSubjectMenu}) => {
                 lessonsVisible ? (
                     <ListWrapper>
                     {
-                        section.lessons.map((lesson, index) => {
-                            const lessonUrl = encodeURI(`/subject/${subject}/${course.title}/${lesson.title}`)
+                        lessons.map((lesson, index) => {
+                            const lessonUrl = encodeURI(`/l/${lesson.id}`)
                             
                             return (
                                 <LessonItem
@@ -56,4 +57,9 @@ const mapDispatchToProps = dispatch => ({
     closeSubjectMenu: () => dispatch(closeSubjectMenu())
 })
 
-export default connect(null, mapDispatchToProps)(LessonsList);
+const mapStateToProps = (state, ownProps) => ({
+    lessons: selectLessonsBySection(ownProps.sectionId)(state),
+    section: selectSectionById(ownProps.sectionId)(state)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(LessonsList);

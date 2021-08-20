@@ -3,28 +3,26 @@ import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
-import { selectSubjectById } from '../../redux/curriculum/curriculum.selectors';
+import { selectCoursesBySubject } from '../../redux/curriculum/curriculum.selectors';
+
 import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
+
+import SectionOutline from '../section-outline/section-outline.component';
 
 import {
     OutlineWrapper,
-    CourseTitle,
-    SectionList,
-    SectionWrapper,
-    MobileSectionWrapper
+    CourseTitle
 } from './subject-outline.styles';
 
-import LessonsList from './lessons-list.component';
 
-
-const SubjectOutline = ({ selectedSubject, subject, closeSubjectMenu}) => {
+const SubjectOutline = ({ courses, closeSubjectMenu}) => {
 
     return (
         <OutlineWrapper>
             <ul>
                 {
-                    selectedSubject.courses.map((course, index) => {
-                        const courseUrl = encodeURI(`/subject/${subject}/${course.title}`);
+                    courses.map((course, index) => {
+                        const courseUrl = encodeURI(`/c/${course.id}`);
 
                         return (
                             <li key={index}>
@@ -34,31 +32,7 @@ const SubjectOutline = ({ selectedSubject, subject, closeSubjectMenu}) => {
                                     </Link>
                                 </CourseTitle>
                                 
-                                <SectionList>
-                                    {
-                                        course.sections.map((section, i) => {
-                                            const lessonTitle = section.lessons[0].title;
-                                            const lessonUrl = encodeURI(`/subject/${subject}/${course.title}/${lessonTitle}`);
-                                            
-                                            return (
-                                                <li key={i}>
-                                                    <SectionWrapper
-                                                        onClick={() => closeSubjectMenu()}
-                                                    >
-                                                        <Link
-                                                            to={lessonUrl}
-                                                        >
-                                                            &rsaquo; {section.title}
-                                                        </Link>
-                                                    </SectionWrapper>
-                                                    <MobileSectionWrapper>
-                                                        <LessonsList section={section} subject={subject} course={course} />
-                                                    </MobileSectionWrapper>
-                                                </li>
-                                            )
-                                        })
-                                    }
-                                </SectionList>
+                                <SectionOutline courseId={course.id} />
                             </li>)
                     })
                 }
@@ -67,7 +41,7 @@ const SubjectOutline = ({ selectedSubject, subject, closeSubjectMenu}) => {
 )};
 
 const mapStateToProps = (state, ownProps) => ({
-    selectedSubject: selectSubjectById(ownProps.subject)(state)
+    courses: selectCoursesBySubject(ownProps.subjectId)(state)
 })
 
 const mapDispatchToProps = dispatch => ({
