@@ -8,7 +8,7 @@ import { fetchSubjectsSuccess, fetchSubjectsFailure } from './subjects.actions';
 
 export function* fetchCollectionsAsync() {
     try {
-        const collectionRef = yield firestore.collection('subjects');
+        const collectionRef = yield firestore.collection('subjectsOld');
         const snapshot = yield collectionRef.get();
         const subjectsMap = yield call(convertCollectionsSnapshotToMap, snapshot);
         yield put(fetchSubjectsSuccess(subjectsMap));
