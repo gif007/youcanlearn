@@ -33,14 +33,76 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
     return await batch.commit();
 };
 
-export const convertCollectionsSnapshotToMap = collections => {
+export const convertSubjectsSnapshotToMap = collections => {
     const transformedCollection = collections.docs.map(doc => {
-        const { title, courses, id } = doc.data();
+        const { id, type, title, courses } = doc.data();
 
         return {
             id,
+            type,
             title,
             courses
+        };
+    });
+
+    return transformedCollection.reduce((accumulator, collection) => {
+        accumulator[collection.title] = collection;
+        return accumulator;
+    }, {})
+};
+
+export const convertSectionsSnapshotToMap = collections => {
+    const transformedCollection = collections.docs.map(doc => {
+        const { id, type, title, subject, course, lessons } = doc.data();
+
+        return {
+            id,
+            type,
+            title,
+            subject,
+            course,
+            lessons
+        };
+    });
+
+    return transformedCollection.reduce((accumulator, collection) => {
+        accumulator[collection.title] = collection;
+        return accumulator;
+    }, {})
+};
+
+export const convertCoursesSnapshotToMap = collections => {
+    const transformedCollection = collections.docs.map(doc => {
+        const { id, type, title, subject, sections } = doc.data();
+
+        return {
+            id,
+            type,
+            title,
+            subject,
+            sections
+        };
+    });
+
+    return transformedCollection.reduce((accumulator, collection) => {
+        accumulator[collection.title] = collection;
+        return accumulator;
+    }, {})
+};
+
+export const convertLessonsSnapshotToMap = collections => {
+    const transformedCollection = collections.docs.map(doc => {
+        const { id, type, title, subject, course, section, mediaUrl, iconUrl } = doc.data();
+
+        return {
+            id,
+            type,
+            title,
+            subject,
+            course,
+            section,
+            mediaUrl,
+            iconUrl
         };
     });
 

@@ -1,6 +1,12 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 
-import { firestore, convertCollectionsSnapshotToMap } from '../../firebase/firebase.utils';
+import {
+    firestore,
+    convertLessonsSnapshotToMap,
+    convertSectionsSnapshotToMap,
+    convertSubjectsSnapshotToMap,
+    convertCoursesSnapshotToMap
+} from '../../firebase/firebase.utils';
 
 import CurriculumActionsTypes from './curriculum.types';
 
@@ -8,10 +14,28 @@ import { fetchCurriculumSuccess, fetchCurriculumFailure } from './curriculum.act
 
 export function* fetchCollectionsAsync() {
     try {
-        const collectionRef = yield firestore.collection('curriculum');
-        const snapshot = yield collectionRef.get();
-        const subjectsMap = yield call(convertCollectionsSnapshotToMap, snapshot);
-        yield put(fetchCurriculumSuccess(subjectsMap));
+        // get subjects
+        const subjectsRef = yield firestore.collection('subjects');
+        const subjectsSnapshot = yield subjectsRef.get();
+        const subjectsMap = yield call(convertSubjectsSnapshotToMap, subjectsSnapshot);
+        // get courses
+        const coursesRef = yield firestore.collection('courses');
+        const coursesSnapshot = yield coursesRef.get();
+        const coursesMap = yield call(convertCoursesSnapshotToMap, coursesSnapshot);
+        // get sections
+        const sectionsRef = yield firestore.collection('sections');
+        const sectionsSnapshot = yield sectionsRef.get();
+        const sectionsMap = yield call(convertSectionsSnapshotToMap, sectionsSnapshot);
+        // get lessons
+        const lessonsRef = yield firestore.collection('lessons');
+        const lessonsSnapshot = yield lessonsRef.get();
+        const lessonsMap = yield call(convertLessonsSnapshotToMap, lessonsSnapshot);
+        yield put(fetchCurriculumSuccess({
+            subjects: subjectsMap,
+            sections: sectionsMap,
+            lessons: lessonsMap,
+            courses: coursesMap
+        }));
     } catch (error) {
         yield put(fetchCurriculumFailure(error.message));
     }

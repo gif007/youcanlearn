@@ -1,36 +1,13 @@
-import React, { useEffect } from 'react';
-
-import { connect } from 'react-redux';
-
-import { createStructuredSelector } from 'reselect';
-
-import {
-    selectLessonsAsArray,
-    selectCoursesAsArray,
-    selectSectionsAsArray,
-    selectSubjectsAsArray
-} from '../../redux/curriculum/curriculum.selectors';
-
-import { addCollectionAndDocuments } from '../../firebase/firebase.utils';
+import React from 'react';
 
 
-const DataDumpPage = ({ courses, lessons, sections, subjects }) => {
-    // useEffect(() => {
-    //     addCollectionAndDocuments('subjects', subjects);
-    // }, [])
+const DataDumpPage = () => {
     
     return (
         <div style={{minHeight: '400px', background: 'white', borderTop: '80px solid lightgrey'}}>
-            Now processing: Subjects
+            Now processing: Done
         </div>
     )
 };
 
-const mapStateToProps = createStructuredSelector({
-    courses: selectCoursesAsArray,
-    lessons: selectLessonsAsArray,
-    sections: selectSectionsAsArray,
-    subjects: selectSubjectsAsArray
-})
-
-export default connect(mapStateToProps)(DataDumpPage);
+export default DataDumpPage;

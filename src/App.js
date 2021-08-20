@@ -1,8 +1,10 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Switch, Route } from 'react-router-dom';
 import ErrorBoundary from './components/error-boundary/error-boundary.component';
 import { connect } from 'react-redux';
+
+import { fetchCurriculumStart } from './redux/curriculum/curriculum.actions';
 
 import {
   closeSubjectMenu,
@@ -35,7 +37,10 @@ const SearchPage = lazy(() => import ('./pages/search/search.component'));
 const DataDump = lazy(() => import ('./pages/data-dump/data-dump.component'));
 
 
-const App = ({ searchMenuIsHidden, closeSearchMenu, closeSubjectMenu, closeHomeMenu, closeSettingsMenu, subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden }) => {
+const App = ({ fetchCurriculumStart, searchMenuIsHidden, closeSearchMenu, closeSubjectMenu, closeHomeMenu, closeSettingsMenu, subjectMenuIsHidden, homeMenuIsHidden, settingsMenuIsHidden }) => {
+  useEffect(() => {
+    fetchCurriculumStart()
+  }, [fetchCurriculumStart])
 
   return (
     <div onClick={() => {
@@ -78,7 +83,8 @@ const mapDispatchToProps = dispatch => ({
   closeSubjectMenu: () => dispatch(closeSubjectMenu()),
   closeSettingsMenu: () => dispatch(closeSettingsMenu()),
   closeHomeMenu: () => dispatch(closeHomeMenu()),
-  closeSearchMenu: () => dispatch(closeSearchMenu())
+  closeSearchMenu: () => dispatch(closeSearchMenu()),
+  fetchCurriculumStart: () => dispatch(fetchCurriculumStart())
 });
 
 const mapStateToProps = createStructuredSelector({

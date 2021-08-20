@@ -1,15 +1,10 @@
-import ALL_SUBJECTS from "./subjects.data";
-import ALL_COURSES from './courses.data';
-import ALL_LESSONS from "./lessons.data";
-import ALL_SECTIONS from './sections.data';
-
 import CurriculumActionsTypes from "./curriculum.types";
 
 const INITIAL_STATE = {
-    subjects: ALL_SUBJECTS,
-    courses: ALL_COURSES,
-    sections: ALL_SECTIONS,
-    lessons: ALL_LESSONS,
+    subjects: null,
+    courses: null,
+    sections: null,
+    lessons: null,
     isFetching: false,
     error: undefined
 };
@@ -25,7 +20,10 @@ const curriculumReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isFetching: false,
-                data: action.payload
+                subjects: action.payload.subjects,
+                courses: action.payload.courses,
+                sections: action.payload.sections,
+                lessons: action.payload.lessons
             };
         case CurriculumActionsTypes.FETCH_CURRICULUM_FAILURE:
             return {
