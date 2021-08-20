@@ -45,7 +45,22 @@ export const selectSubjectByCourse = memoize((id) => (
             } else {
                 const course = coursesArray.filter(course => course.id.toString() === id.toString())[0];
                 const subject = subjectsArray.filter(subject => subject.id === course.subject)[0];
-                console.log(subject);
+
+                return subject;
+            }
+        }
+    )
+));
+
+export const selectSubjectByLesson = memoize((id) => (
+    createSelector(
+        [selectSubjectsAsArray, selectLessonsAsArray],
+        (subjectsArray, lessonsArray) => {
+            if (subjectsArray == null || lessonsArray === null) {
+                return null;
+            } else {
+                const lesson = lessonsArray.filter(lesson => lesson.id.toString() === id.toString())[0];
+                const subject = subjectsArray.filter(subject => subject.id === lesson.subject)[0];
 
                 return subject;
             }
@@ -85,6 +100,22 @@ export const selectCoursesBySubject = memoize((id) => (
                 const courses = coursesArray.filter(course => subject.courses.includes(course.id));
 
                 return courses;
+            }
+        }
+    )
+));
+
+export const selectCourseByLesson = memoize((id) => (
+    createSelector(
+        [selectCoursesAsArray, selectLessonsAsArray],
+        (coursesArray, lessonsArray) => {
+            if (coursesArray == null || lessonsArray === null) {
+                return null;
+            } else {
+                const lesson = lessonsArray.filter(lesson => lesson.id.toString() === id.toString())[0];
+                const course = coursesArray.filter(course => course.id === lesson.course)[0];
+
+                return course;
             }
         }
     )

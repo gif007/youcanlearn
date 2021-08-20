@@ -1,11 +1,4 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-
-import {
-    updateSubject,
-    updateCourse,
-    updateLesson
-} from '../../redux/location/location.actions';
+import React from 'react';
 
 import { OverviewPageContainer } from './overview.styles';
 
@@ -13,13 +6,7 @@ import OverviewBanner from '../../components/overview-banner/overview-banner.com
 import OverviewPreview from '../../components/overview-preview/overview-preview.component';
 
 
-const OverviewPage = ({ unsetSubject, unsetLesson, unsetCourse }) => {
-    
-    useEffect(() => {
-        unsetSubject();
-        unsetCourse();
-        unsetLesson();
-    }, [unsetSubject, unsetCourse, unsetLesson])
+const OverviewPage = () => {
     
     return (
     <OverviewPageContainer>
@@ -28,10 +15,4 @@ const OverviewPage = ({ unsetSubject, unsetLesson, unsetCourse }) => {
     </OverviewPageContainer>
 )};
 
-const mapDispatchToProps = dispatch => ({
-    unsetSubject: () => dispatch(updateSubject(null)),
-    unsetCourse: () => dispatch(updateCourse(null)),
-    unsetLesson: () => dispatch(updateLesson(null))
-});
-
-export default connect(null, mapDispatchToProps)(OverviewPage);
+export default OverviewPage;

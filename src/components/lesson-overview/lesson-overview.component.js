@@ -4,7 +4,8 @@ import { Helmet } from 'react-helmet-async';
 import { connect } from 'react-redux';
 
 import {
-    selectLessonByName
+    selectLessonById,
+    selectSubjectByLesson
 } from '../../redux/curriculum/curriculum.selectors';
 
 import {
@@ -22,18 +23,8 @@ import Transcript from '../transcript/transcript.component';
 import QuizMenu from '../quiz-menu/quiz-menu.component';
 
 
-const LessonOverview = ({ lesson }) => {
-    const subject = 'math';
-    const section = 'section';
-    const course = 'course';
-
-    let title = null;
-    if (subject === 'math') {
-        title = 'Mathematics - ' + lesson;
-    } else {
-        title = 'Science - ' + lesson;
-    }
-
+const LessonOverview = ({ lesson, subject }) => {
+    const title = subject.title + ' - ' + lesson.title;
 
     return (
         <OverviewContainer>
@@ -46,11 +37,7 @@ const LessonOverview = ({ lesson }) => {
             </Helmet>
             <LessonMenuWrapper>
                 <div id='border-container'>
-                    {
-                        section ? (
-                            <LessonMenu course={course} subject={subject} section={section} currentLesson={lesson} />
-                        ) : null
-                    }
+                    <LessonMenu sectionId={lesson.section} currentLesson={lesson.title} />
                 </div>
             </LessonMenuWrapper>
             
@@ -71,7 +58,8 @@ const LessonOverview = ({ lesson }) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-    lesson: selectLessonByName(ownProps.match.params.lessonId)(state)
+    lesson: selectLessonById(ownProps.lessonId)(state),
+    subject: selectSubjectByLesson(ownProps.lessonId)(state)
 });
 
 export default connect(mapStateToProps)(LessonOverview);

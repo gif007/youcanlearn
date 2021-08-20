@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 
-import {
-    updateSubject,
-    updateCourse,
-    updateLesson
-} from '../../redux/location/location.actions';
+import { createStructuredSelector } from 'reselect';
 
 import { selectCourses, selectLessons } from '../../redux/curriculum/curriculum.selectors';
 
@@ -36,20 +31,12 @@ import { Circle } from '../../components/course-links/course-links.styles';
 import SearchGlass from '../../assets/search.png';
 
 
-const SearchPage = ({ history, unsetSubject, unsetCourse, unsetLesson, allCourses, allLessons }) => {
-    console.log(allLessons);
-    console.log(allCourses);
+const SearchPage = ({ history, allCourses, allLessons }) => {
 
     const params = new URLSearchParams(history.location.search);
     const query = params.get('q');
 
     const [results, setResults] = useState(null);
-
-    useEffect(() => {
-        unsetSubject();
-        unsetCourse();
-        unsetLesson();
-    }, [unsetSubject, unsetCourse, unsetLesson])
 
     if (allLessons !== null && allCourses !== null && results === null) {
         let res = allLessons.filter((lesson) => lesson.title.toLowerCase().includes(query.toLowerCase()));
@@ -121,15 +108,9 @@ const SearchPage = ({ history, unsetSubject, unsetCourse, unsetLesson, allCourse
     )
 };
 
-const mapDispatchToProps = dispatch => ({
-    unsetSubject: () => dispatch(updateSubject(null)),
-    unsetCourse: () => dispatch(updateCourse(null)),
-    unsetLesson: () => dispatch(updateLesson(null))
-})
-
 const mapStateToProps = createStructuredSelector({
     allCourses: selectCourses,
     allLessons: selectLessons
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchPage));
+export default withRouter(connect(mapStateToProps)(SearchPage));

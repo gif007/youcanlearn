@@ -1,10 +1,32 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
 
-const LessonPage = ({ match }) => (
-    <div>
-        {match.params.lessonId}
-    </div>
-);
+import {
+    selectIsCurriculumFetching
+} from '../../redux/curriculum/curriculum.selectors';
 
-export default LessonPage;
+import { createStructuredSelector } from 'reselect';
+
+import Spinner from '../../components/spinner/spinner.component';
+
+import LessonOverview from '../../components/lesson-overview/lesson-overview.component';
+import LessonBanner from '../../components/lesson-banner/lesson-banner.component';
+
+
+const LessonPage = ({ match, isLoading }) => {
+    const lessonId = match.params.lessonId
+
+    return isLoading ? <Spinner /> : (
+        <div>
+            <LessonBanner lessonId={lessonId} />
+            <LessonOverview lessonId={lessonId} />
+        </div>
+    )
+};
+
+const mapStateToProps = createStructuredSelector({
+    isLoading: selectIsCurriculumFetching
+})
+
+export default connect(mapStateToProps)(LessonPage);

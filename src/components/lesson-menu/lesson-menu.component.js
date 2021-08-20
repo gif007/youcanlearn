@@ -15,7 +15,7 @@ import {
 import LessonMenuItem from '../lesson-menu-item/lesson-menu-item.component.js';
 
 
-const LessonMenu = ({ section, lessons, currentLesson, sectionId }) => {
+const LessonMenu = ({ section, lessons, currentLesson }) => {
 
     return (
     <div>

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
-import { updateSubject } from '../../redux/location/location.actions';
+
 import { selectIsCurriculumFetching } from '../../redux/curriculum/curriculum.selectors';
 
 import {
@@ -24,7 +24,7 @@ import Spinner from '../spinner/spinner.component';
 
 
 
-const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
+const SubjectMenu = ({ closeSubjectMenu, isLoading }) => {
     const [hoveredSubject, setHoveredSubject] = useState('math');
     const [mathBg, setMathBg] = useState('rgb(99, 181, 61)');
     const [scienceBg, setScienceBg] = useState('white');
@@ -65,7 +65,6 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
                     bg={mathBg}
                     onClick={() => {
                         closeSubjectMenu();
-                        setSubject('math');
                     }}
                 >
                     <Link to='/subject/math'>
@@ -83,7 +82,6 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
                     bg={scienceBg}
                     onClick={() => {
                         closeSubjectMenu();
-                        setSubject('science');
                     }}
                 >
                     <Link to='/subject/science'>
@@ -113,8 +111,7 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    closeSubjectMenu: () => dispatch(closeSubjectMenu()),
-    setSubject: subject => dispatch(updateSubject(subject))
+    closeSubjectMenu: () => dispatch(closeSubjectMenu())
 });
 
 const mapStateToProps = createStructuredSelector({
