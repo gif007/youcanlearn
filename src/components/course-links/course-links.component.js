@@ -30,7 +30,7 @@ const CourseLink = ({ subject, aCourses }) => {
                     <LinkWrapper key={index}>
                         <Link to={url}>
                             <CourseLinkWrapper>
-                                <Circle subject={subject.title}>{course.title.slice(0, 1)}</Circle>
+                                <Circle subject={subject.id}>{course.title.slice(0, 1)}</Circle>
                                 <CourseTitle>{course.title}</CourseTitle>
                             </CourseLinkWrapper>
                         </Link>

@@ -95,7 +95,7 @@ export const IconWrapper = styled.span`
     width: 45px;
     flex-shrink: 0;
     border-radius: 100px;
-    background: ${props => props.subject==='math' ? `rgb(99, 181, 61)`: `rgb(0, 161, 113)`};
+    background: ${props => props.subject.toString() === '1' ? `rgb(99, 181, 61)`: `rgb(0, 161, 113)`};
 `;
 
 export const DetailsWrapper = styled.div`
@@ -125,7 +125,7 @@ export const ItemSubheading = styled.span`
 export const ParentSubject = styled.span`
     text-transform: uppercase;
     color: white;
-    background: ${props => props.subject === 'math' ? `rgb(99,181,61)` : `rgb(0,161,113)`};
+    background: ${props => props.subject.toString() === '1' ? `rgb(99,181,61)` : `rgb(0,161,113)`};
     padding: .5rem;
     border-radius: 8px;
     display: flex;
