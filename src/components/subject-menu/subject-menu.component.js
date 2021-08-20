@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { closeSubjectMenu } from '../../redux/dropdowns/dropdowns.actions';
-import { updateSubject } from '../../redux/location/location.actions';
-import { selectSubjectsIsFetching } from '../../redux/subjects/subjects.selectors';
+
+import { selectIsCurriculumFetching } from '../../redux/curriculum/curriculum.selectors';
 
 import {
     SubjectMenuWrapper,
@@ -24,8 +24,8 @@ import Spinner from '../spinner/spinner.component';
 
 
 
-const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
-    const [hoveredSubject, setHoveredSubject] = useState('math');
+const SubjectMenu = ({ closeSubjectMenu, isLoading }) => {
+    const [hoveredSubject, setHoveredSubject] = useState(1);
     const [mathBg, setMathBg] = useState('rgb(99, 181, 61)');
     const [scienceBg, setScienceBg] = useState('white');
     const [contentVisible, setContentVisible] = useState(false);
@@ -36,7 +36,7 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
             <MenuArea subjectsVisible={subjectsVisible}>
                 <MobileMenuItem
                     onClick={() => {
-                        setHoveredSubject('math');
+                        setHoveredSubject(1);
                         setContentVisible(true);
                         setSubjectsVisible(false);
                     }}
@@ -47,7 +47,7 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
 
                 <MobileMenuItem
                     onClick={() => {
-                        setHoveredSubject('science');
+                        setHoveredSubject(2);
                         setContentVisible(true);
                         setSubjectsVisible(false);
                     }}
@@ -58,17 +58,16 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
 
                 <MenuItem
                     onMouseEnter={() => {
-                        setHoveredSubject('math');
+                        setHoveredSubject(1);
                         setMathBg('rgb(99, 181, 61)');
                         setScienceBg('white');
                     }}
                     bg={mathBg}
                     onClick={() => {
                         closeSubjectMenu();
-                        setSubject('math');
                     }}
                 >
-                    <Link to='/subject/math'>
+                    <Link to='/s/1'>
                         <span>Mathematics</span>
                         <span style={{fontSize: '1.5rem', fontWeight: 700}}>&rsaquo;</span>
                     </Link>
@@ -76,17 +75,16 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
 
                 <MenuItem
                     onMouseEnter={() => {
-                        setHoveredSubject('science');
+                        setHoveredSubject(2);
                         setMathBg('white');
                         setScienceBg('rgb(0, 161, 113)');
                     }}
                     bg={scienceBg}
                     onClick={() => {
                         closeSubjectMenu();
-                        setSubject('science');
                     }}
                 >
-                    <Link to='/subject/science'>
+                    <Link to='/s/2'>
                         <span>Science</span>
                         <span style={{fontSize: '1.5rem', fontWeight: 700}}>&rsaquo;</span>
                     </Link>
@@ -103,7 +101,7 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
                             }}>
                                 <div>&rsaquo;</div> All Subjects
                             </MobileContentHeading>
-                            <SubjectOutline subject={hoveredSubject} />
+                            <SubjectOutline subjectId={hoveredSubject} />
                         </>
                     )
                 }
@@ -113,12 +111,11 @@ const SubjectMenu = ({ closeSubjectMenu, setSubject, isLoading }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    closeSubjectMenu: () => dispatch(closeSubjectMenu()),
-    setSubject: subject => dispatch(updateSubject(subject))
+    closeSubjectMenu: () => dispatch(closeSubjectMenu())
 });
 
 const mapStateToProps = createStructuredSelector({
-    isLoading: selectSubjectsIsFetching
+    isLoading: selectIsCurriculumFetching
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubjectMenu);

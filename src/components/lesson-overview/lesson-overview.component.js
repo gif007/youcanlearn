@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { selectSubjectsData } from '../../redux/subjects/subjects.selectors';
 
 import {
-    updateLesson,
-    updateSubject,
-    updateCourse
-} from '../../redux/location/location.actions';
+    selectLessonById,
+    selectSubjectByLesson
+} from '../../redux/curriculum/curriculum.selectors';
 
 import {
     OverviewContainer,
@@ -26,35 +23,8 @@ import Transcript from '../transcript/transcript.component';
 import QuizMenu from '../quiz-menu/quiz-menu.component';
 
 
-const LessonOverview = ({ match, setSubject, setLesson, setCourse, allSubjects }) => {
-    const [ mediaUrl, setMediaUrl ] = useState(null);
-    const [ section, setSection ] = useState(false);
-
-    const subject = match.params.subjectId;
-    const course = match.params.courseId;
-    const lesson = match.params.lessonId
-
-    let title = null;
-    if (subject === 'math') {
-        title = 'Mathematics - ' + lesson;
-    } else {
-        title = 'Science - ' + lesson;
-    }
-
-    useEffect(() => {
-        // Set up the location variables so the subject banner can properly render
-        setLesson(lesson);
-        setSubject(subject);
-        setCourse(course);
-        // Set up the section variable for the lesson menu component
-        const sections = allSubjects[subject]['courses'].find((crs) => crs.title === course)['sections'];
-        const currentSection = sections.filter(sect => sect.lessons.find(lsn => lsn.title === lesson))[0];
-        setSection(currentSection);
-        // Prepare the media url
-        const currentMediaUrl = currentSection['lessons'].find((lsn) => lsn.title === lesson).mediaUrl;
-        setMediaUrl(currentMediaUrl);
-    }, [allSubjects, course, lesson, subject, setSection, setCourse, setLesson, setSubject])
-
+const LessonOverview = ({ lesson, subject }) => {
+    const title = subject.title + ' - ' + lesson.title;
 
     return (
         <OverviewContainer>
@@ -67,42 +37,29 @@ const LessonOverview = ({ match, setSubject, setLesson, setCourse, allSubjects }
             </Helmet>
             <LessonMenuWrapper>
                 <div id='border-container'>
-                    {
-                        section ? (
-                            <LessonMenu course={course} subject={subject} section={section} currentLesson={lesson} />
-                        ) : null
-                    }
+                    <LessonMenu sectionId={lesson.section} currentLesson={lesson.title} />
                 </div>
             </LessonMenuWrapper>
             
             <ContentWrapper>
-                <LessonTitle>{lesson}</LessonTitle>
+                <LessonTitle>{lesson.title}</LessonTitle>
                 <MediaWrapper>
-                    {
-                        mediaUrl ? (
-                            <img src={mediaUrl} alt='media' />
-                        ) : null
-                    }
+                    <img src={lesson.mediaUrl} alt='media' />
                 </MediaWrapper>
                 <QuizMenuWrapper>
-                    <QuizMenu lesson={lesson} />
+                    <QuizMenu lesson={lesson.title} />
                 </QuizMenuWrapper>
                 <TranscriptWrapper>
-                    <Transcript lesson={lesson} subject={subject} />
+                    <Transcript lesson={lesson.title} subject={subject} />
                 </TranscriptWrapper>
             </ContentWrapper>
         </OverviewContainer>
     )
 };
 
-const mapStateToProps = createStructuredSelector({
-    allSubjects: selectSubjectsData
+const mapStateToProps = (state, ownProps) => ({
+    lesson: selectLessonById(ownProps.lessonId)(state),
+    subject: selectSubjectByLesson(ownProps.lessonId)(state)
 });
 
-const mapDispatchToProps = dispatch => ({
-    setSubject: (subject) => dispatch(updateSubject(subject)),
-    setCourse: (course) => dispatch(updateCourse(course)),
-    setLesson: (lesson) => dispatch(updateLesson(lesson))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(LessonOverview);
+export default connect(mapStateToProps)(LessonOverview);

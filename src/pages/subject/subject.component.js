@@ -1,35 +1,32 @@
-import React, { Suspense } from 'react';
-import { Route } from 'react-router-dom';
-
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { selectSubjectsIsFetching } from '../../redux/subjects/subjects.selectors';
-import { createStructuredSelector } from 'reselect';
+import {
+    selectSubjectById,
+    selectCoursesBySubject
+} from '../../redux/curriculum/curriculum.selectors';
 
-import SubjectOverview from '../../components/subject-overview/subject-overview.component';
-import CourseOverview from '../../components/course-overview/course-overview.component';
-import LessonOverview from '../../components/lesson-overview/lesson-overview.component';
-import SubjectBanner from '../../components/subject-banner/subject-banner.component';
+// import SubjectBanner from '../../components/subject-banner/subject-banner.component';
 
-import Spinner from '../../components/spinner/spinner.component';
+const SubjectComponent = ({ subject, courses }) => {
 
-
-
-const SubjectPage = ({ match, isLoading }) => {
-    
-    return isLoading ? (
-        <div style={{height: '60vh', background: 'white'}}><Spinner /></div>
-    ) : (
+    return (
     <div>
-        <SubjectBanner />
-        <Suspense fallback={<div>Loading ...</div>} />
-        <Route exact path={`${match.path}/:subjectId`} component={SubjectOverview} />
-        <Route exact path={`${match.path}/:subjectId/:courseId`} component={CourseOverview} />
-        <Route path={`${match.path}/:subjectId/:courseId/:lessonId`} component={LessonOverview} />
+        <h1>{subject.title}</h1>
+        <h2>Courses:</h2>
+        <ul>
+            {
+                courses.map((course, index) => {
+                    return <li key={index}><Link to={`/c/${course.id}`}>{course.title}</Link></li>
+                })
+            }
+        </ul>
     </div>
 )};
 
-const mapStateToProps = createStructuredSelector({
-    isLoading: selectSubjectsIsFetching
-})
+const mapStateToProps = (state, ownProps) => ({
+    subject: selectSubjectById(ownProps.subjectId)(state),
+    courses: selectCoursesBySubject(ownProps.subjectId)(state)
+});
 
-export default connect(mapStateToProps)(SubjectPage);
+export default connect(mapStateToProps)(SubjectComponent);

@@ -1,5 +1,12 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+
+import {
+    selectSectionById,
+    selectLessonsBySection
+} from '../../redux/curriculum/curriculum.selectors';
+
 import {
     SectionTitle,
     LessonList
@@ -8,29 +15,36 @@ import {
 import LessonMenuItem from '../lesson-menu-item/lesson-menu-item.component.js';
 
 
-const LessonMenu = ({ section, course, subject, currentLesson }) => (
+const LessonMenu = ({ section, lessons, currentLesson }) => {
+
+    return (
     <div>
         <SectionTitle>{section.title}</SectionTitle>
         <LessonList>
             {
-                section.lessons.map((lesson, index) => {
-                    const url = encodeURI(`/subject/${subject}/${course}/${lesson.title}`);
+                lessons.map((lesson, index) => {
+                    const url = encodeURI(`/l/${lesson.id}`);
                     if (lesson.title === currentLesson) {
                         return (
                             <li key={index}>
-                                <LessonMenuItem course={course} subject={subject} url={url} lesson={lesson} currentLesson={true} />
+                                <LessonMenuItem url={url} lesson={lesson} currentLesson={true} />
                             </li>
                         )
                     }
                     return (
                         <li key={index}>
-                            <LessonMenuItem course={course} subject={subject} url={url} lesson={lesson} />
+                            <LessonMenuItem url={url} lesson={lesson} />
                         </li>
                     )
                 })
             }
         </LessonList>
     </div>
-);
+)};
 
-export default LessonMenu;
+const mapStateToProps = (state, ownProps) => ({
+    section: selectSectionById(ownProps.sectionId)(state),
+    lessons: selectLessonsBySection(ownProps.sectionId)(state)
+})
+
+export default connect(mapStateToProps)(LessonMenu);

@@ -1,12 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { connect } from 'react-redux';
 
-import {
-    updateSubject,
-    updateCourse,
-    updateLesson
-} from '../../redux/location/location.actions';
+import { selectCourseById } from '../../redux/curriculum/curriculum.selectors';
 
 import {
     CourseOverviewWrapper,
@@ -16,29 +12,18 @@ import {
 import CourseOutline from '../course-outline/course-outline.component';
 
 
-
-const CourseOverview = ({ match, setSubject, setCourse, unsetLesson }) => {
-    const subject = match.params.subjectId;
-    const course = match.params.courseId;
-
-    useEffect(() => {
-        setSubject(subject);
-        setCourse(course);
-        unsetLesson();
-    }, [unsetLesson, setSubject, subject, setCourse, course])
+const CourseOverview = ({ course }) => {
 
     return (
         <CourseOverviewWrapper>
-            <CourseTitle>{course}</CourseTitle>
-            <CourseOutline subject={subject} course={course} />
+            <CourseTitle>{ course.title }</CourseTitle>
+            <CourseOutline courseId={course.id} />
         </CourseOverviewWrapper>
     )
 };
 
-const mapDispatchToProps = dispatch => ({
-    setSubject: subject => dispatch(updateSubject(subject)),
-    setCourse: course => dispatch(updateCourse(course)),
-    unsetLesson: () => dispatch(updateLesson(null))
+const mapStateToProps = (state, ownProps) => ({
+    course: selectCourseById(ownProps.courseId)(state)
 })
 
-export default connect(null, mapDispatchToProps)(CourseOverview);
+export default connect(mapStateToProps)(CourseOverview);

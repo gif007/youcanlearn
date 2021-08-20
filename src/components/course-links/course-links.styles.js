@@ -37,7 +37,7 @@ export const CourseLinksContainer = styled.div`
 `;
 
 export const Circle = styled.div`
-    background: ${props => props.subject === 'math' ? 'rgb(99,181,61)' : 'rgb(0,161,113)'};
+    background: ${props => props.subject.toString() === '1' ? 'rgb(99,181,61)' : 'rgb(0,161,113)'};
     width: ${props => props.stretch ? `75px` : `50px`};
     height: ${props => props.stretch ? `75px` : `50px`};
     border-radius: 100px;

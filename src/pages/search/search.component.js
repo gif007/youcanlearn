@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { connect } from 'react-redux';
+
 import { createStructuredSelector } from 'reselect';
 
 import {
-    updateSubject,
-    updateCourse,
-    updateLesson
-} from '../../redux/location/location.actions';
-
-import { selectCourses, selectLessons } from '../../redux/subjects/subjects.selectors';
+    selectCoursesAsArray,
+    selectLessonsAsArray
+} from '../../redux/curriculum/curriculum.selectors';
 
 import { withRouter } from 'react-router-dom';
 
@@ -36,25 +34,22 @@ import { Circle } from '../../components/course-links/course-links.styles';
 import SearchGlass from '../../assets/search.png';
 
 
-const SearchPage = ({ history, unsetSubject, unsetCourse, unsetLesson, allCourses, allLessons }) => {
-    console.log(allLessons);
-    console.log(allCourses);
+const SearchPage = ({ history, courses, lessons }) => {
 
     const params = new URLSearchParams(history.location.search);
     const query = params.get('q');
 
     const [results, setResults] = useState(null);
 
-    useEffect(() => {
-        unsetSubject();
-        unsetCourse();
-        unsetLesson();
-    }, [unsetSubject, unsetCourse, unsetLesson])
-
-    if (allLessons !== null && allCourses !== null && results === null) {
-        let res = allLessons.filter((lesson) => lesson.title.toLowerCase().includes(query.toLowerCase()));
-        res = res.concat(allCourses.filter((course) => course.title.toLowerCase().includes(query.toLowerCase())));
+    if (lessons !== null && courses !== null && results === null) {
+        let res = lessons.filter((lesson) => lesson.title.toLowerCase().includes(query.toLowerCase()));
+        res = res.concat(courses.filter((course) => course.title.toLowerCase().includes(query.toLowerCase())));
         setResults(res);
+    }
+
+    const subjectsMap = {
+        '1': 'Math',
+        '2': 'Science'
     }
 
     return (
@@ -78,23 +73,23 @@ const SearchPage = ({ history, unsetSubject, unsetCourse, unsetLesson, allCourse
                                 {results.map((result, index) => {
                                     return result.type === 'lesson' ? (
                                         <li key={index}>
-                                            <ResultContainer to={result.url}>
-                                                <LessonMediaWrapper src={result.media} />
+                                            <ResultContainer to={`/l/${result.id}`}>
+                                                <LessonMediaWrapper src={result.mediaUrl} />
                                                 <MobileLessonMediaWrapper>
-                                                    <IconWrapper>
-                                                        <img src={result.icon} alt={result.title}/>
+                                                    <IconWrapper subject={result.subject}>
+                                                        <img src={result.iconUrl} alt={result.title}/>
                                                     </IconWrapper>
                                                 </MobileLessonMediaWrapper>
                                                 <DetailsWrapper>
                                                     <ItemHeading>{result.title}</ItemHeading>
                                                     <ItemSubheading>{result.type}</ItemSubheading>
-                                                    <ParentSubject subject={result.subject}>{result.subject}</ParentSubject>
+                                                    <ParentSubject subject={result.subject}>{subjectsMap[result.subject]}</ParentSubject>
                                                 </DetailsWrapper>
                                             </ResultContainer>
                                         </li>
                                     ) : (
                                         <li key={index}>
-                                            <ResultContainer to={result.url}>
+                                            <ResultContainer to={`/c/${result.id}`}>
                                                 <CircleWrapper>
                                                     <Circle
                                                         stretch={true}
@@ -106,7 +101,7 @@ const SearchPage = ({ history, unsetSubject, unsetCourse, unsetLesson, allCourse
                                                 <DetailsWrapper>
                                                     <ItemHeading>{result.title}</ItemHeading>
                                                     <ItemSubheading>{result.type}</ItemSubheading>
-                                                    <ParentSubject subject={result.subject}>{result.subject}</ParentSubject>
+                                                    <ParentSubject subject={result.subject}>{subjectsMap[result.subject]}</ParentSubject>
                                                 </DetailsWrapper>
                                             </ResultContainer>
                                         </li>
@@ -121,15 +116,9 @@ const SearchPage = ({ history, unsetSubject, unsetCourse, unsetLesson, allCourse
     )
 };
 
-const mapDispatchToProps = dispatch => ({
-    unsetSubject: () => dispatch(updateSubject(null)),
-    unsetCourse: () => dispatch(updateCourse(null)),
-    unsetLesson: () => dispatch(updateLesson(null))
-})
-
 const mapStateToProps = createStructuredSelector({
-    allCourses: selectCourses,
-    allLessons: selectLessons
+    courses: selectCoursesAsArray,
+    lessons: selectLessonsAsArray
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchPage));
+export default withRouter(connect(mapStateToProps)(SearchPage));

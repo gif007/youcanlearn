@@ -20,7 +20,7 @@ const OverviewPreview = () => (
         <PreviewHeader>Watch any of the videos below</PreviewHeader>
         <PreviewList>
             <PreviewListItem
-                to='subject/math/Introduction%20to%20Mathematics/The%20four%20basic%20arithmetical%20operations'
+                to={`/l/18`}
                 style={{background: `url(${MediaLeft})`}}
             >
                 <Shade />
@@ -28,7 +28,7 @@ const OverviewPreview = () => (
             </PreviewListItem>
 
             <PreviewListItem
-                to='/subject/science/Chemistry/Water,%20ice%20and%20steam'
+                to={`/l/7`}
                 style={{background: `url(${MediaRight})`}}
             >
                 <Shade />

@@ -36,7 +36,7 @@ export const ChevronWrapper = styled.span`
 
 export const DoubleChevronWrapper = styled.span`
     font-size: 1.5rem;
-    color: ${props => props.subject === 'math' ? `rgb(99,181,61)` : `rgb(0,161,113)`};
+    color: ${props => props.subject === '1' ? `rgb(99,181,61)` : `rgb(0,161,113)`};
     font-weight: 700;
     padding-left: 12px;
 `;
@@ -55,7 +55,7 @@ export const IconWrapper = styled.span`
     width: 45px;
     flex-shrink: 0;
     border-radius: 100px;
-    background: ${props => props.subject==='math' ? `rgb(99, 181, 61)`: `rgb(0, 161, 113)`};
+    background: ${props => props.subject==='1' ? `rgb(99, 181, 61)`: `rgb(0, 161, 113)`};
 `;
 
 export const LinkWrapper = styled.div`

@@ -11,24 +11,24 @@ import {
 } from './lesson-menu-item.styles'
 
 
-const LessonMenuItem = ({url, subject, lesson, currentLesson}) => (
+const LessonMenuItem = ({url, lesson, currentLesson}) => (
     <>
     {
         currentLesson ? (
             <LessonWrapper>
                 <LessonTitle>
-                    <IconWrapper subject={subject}>
+                    <IconWrapper subject={lesson.subject}>
                         <img src={lesson.iconUrl} alt={lesson.title} />
                     </IconWrapper>
                     {lesson.title}
                 </LessonTitle>
-                <DoubleChevronWrapper subject={subject}>&rsaquo;&rsaquo;</DoubleChevronWrapper>
+                <DoubleChevronWrapper subject={lesson.subject}>&rsaquo;&rsaquo;</DoubleChevronWrapper>
             </LessonWrapper>
         ) : (
             <LinkWrapper>
                 <LessonLink to={url}>
                     <LessonTitle>
-                        <IconWrapper subject={subject}>
+                        <IconWrapper subject={lesson.subject}>
                             <img src={lesson.iconUrl} alt={lesson.title} />
                         </IconWrapper>
                         {lesson.title}

@@ -7,22 +7,23 @@ import {
 } from './course-outline.styles';
 
 import { connect } from 'react-redux'
-import { selectSubject } from '../../redux/subjects/subjects.selectors';
+import {
+    selectSectionsByCourse
+} from '../../redux/curriculum/curriculum.selectors';
 
 import LessonMenu from '../lesson-menu/lesson-menu.component';
 
 
-const CourseOutline = ({ course, subjectObject, subject }) => {
-    const selectedCourse = subjectObject['courses'].find((crs) => crs.title === course);
-    
+const CourseOutline = ({ sections }) => {
     
     return (
     <OutlineWrapper>
         <SectionList>
-            {selectedCourse.sections.map((section, index) => {
+            {sections.map((section, index) => {
+
                 return (
                     <SectionWrapper key={index}>
-                        <LessonMenu subject={subject} section={section} course={course} />
+                        <LessonMenu sectionId={section.id} />
                     </SectionWrapper>
                 )
             })}
@@ -31,7 +32,7 @@ const CourseOutline = ({ course, subjectObject, subject }) => {
 )};
 
 const mapStateToProps = (state, ownProps) => ({
-    subjectObject: selectSubject(ownProps.subject)(state)
+    sections: selectSectionsByCourse(ownProps.courseId)(state)
 });
 
 export default connect(mapStateToProps)(CourseOutline);
