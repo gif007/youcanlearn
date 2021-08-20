@@ -8,15 +8,16 @@ import { createStructuredSelector } from 'reselect';
 
 import Spinner from '../../components/spinner/spinner.component';
 
-import SubjectComponent from './subject.component';
-
+import SubjectOverview from '../../components/subject-overview/subject-overview.component';
+import SubjectBanner from '../../components/subject-banner/subject-banner.component';
 
 
 const SubjectPage = ({ match, isLoading }) => {
-
-    return (
-        <div style={{minHeight: '600px', background: 'white', borderTop: '60px solid blue'}}>
-            {isLoading ? <Spinner /> : <SubjectComponent subjectId={match.params.subjectId}/>}
+    const subjectId = match.params.subjectId;
+    return isLoading ? <Spinner />  : (
+        <div>
+            <SubjectBanner subjectId={subjectId} />
+            <SubjectOverview subjectId={subjectId} />
         </div>
     )
 };

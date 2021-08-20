@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
-import { selectSubjectById } from '../../redux/curriculum/curriculum.selectors';
+import {
+    selectSubjectById,
+    selectCoursesBySubject
+} from '../../redux/curriculum/curriculum.selectors';
 
 import { 
     CourseLinkWrapper,
@@ -15,17 +18,19 @@ import {
 } from './course-links.styles';
 
 
-const CourseLink = ({ subjectObject, subject}) => (
+const CourseLink = ({ subject, aCourses }) => {
+    console.log(aCourses)
+    return (
     <CourseLinksContainer>
         {
-            subjectObject['courses'].map((course, index) => {
-                const url = encodeURI(`/subject/${subject}/${course.title}`);
+            aCourses.map((course, index) => {
+                const url = encodeURI(`/c/${course.id}`);
 
                 return (
                     <LinkWrapper key={index}>
                         <Link to={url}>
                             <CourseLinkWrapper>
-                                <Circle subject={subject}>{course.title.slice(0, 1).toUpperCase()}</Circle>
+                                <Circle subject={subject.title}>{course.title.slice(0, 1)}</Circle>
                                 <CourseTitle>{course.title}</CourseTitle>
                             </CourseLinkWrapper>
                         </Link>
@@ -34,10 +39,11 @@ const CourseLink = ({ subjectObject, subject}) => (
             })
         }
     </CourseLinksContainer>
-);
+)};
 
 const mapStateToProps = (state, ownProps) => ({
-    subjectObject: selectSubjectById(ownProps.subject)(state)
+    subject: selectSubjectById(ownProps.subjectId)(state),
+    aCourses: selectCoursesBySubject(ownProps.subjectId)(state)
 });
 
 export default connect(mapStateToProps)(CourseLink);

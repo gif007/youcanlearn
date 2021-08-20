@@ -1,47 +1,32 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+
+import { connect } from 'react-redux'
+
+import {
+    selectSubjectById
+} from '../../redux/curriculum/curriculum.selectors';
 
 import {
     SubjectContainer,
     SubjectTitle
 } from './subject-overview.styles';
 
-import { connect } from 'react-redux'
-
-import {
-    updateSubject,
-    updateCourse,
-    updateLesson
-} from '../../redux/location/location.actions';
 
 import CourseLinks from '../course-links/course-links.component';
 
 
-const SubjectOverview = ({ match, setSubject, unsetCourse, unsetLesson }) => {
-    
-    const subject = match.params.subjectId;
-
-    useEffect(() => {
-        setSubject(subject);
-        unsetCourse();
-        unsetLesson();
-    }, [unsetCourse, unsetLesson, setSubject, subject])
-
+const SubjectOverview = ({ subject }) => {
 
     return (
     <SubjectContainer>
-            <SubjectTitle>{subject === 'math' ? 'Mathematics' : 'Science'}</SubjectTitle>
-            {
-                subject ? (
-                    <CourseLinks subject={subject} />
-                ) : null
-            }
+            <SubjectTitle>{subject.title}</SubjectTitle>
+            <CourseLinks subjectId={subject.id} />
     </SubjectContainer>
 )};
 
-const mapDispatchToProps = dispatch => ({
-    setSubject: (subject) => dispatch(updateSubject(subject)),
-    unsetCourse: () => dispatch(updateCourse(null)),
-    unsetLesson: () => dispatch(updateLesson(null))
-})
+const mapStateToProps = (state, ownProps) => ({
+    subject: selectSubjectById(ownProps.subjectId)(state)
+});
 
-export default connect(null, mapDispatchToProps)(SubjectOverview);
+
+export default connect(mapStateToProps)(SubjectOverview);

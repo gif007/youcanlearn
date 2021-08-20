@@ -8,15 +8,17 @@ import { createStructuredSelector } from 'reselect';
 
 import Spinner from '../../components/spinner/spinner.component';
 
-import CourseComponent from './course.component';
-
+import CourseOverview from '../../components/course-overview/course-overview.component';
+import CourseBanner from '../../components/course-banner/course-banner.component';
 
 
 const CoursePage = ({ match, isLoading }) => {
+    const courseId = match.params.courseId
 
-    return (
-        <div style={{minHeight: '600px', background: 'white', borderTop: '60px solid blue'}}>
-            {isLoading ? <Spinner /> : <CourseComponent courseId={match.params.courseId}/>}
+    return isLoading ? <Spinner /> : (
+        <div>
+            <CourseBanner courseId={courseId} />
+            <CourseOverview courseId={courseId} />
         </div>
     )
 };

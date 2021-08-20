@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
     selectSubjectById,
@@ -16,7 +17,7 @@ const SubjectComponent = ({ subject, courses }) => {
         <ul>
             {
                 courses.map((course, index) => {
-                    return <li key={index}><a href={`/c/${course.id}`}>{course.title}</a></li>
+                    return <li key={index}><Link to={`/c/${course.id}`}>{course.title}</Link></li>
                 })
             }
         </ul>
