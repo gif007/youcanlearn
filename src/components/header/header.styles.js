@@ -17,7 +17,21 @@ export const HeaderWrapper = styled.div`
         width: 100%;
         border-top: 1px solid lightgrey;
         padding: unset;
-        z-index: 9999;
+        z-index: 500;
+    }
+`;
+
+export const DropdownMenuBackdrop = styled.div`
+    z-index: 500;
+    opacity: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    @media screen and (max-width: 800px) {
+        display: none;
     }
 `;
 

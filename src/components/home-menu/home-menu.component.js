@@ -1,5 +1,9 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+
+import { closeHomeMenu } from '../../redux/dropdowns/dropdowns.actions';
+
 import {
     MenuWrapper,
     LinkWrapper,
@@ -9,9 +13,12 @@ import {
 import HomeIcon from '../../assets/home-26x26.png';
 
 
-const HomeMenu = () => (
+const HomeMenu = ({ closeHomeMenu }) => (
     <MenuWrapper>
-        <LinkWrapper to='/'>
+        <LinkWrapper
+            to='/'
+            onClick={() => closeHomeMenu()}
+        >
             <img src={HomeIcon} alt='home icon'/>
             <span>My overview</span>
         </LinkWrapper>
@@ -19,4 +26,8 @@ const HomeMenu = () => (
     </MenuWrapper>
 );
 
-export default HomeMenu;
+const mapDispatchToProps = dispatch => ({
+    closeHomeMenu: () => dispatch(closeHomeMenu())
+});
+
+export default connect(null, mapDispatchToProps)(HomeMenu);

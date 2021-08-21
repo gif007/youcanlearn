@@ -15,11 +15,14 @@ import {
     closeSettingsMenu,
     toggleSubjectMenuHidden,
     toggleSettingsMenuHidden,
-    toggleSearchMenuHidden
+    toggleSearchMenuHidden,
+    closeSubjectMenu,
+    closeSearchMenu
 } from '../../redux/dropdowns/dropdowns.actions';
 
 import {
     HeaderWrapper,
+    DropdownMenuBackdrop,
     SubjectsGroup,
     SubjectsButton,
     SearchForm,
@@ -47,7 +50,7 @@ import SubjectsIcon from '../../assets/subjects-20x20.png';
 import Dots from '../../assets/dots.png';
 
 
-const Header = ({searchMenuIsHidden, toggleSearchMenuHidden, subjectMenuIsHidden, toggleSettingsMenuHidden, homeMenuIsHidden, settingsMenuIsHidden, toggleSubjectMenuHidden, closeHomeMenu, closeSettingsMenu }) => {
+const Header = ({searchMenuIsHidden, closeSearchMenu, toggleSearchMenuHidden, subjectMenuIsHidden, toggleSettingsMenuHidden, homeMenuIsHidden, settingsMenuIsHidden, toggleSubjectMenuHidden, closeHomeMenu, closeSettingsMenu, closeSubjectMenu }) => {
     
     return (
     <HeaderWrapper>
@@ -55,19 +58,30 @@ const Header = ({searchMenuIsHidden, toggleSearchMenuHidden, subjectMenuIsHidden
             <MobileButton
                 onClick={() => {
                     toggleSubjectMenuHidden();
+                    closeSearchMenu();
+                    closeSettingsMenu();
                 }}
             >
                 <img src={SubjectsIcon} alt='subjects'></img>
                 <span>Subjects</span>
             </MobileButton>
 
-            <MobileLink to='/'>
+            <MobileLink
+                to='/'
+                onClick={() => {
+                    closeSubjectMenu();
+                    closeSettingsMenu();
+                    closeSearchMenu();
+                }}
+            >
                 <img src={Home} alt='home'></img>
                 <span>Start Here</span>
             </MobileLink>
 
             <MobileButton onClick={() => {
                 toggleSearchMenuHidden();
+                closeSubjectMenu();
+                closeSettingsMenu();
             }}>
                 <img src={SearchGlass} alt='search'></img>
                 <span>Search</span>
@@ -75,6 +89,8 @@ const Header = ({searchMenuIsHidden, toggleSearchMenuHidden, subjectMenuIsHidden
 
             <MobileButton onClick={() => {
                 toggleSettingsMenuHidden();
+                closeSubjectMenu();
+                closeSearchMenu();
             }}>
                 <img src={Dots} alt='login'></img>
                 <span>More</span>
@@ -82,7 +98,7 @@ const Header = ({searchMenuIsHidden, toggleSearchMenuHidden, subjectMenuIsHidden
 
             {
                 searchMenuIsHidden ? null : (
-                    <MobileSearchForm action='/search'  onClick={(e) => e.stopPropagation()}>
+                    <MobileSearchForm action='/search'>
                         <fieldset>
                             <input type='search' name='q' id='search-bar' placeholder='Search lessons' />
                             <button type='submit'>
@@ -116,7 +132,12 @@ const Header = ({searchMenuIsHidden, toggleSearchMenuHidden, subjectMenuIsHidden
             {
                 subjectMenuIsHidden ? (
                     null
-                ) : <SubjectMenu />
+                ) : (
+                    <>
+                        <SubjectMenu />
+                        <DropdownMenuBackdrop onClick={() => closeSubjectMenu()} />
+                    </>
+                )
             }
         </SubjectsGroup>
 
@@ -131,12 +152,18 @@ const Header = ({searchMenuIsHidden, toggleSearchMenuHidden, subjectMenuIsHidden
             </SettingsButtons>
             {
                 homeMenuIsHidden ? null : (
-                    <HomeMenu />
+                    <>
+                        <HomeMenu />
+                        <DropdownMenuBackdrop onClick={() => closeHomeMenu()} />
+                    </>
                 )
             }
             {
                 settingsMenuIsHidden ? null : (
-                    <SettingsMenu />
+                    <>
+                        <SettingsMenu />
+                        <DropdownMenuBackdrop onClick={() => closeSettingsMenu()} />
+                    </>
                 )
             }
         </SettingsGroup>
@@ -156,7 +183,9 @@ const mapDispatchToProps = dispatch => ({
     toggleSettingsMenuHidden: () => dispatch(toggleSettingsMenuHidden()),
     toggleSearchMenuHidden: () => dispatch(toggleSearchMenuHidden()),
     closeHomeMenu: () => dispatch(closeHomeMenu()),
-    closeSettingsMenu: () => dispatch(closeSettingsMenu())
+    closeSettingsMenu: () => dispatch(closeSettingsMenu()),
+    closeSubjectMenu: () => dispatch(closeSubjectMenu()),
+    closeSearchMenu: () => dispatch(closeSearchMenu())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

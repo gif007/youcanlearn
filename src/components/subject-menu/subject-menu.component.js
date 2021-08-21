@@ -32,7 +32,7 @@ const SubjectMenu = ({ closeSubjectMenu, isLoading }) => {
     const [subjectsVisible, setSubjectsVisible] = useState(true);
 
     return (
-        <SubjectMenuWrapper onClick={(e) => e.stopPropagation()}>
+        <SubjectMenuWrapper>
             <MenuArea subjectsVisible={subjectsVisible}>
                 <MobileMenuItem
                     onClick={() => {
