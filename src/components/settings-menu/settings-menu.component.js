@@ -1,10 +1,15 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+
+import { signOutStart } from '../../redux/user/user.actions';
+import { closeSettingsMenu } from '../../redux/dropdowns/dropdowns.actions';
+
 import { MenuWrapper } from '../home-menu/home-menu.styles';
 import { PopupWrapper } from './settings-menu.styles';
 
 
-const SettingsMenu = () => (
+const SettingsMenu = ({ signOut, closeSettingsMenu }) => (
     <MenuWrapper>
         <PopupWrapper onClick={() => alert('Name: Guest')}>
             Personal Information
@@ -27,10 +32,18 @@ const SettingsMenu = () => (
         <PopupWrapper onClick={() => alert('Thanks for clicking me')}>
             Agreements
         </PopupWrapper>
-        <PopupWrapper onClick={() => alert('Thanks for visiting!')}>
+        <PopupWrapper onClick={() => {
+            signOut();
+            closeSettingsMenu();
+        }}>
             Logout
         </PopupWrapper>
     </MenuWrapper>
 );
 
-export default SettingsMenu;
+const mapDispatchToProps = dispatch => ({
+    signOut: () => dispatch(signOutStart()),
+    closeSettingsMenu: () => dispatch(closeSettingsMenu())
+})
+
+export default connect(null, mapDispatchToProps)(SettingsMenu);

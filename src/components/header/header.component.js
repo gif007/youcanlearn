@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -9,6 +11,8 @@ import {
     selectIsSettingsMenuHidden,
     selectIsSearchMenuHidden
 } from '../../redux/dropdowns/dropdowns.selector';
+
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 import {
     closeHomeMenu,
@@ -50,8 +54,8 @@ import SubjectsIcon from '../../assets/subjects-20x20.png';
 import Dots from '../../assets/dots.png';
 
 
-const Header = ({searchMenuIsHidden, closeSearchMenu, toggleSearchMenuHidden, subjectMenuIsHidden, toggleSettingsMenuHidden, homeMenuIsHidden, settingsMenuIsHidden, toggleSubjectMenuHidden, closeHomeMenu, closeSettingsMenu, closeSubjectMenu }) => {
-    
+const Header = ({currentUser, searchMenuIsHidden, closeSearchMenu, toggleSearchMenuHidden, subjectMenuIsHidden, toggleSettingsMenuHidden, homeMenuIsHidden, settingsMenuIsHidden, toggleSubjectMenuHidden, closeHomeMenu, closeSettingsMenu, closeSubjectMenu }) => {
+
     return (
     <HeaderWrapper>
         <MobileButtonsContainer>
@@ -147,8 +151,16 @@ const Header = ({searchMenuIsHidden, closeSearchMenu, toggleSearchMenuHidden, su
 
         <SettingsGroup>
             <SettingsButtons>
-                <HomeIcon />
-                <SettingsIcon />
+                {
+                    currentUser ? (
+                        <>
+                            <HomeIcon />
+                            <SettingsIcon />
+                        </>
+                    ) : (
+                        <Link to='/login'>Login</Link>
+                    )
+                }
             </SettingsButtons>
             {
                 homeMenuIsHidden ? null : (
@@ -175,7 +187,8 @@ const mapStateToProps = createStructuredSelector({
     subjectMenuIsHidden: selectIsSubjectMenuHidden,
     homeMenuIsHidden: selectIsHomeMenuHidden,
     settingsMenuIsHidden: selectIsSettingsMenuHidden,
-    searchMenuIsHidden: selectIsSearchMenuHidden
+    searchMenuIsHidden: selectIsSearchMenuHidden,
+    currentUser: selectCurrentUser
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -186,6 +199,6 @@ const mapDispatchToProps = dispatch => ({
     closeSettingsMenu: () => dispatch(closeSettingsMenu()),
     closeSubjectMenu: () => dispatch(closeSubjectMenu()),
     closeSearchMenu: () => dispatch(closeSearchMenu())
-});
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -1,5 +1,9 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+
 import {
     BannerWrapper,
     Nameplate,
@@ -9,21 +13,26 @@ import {
 } from './overview-banner.styles';
 
 import HomeIcon from '../../assets/home-40x40.png';
+import { createStructuredSelector } from 'reselect';
 
 
-const OverviewBanner = () => (
+const OverviewBanner = ({ currentUser }) => (
     <BannerWrapper>
-        <Nameplate><img src={HomeIcon} alt='home icon' /><span>Guest</span></Nameplate>
+        <Nameplate><img src={HomeIcon} alt='home icon' /><span>{currentUser ? currentUser.fname : null}</span></Nameplate>
         <Points>
             <PointsTitle>Points earned</PointsTitle>
             <PointsContainer>
                 <span></span>
                 <span></span>
                 <span></span>
-                <span>0</span>
+                <span>{currentUser ? currentUser.points : null}</span>
             </PointsContainer>
         </Points>
     </BannerWrapper>
 );
 
-export default OverviewBanner;
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser
+})
+
+export default connect(mapStateToProps)(OverviewBanner);

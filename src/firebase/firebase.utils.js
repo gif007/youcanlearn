@@ -123,16 +123,14 @@ export const createUserProfileDocument = async (userAuth, otherData) => {
     const snapShot = await userRef.get(); 
 
     // if no snapshot exists, create one using userAuth
-    if(!snapShot.exists) { 
-        // grab displayName and email from userAuth
-        const { displayName, email } = userAuth;
+    if(!snapShot.exists) {
+        const { email } = userAuth;
         // create new timestamp
         const createdAt = new Date();
 
         // attempt to create the snapshot
         try {
             await userRef.set({
-                displayName,
                 email,
                 createdAt,
                 points: 0,

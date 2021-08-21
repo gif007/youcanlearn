@@ -12,6 +12,12 @@ export const selectCurrentUser = createSelector(
     (user) => user.currentUser
 );
 
+// get current user auth token for back-end validation
+export const selectUserToken = createSelector(
+    [selectUser],
+    (user) => user.token
+);
+
 // get error message
 export const selectErrorMessage = createSelector(
     [selectUser],

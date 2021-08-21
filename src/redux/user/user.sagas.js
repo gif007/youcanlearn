@@ -16,18 +16,19 @@ import {
 
 export function* getSnapshotFromUserAuth(userAuth, additionalData) {
     try {
+        const token = yield auth.currentUser.getIdToken();
         const userRef = yield call(createUserProfileDocument, userAuth, additionalData);
         const userSnapshot = yield userRef.get();
-        yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
+        yield put(signInSuccess({ user: {id: userSnapshot.id, ...userSnapshot.data()}, token }));
     } catch (error) {
         yield put(signInFailure(error));
     }
 }
 
-export function* signUp({ payload: { displayName, email, password } }) {
+export function* signUp({ payload: { fname, lname, email, password } }) {
     try {
         const { user } = yield auth.createUserWithEmailAndPassword(email, password);
-        yield put(signUpSuccess({user, additionalData: { displayName }}));
+        yield put(signUpSuccess({user, additionalData: { fname, lname }}));
     } catch(error) {
         yield put(signUpFailure(error));
     }
