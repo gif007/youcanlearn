@@ -134,13 +134,32 @@ export const LogoWrapper = styled(Link)`
     }
 `;
 
-export const CustomButton = styled(Link)`
+export const SignUpButton = styled(Link)`
     flex: 1;
     height: 40px;
     width: 100px;
-    background: ${props => props.login ? `white` : `#5797c3`};
-    color: ${props => props.login ? 'black' : 'white'};
-    border: ${props => props.login ? '1px solid lightgrey' : 'none'};
+    background: #5797c3;
+    color: white;
+    border: none;
+    border-radius: 80px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: .5rem;
+
+    :hover {
+        background: #457799;
+    }
+`;
+
+export const LoginButton = styled(Link)`
+    flex: 1;
+    height: 40px;
+    width: 100px;
+    background: white;
+    color: black;
+    border: 1px solid lightgrey;
     border-radius: 80px;
     text-decoration: none;
     display: flex;
@@ -148,6 +167,6 @@ export const CustomButton = styled(Link)`
     justify-content: center;
 
     :hover {
-        background: ${props => props.login ? 'lightgrey' : '#577cc3'};
+        background: lightgrey;
     }
 `;

@@ -92,7 +92,7 @@ export const ButtonWrapper = styled.button`
     font-size: 1rem;
 
     :hover {
-        background: #577cc3;
+        background: #457799;
     }
 `;
 
@@ -110,4 +110,15 @@ export const LoginLinkContainer = styled.div`
             cursor: pointer;
         }
     }
+`;
+
+export const ErrorMessage = styled.div`
+    color: red;
+    font-size: .8rem;
+    margin-top: 1rem;
+`;
+
+export const SpinnerWrapper = styled.div`
+    margin-top: 1rem;
+    height: 75px;
 `;

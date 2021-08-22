@@ -23,3 +23,8 @@ export const selectErrorMessage = createSelector(
     [selectUser],
     (user) => user.error
 );
+
+export const selectIsAuthenticating = createSelector(
+    [selectUser],
+    (user) => user.isAuthenticating
+);

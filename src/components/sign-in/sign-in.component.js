@@ -3,8 +3,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import { emailSignInStart } from '../../redux/user/user.actions';
+
+import {
+    selectErrorMessage,
+    selectIsAuthenticating
+} from '../../redux/user/user.selectors';
 
 import {
     SignInWrapper,
@@ -16,11 +22,15 @@ import {
     CustomLabel,
     CustomInput,
     ButtonWrapper,
-    LoginLinkContainer
+    LoginLinkContainer,
+    ErrorMessage,
+    SpinnerWrapper
 } from './sign-in.styles';
 
+import Spinner from '../spinner/spinner.component';
 
-const SignIn = ({ signIn }) => {
+
+const SignIn = ({ signIn, error, isAuthenticating }) => {
     const [credentials, setCredentials] = useState({
         email: '',
         password: ''
@@ -70,7 +80,20 @@ const SignIn = ({ signIn }) => {
                         onChange={handleChange}
                     />
             </CustomFieldSet>
-            <ButtonWrapper type='submit'>Log in</ButtonWrapper>
+            {
+                error ? (
+                    <ErrorMessage>{error}</ErrorMessage>
+                ) : null
+            }
+            {
+                isAuthenticating ? (
+                    <SpinnerWrapper>
+                        <Spinner />
+                    </SpinnerWrapper>
+                ) : (
+                    <ButtonWrapper type='submit'>Log in</ButtonWrapper>
+                )
+            }
             <LoginLinkContainer>New member? <Link to='/signup'>Sign up</Link></LoginLinkContainer>
         </SignUpForm>
     </SignInWrapper>
@@ -80,4 +103,9 @@ const mapDispatchToProps = dispatch => ({
     signIn: (credentials) => dispatch(emailSignInStart(credentials))
 })
 
-export default connect(null, mapDispatchToProps)(SignIn);
+const mapStateToProps = createStructuredSelector({
+    error: selectErrorMessage,
+    isAuthenticating: selectIsAuthenticating
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

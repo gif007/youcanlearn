@@ -3,8 +3,13 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import { signUpStart } from '../../redux/user/user.actions';
+import {
+    selectErrorMessage,
+    selectIsAuthenticating
+} from '../../redux/user/user.selectors';
 
 import {
     SignUpWrapper,
@@ -17,11 +22,15 @@ import {
     CustomInput,
     DoubleInputContainer,
     ButtonWrapper,
-    LoginLinkContainer
+    LoginLinkContainer,
+    ErrorMessage,
+    SpinnerWrapper
 } from './sign-up.styles';
 
+import Spinner from '../spinner/spinner.component';
 
-const SignUp = ({ signUp }) => {
+
+const SignUp = ({ signUp, error, isAuthenticating }) => {
     const [credentials, setCredentials] = useState({
         fname: '',
         lname: '',
@@ -118,7 +127,22 @@ const SignUp = ({ signUp }) => {
                     />
                 </DoubleInputContainer>
             </CustomFieldSet>
-            <ButtonWrapper type='submit'>Next</ButtonWrapper>
+            {
+                error ? (
+                    <ErrorMessage>
+                        {error}
+                    </ErrorMessage>
+                ) : null
+            }
+            {
+                isAuthenticating ? (
+                    <SpinnerWrapper>
+                        <Spinner />
+                    </SpinnerWrapper>
+                ) : (
+                    <ButtonWrapper type='submit'>Next</ButtonWrapper>
+                )
+            }
             <LoginLinkContainer>Already a member? <Link to='/login'>Log in</Link></LoginLinkContainer>
         </SignUpForm>
     </SignUpWrapper>
@@ -126,6 +150,11 @@ const SignUp = ({ signUp }) => {
 
 const mapDispatchToProps = dispatch => ({
     signUp: (credentials) => dispatch(signUpStart(credentials))
+});
+
+const mapStateToProps = createStructuredSelector({
+    error: selectErrorMessage,
+    isAuthenticating: selectIsAuthenticating
 })
 
-export default connect(null, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

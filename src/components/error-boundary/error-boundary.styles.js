@@ -3,10 +3,12 @@ import styled from 'styled-components';
 export const ErrorImageOverlay = styled.div`
   height: 60vh;
   width: 100%;
+  background: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-top: 80px solid #f0f0f0;
 `;
 
 export const ErrorImageContainer = styled.div`

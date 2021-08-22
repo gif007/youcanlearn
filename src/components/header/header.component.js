@@ -31,7 +31,8 @@ import {
     LogoWrapper,
     SettingsGroup,
     SettingsButtons,
-    CustomButton
+    SignUpButton,
+    LoginButton
 } from './header.styles';
 
 import {
@@ -175,8 +176,8 @@ const Header = ({currentUser, searchMenuIsHidden, closeSearchMenu, toggleSearchM
                         </>
                     ) : (
                         <>
-                            <CustomButton login={true} to='/login'>Login</CustomButton>
-                            <CustomButton style={{marginLeft: '.5rem'}} to='/signup'>Sign up</CustomButton>
+                            <LoginButton to='/login'>Login</LoginButton>
+                            <SignUpButton to='/signup'>Sign up</SignUpButton>
                         </>
                     )
                 }

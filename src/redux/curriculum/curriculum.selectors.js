@@ -174,7 +174,7 @@ export const selectLessonById = memoize((id) => (
     createSelector(
         [selectLessonsAsArray],
         lessonArray => lessonArray ? (
-            lessonArray.filter(lesson => lesson.id.toString() === id)[0]
+            lessonArray.filter(lesson => lesson.id.toString() === id.toString())[0]
         ) : null
     )
 ));
