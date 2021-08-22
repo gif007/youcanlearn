@@ -28,6 +28,10 @@ export const SignUpForm = styled.form`
     flex-direction: column;
     width: 500px;
     padding: 40px 20px 30px 20px;
+
+    @media screen and (max-width: 800px) {
+        width: 90vw;
+    }
 `;
 
 export const HorizontalRule = styled.hr`

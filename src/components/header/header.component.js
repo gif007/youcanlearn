@@ -91,14 +91,31 @@ const Header = ({currentUser, searchMenuIsHidden, closeSearchMenu, toggleSearchM
                 <span>Search</span>
             </MobileButton>
 
-            <MobileButton onClick={() => {
-                toggleSettingsMenuHidden();
-                closeSubjectMenu();
-                closeSearchMenu();
-            }}>
-                <img src={Dots} alt='login'></img>
-                <span>More</span>
-            </MobileButton>
+            {
+                currentUser ? (
+                    <MobileButton onClick={() => {
+                        toggleSettingsMenuHidden();
+                        closeSubjectMenu();
+                        closeSearchMenu();
+                    }}>
+                        <img src={Dots} alt='login'></img>
+                        <span>More</span>
+                    </MobileButton>
+                ) : (
+                    <MobileButton style={{fontSize: '1rem'}}>
+                        <Link
+                            to='/login'
+                            onClick={() => {
+                                closeSubjectMenu();
+                                closeSearchMenu();
+                            }}
+                        >
+                            Log in
+                        </Link>
+                    </MobileButton>
+                )
+            }
+
 
             {
                 searchMenuIsHidden ? null : (
