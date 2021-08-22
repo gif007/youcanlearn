@@ -12,7 +12,8 @@ export const BannerWrapper = styled.div`
     padding: 0 8rem;
 
     @media screen and (max-width: 800px) {
-        padding: 0 2rem;
+        justify-content: center;
+        padding: unset;
     }
 `;
 
@@ -22,6 +23,10 @@ export const Nameplate = styled.div`
     font-size: 2rem;
     font-weight: 700;
     color: white;
+
+    @media screen and (max-width: 800px) {
+        display: none;
+    }
 
     span {
         margin-left: 12px;
