@@ -1,18 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { signOutStart } from '../../redux/user/user.actions';
+import {
+    signOutStart,
+    resetEmailChangedToFalse
+} from '../../redux/user/user.actions';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 import { closeSettingsMenu } from '../../redux/dropdowns/dropdowns.actions';
 
 import { MenuWrapper } from '../home-menu/home-menu.styles';
-import { PopupWrapper } from './settings-menu.styles';
+import {
+    PopupWrapper,
+    ModalBackdrop
+} from './settings-menu.styles';
+
+import SettingsModal from '../settings-modal/settings-modal.component';
+import ChangeEmail from '../change-email/change-email.component';
 
 
-const SettingsMenu = ({ signOut, closeSettingsMenu, currentUser }) => (
+const SettingsMenu = ({ signOut, closeSettingsMenu, currentUser, resetEmailChangedToFalse }) => {
+    const [isEmailModalHidden, setIsEmailModalHidden] = useState(true);
+    
+    return (
     <MenuWrapper>
         <PopupWrapper onClick={() => 
             alert(`Name: ${currentUser ? currentUser.fname + ' ' + currentUser.lname : null}`)
@@ -25,7 +37,7 @@ const SettingsMenu = ({ signOut, closeSettingsMenu, currentUser }) => (
         <PopupWrapper onClick={() => alert('Not yet implemented')}>
             Change Password
         </PopupWrapper>
-        <PopupWrapper onClick={() => alert(`Current: ${currentUser ? currentUser.email : null}`)}>
+        <PopupWrapper onClick={() => setIsEmailModalHidden(false)}>
             Change Email Address
         </PopupWrapper>
         <PopupWrapper onClick={() => alert('Not yet implemented')}>
@@ -43,12 +55,26 @@ const SettingsMenu = ({ signOut, closeSettingsMenu, currentUser }) => (
         }}>
             Logout
         </PopupWrapper>
+        {
+            isEmailModalHidden ? null : (
+                <>
+                    <SettingsModal setIsModalHidden={setIsEmailModalHidden}>
+                        <ChangeEmail />
+                    </SettingsModal>
+                    <ModalBackdrop onClick={() => {
+                        setIsEmailModalHidden(true);
+                        resetEmailChangedToFalse();
+                    }} />
+                </>
+            )
+        }
     </MenuWrapper>
-);
+)};
 
 const mapDispatchToProps = dispatch => ({
     signOut: () => dispatch(signOutStart()),
-    closeSettingsMenu: () => dispatch(closeSettingsMenu())
+    closeSettingsMenu: () => dispatch(closeSettingsMenu()),
+    resetEmailChangedToFalse: () => dispatch(resetEmailChangedToFalse())
 })
 
 const mapStateToProps = createStructuredSelector({

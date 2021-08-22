@@ -2,7 +2,7 @@ import { takeLatest, put, all, call } from 'redux-saga/effects';
 
 import UserActionTypes from './user.types';
 
-import { auth, googleProvider, createUserProfileDocument, getCurrentUser } from '../../firebase/firebase.utils';
+import { firestore, auth, googleProvider, createUserProfileDocument, getCurrentUser } from '../../firebase/firebase.utils';
 
 import {
     signInSuccess,
@@ -10,7 +10,9 @@ import {
     signOutSuccess,
     signOutFailure,
     signUpFailure,
-    signUpSuccess
+    signUpSuccess,
+    updateUserEmailSuccess,
+    updateUserEmailFailure
 } from './user.actions';
 
 
@@ -75,6 +77,19 @@ export function* isUserAuthenticated() {
     }
 };
 
+export function* updateUserEmail({payload: { oldEmail, newEmail, password }}) {
+    try {
+        const { user } = yield auth.signInWithEmailAndPassword(oldEmail, password);
+        yield user.updateEmail(newEmail);
+        const userRef = firestore.doc(`users/${user.uid}`);
+        yield userRef.update({email: newEmail});
+        const userSnapshot = yield userRef.get();
+        yield put(updateUserEmailSuccess({id: userSnapshot.id, ...userSnapshot.data()}));
+    } catch(error) {
+        yield put(updateUserEmailFailure(error));
+    }
+}
+
 export function* onGoogleSignInStart() {
     yield takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle);
 };
@@ -99,6 +114,10 @@ export function* onSignUpSuccess() {
     yield takeLatest(UserActionTypes.SIGN_UP_SUCCESS, signInAfterSignUp);
 };
 
+export function* onUpdateEmailStart() {
+    yield takeLatest(UserActionTypes.UPDATE_USER_EMAIL_START, updateUserEmail);
+};
+
 export function* userSagas() {
     yield all([
         call(onGoogleSignInStart),
@@ -106,6 +125,7 @@ export function* userSagas() {
         call(onCheckUserSession),
         call(onSignOutStart),
         call(onSignUpStart),
-        call(onSignUpSuccess)
+        call(onSignUpSuccess),
+        call(onUpdateEmailStart)
     ]);
 }

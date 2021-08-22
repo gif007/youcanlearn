@@ -28,3 +28,13 @@ export const selectIsAuthenticating = createSelector(
     [selectUser],
     (user) => user.isAuthenticating
 );
+
+export const selectIsEmailUpdating = createSelector(
+    [selectUser],
+    (user) => user.updatingEmail
+);
+
+export const selectIsEmailChanged = createSelector(
+    [selectUser],
+    user => user.emailChanged
+);

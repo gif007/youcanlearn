@@ -51,3 +51,22 @@ export const signUpFailure = (error) => ({
     type: UserActionTypes.SIGN_UP_FAILURE,
     payload: error.message
 });
+
+export const updateUserEmailStart = (userDetails) => ({
+    type: UserActionTypes.UPDATE_USER_EMAIL_START,
+    payload: userDetails
+});
+
+export const updateUserEmailSuccess = (user) => ({
+    type: UserActionTypes.UPDATE_USER_EMAIL_SUCCESS,
+    payload: user
+});
+
+export const updateUserEmailFailure = (error) => ({
+    type: UserActionTypes.UPDATE_USER_EMAIL_FAILURE,
+    payload: error.message
+});
+
+export const resetEmailChangedToFalse = () => ({
+    type: UserActionTypes.RESET_EMAIL_CHANGED_TO_FALSE
+});

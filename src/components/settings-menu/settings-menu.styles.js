@@ -16,3 +16,14 @@ export const PopupWrapper = styled.div`
         cursor: pointer;
     }
 `;
+
+export const ModalBackdrop = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 500;
+    opacity: .6;
+    background: grey;
+`;
