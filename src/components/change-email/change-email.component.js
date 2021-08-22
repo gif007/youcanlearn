@@ -41,9 +41,26 @@ const ChangeEmail = ({ currentUser, error, updateUserEmail, emailIsUpdating, ema
             <form onSubmit={handleSubmit}>
                 <input type='hidden' id='oldEmail' name='oldEmail' value={credentials.oldEmail} />
                 <label htmlFor='newEmail'>Email&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <input style={{marginBottom: '1rem'}} disabled={emailChanged} onChange={handleChange} type='email' id='newEmail' name='newEmail' value={credentials.newEmail} />< br />
+                <input
+                    style={{marginBottom: '1rem'}}
+                    disabled={emailChanged}
+                    onChange={handleChange}
+                    type='email'
+                    id='newEmail'
+                    name='newEmail'
+                    value={credentials.newEmail}
+                    required
+                />< br />
                 <label htmlFor='password'>Password&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <input disabled={emailChanged} onChange={handleChange} type='password' id='password' name='password' value={credentials.password} /><br />
+                <input
+                    disabled={emailChanged}
+                    onChange={handleChange}
+                    type='password'
+                    id='password'
+                    name='password'
+                    value={credentials.password}
+                    required
+                /><br />
                 {
                     emailIsUpdating ? (
                         <div>
