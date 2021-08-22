@@ -7,7 +7,7 @@ import {
 } from './quiz-menu.styles';
 
 
-const QuizMenu = ({lesson}) => (
+const QuizMenu = ({ lessonId }) => (
     <MenuWrapper>
         <ButtonWrapper>Quiz 1</ButtonWrapper>
         <Chevron>&rsaquo;</Chevron>

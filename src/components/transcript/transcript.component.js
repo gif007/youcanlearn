@@ -10,7 +10,7 @@ import {
 import Spinner from '../spinner/spinner.component';
 
 
-const Transcript = ({ lesson, subject }) => {
+const Transcript = ({ lessonId, subjectId }) => {
     const [text, setText] = useState(null);
 
     useEffect(() => {
@@ -18,12 +18,12 @@ const Transcript = ({ lesson, subject }) => {
             .then(res => res.json())
             .then(data => setText(data))
             .catch(err => console.log(err))
-    }, [lesson])
+    }, [lessonId])
 
     return (
         <TranscriptWrapper>
             <HeadingWrapper>
-                <HeadingText subject={subject}>Transcript</HeadingText>
+                <HeadingText subjectId={subjectId}>Transcript</HeadingText>
             </HeadingWrapper>
                 {
                     text ? (

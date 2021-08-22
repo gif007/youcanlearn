@@ -133,3 +133,21 @@ export const LogoWrapper = styled(Link)`
         display: none;
     }
 `;
+
+export const CustomButton = styled(Link)`
+    flex: 1;
+    height: 40px;
+    width: 100px;
+    background: ${props => props.login ? `white` : `#5797c3`};
+    color: ${props => props.login ? 'black' : 'white'};
+    border: ${props => props.login ? '1px solid lightgrey' : 'none'};
+    border-radius: 80px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    :hover {
+        background: ${props => props.login ? 'lightgrey' : '#577cc3'};
+    }
+`;

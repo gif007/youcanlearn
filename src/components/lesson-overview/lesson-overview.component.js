@@ -47,10 +47,10 @@ const LessonOverview = ({ lesson, subject }) => {
                     <img src={lesson.mediaUrl} alt='media' />
                 </MediaWrapper>
                 <QuizMenuWrapper>
-                    <QuizMenu lesson={lesson.title} />
+                    <QuizMenu lesson={lesson.id} />
                 </QuizMenuWrapper>
                 <TranscriptWrapper>
-                    <Transcript lesson={lesson.title} subject={subject} />
+                    <Transcript lessonId={lesson.id} subjectId={lesson.subject} />
                 </TranscriptWrapper>
             </ContentWrapper>
         </OverviewContainer>

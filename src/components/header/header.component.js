@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
-
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -32,7 +30,8 @@ import {
     SearchForm,
     LogoWrapper,
     SettingsGroup,
-    SettingsButtons
+    SettingsButtons,
+    CustomButton
 } from './header.styles';
 
 import {
@@ -52,6 +51,7 @@ import SearchGlass from '../../assets/search-20x20.png';
 import Home from '../../assets/home-20x20.png';
 import SubjectsIcon from '../../assets/subjects-20x20.png';
 import Dots from '../../assets/dots.png';
+import LoginIcon from '../../assets/login_icon.png';
 
 
 const Header = ({currentUser, searchMenuIsHidden, closeSearchMenu, toggleSearchMenuHidden, subjectMenuIsHidden, toggleSettingsMenuHidden, homeMenuIsHidden, settingsMenuIsHidden, toggleSubjectMenuHidden, closeHomeMenu, closeSettingsMenu, closeSubjectMenu }) => {
@@ -98,21 +98,20 @@ const Header = ({currentUser, searchMenuIsHidden, closeSearchMenu, toggleSearchM
                         closeSubjectMenu();
                         closeSearchMenu();
                     }}>
-                        <img src={Dots} alt='login'></img>
+                        <img src={Dots} alt='settings'></img>
                         <span>More</span>
                     </MobileButton>
                 ) : (
-                    <MobileButton style={{fontSize: '1rem'}}>
-                        <Link
-                            to='/login'
-                            onClick={() => {
-                                closeSubjectMenu();
-                                closeSearchMenu();
-                            }}
-                        >
-                            Log in
-                        </Link>
-                    </MobileButton>
+                    <MobileLink
+                        to='/login'
+                        onClick={() => {
+                            closeSubjectMenu();
+                            closeSearchMenu();
+                        }}
+                    >
+                        <img src={LoginIcon} alt='login' />
+                        <span>Login</span>
+                    </MobileLink>
                 )
             }
 
@@ -175,7 +174,10 @@ const Header = ({currentUser, searchMenuIsHidden, closeSearchMenu, toggleSearchM
                             <SettingsIcon />
                         </>
                     ) : (
-                        <Link to='/login'>Login</Link>
+                        <>
+                            <CustomButton login={true} to='/login'>Login</CustomButton>
+                            <CustomButton style={{marginLeft: '.5rem'}} to='/signup'>Sign up</CustomButton>
+                        </>
                     )
                 }
             </SettingsButtons>

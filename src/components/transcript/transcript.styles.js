@@ -16,7 +16,7 @@ export const HeadingWrapper = styled.div`
 `;
 
 export const HeadingText = styled.span`
-    border-bottom: 1px solid ${props => props.subject === 'math' ? `rgb(99,181,61)` : `rgb(0,161,113)`};
+    border-bottom: 1px solid ${props => props.subjectId === 1 ? `rgb(99,181,61)` : `rgb(0,161,113)`};
     padding: 5px 20px;
     line-height: 30px;
 
