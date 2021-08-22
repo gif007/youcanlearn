@@ -19,7 +19,7 @@ import {
 
 
 const CourseLink = ({ subject, aCourses }) => {
-    console.log(aCourses)
+    
     return (
     <CourseLinksContainer>
         {

@@ -12,7 +12,6 @@ import {
 
 
 const Quiz = ({ token }) => {
-    console.log(token);
 
     return (
         <QuizWrapper>
