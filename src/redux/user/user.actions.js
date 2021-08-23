@@ -70,3 +70,22 @@ export const updateUserEmailFailure = (error) => ({
 export const resetEmailChangedToFalse = () => ({
     type: UserActionTypes.RESET_EMAIL_CHANGED_TO_FALSE
 });
+
+export const updateUserNameStart = (name) => ({
+    type: UserActionTypes.UPDATE_USER_NAME_START,
+    payload: name
+});
+
+export const updateUserNameSuccess = (name) => ({
+    type: UserActionTypes.UPDATE_USER_NAME_SUCCESS,
+    payload: name
+});
+
+export const updateUserNameFailure = (error) => ({
+    type: UserActionTypes.UPDATE_USER_NAME_FAILURE,
+    payload: error.message
+});
+
+export const resetNameChangedToFalse = () => ({
+    type: UserActionTypes.RESET_NAME_CHANGED_TO_FALSE
+});

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const PopupWrapper = styled.div`
+export const MenuItem = styled.div`
     border-bottom: 1px solid lightgrey;
     display: flex;
     align-items: center;

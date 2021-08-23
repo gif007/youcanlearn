@@ -6,7 +6,9 @@ const INITIAL_STATE = {
     currentUser: null,
     isAuthenticating: false,
     updatingEmail: false,
+    updatingName: false,
     emailChanged: false,
+    nameChanged: false,
     token: null,
     error: null
 };
@@ -14,6 +16,29 @@ const INITIAL_STATE = {
 // reducer which responds to actions which set the currentUser in the store
 const userReducer = (state=INITIAL_STATE, action) => {
     switch (action.type) {
+        case UserActionTypes.UPDATE_USER_NAME_START:
+            return {
+                ...state,
+                updatingName: true
+            }
+        case UserActionTypes.UPDATE_USER_NAME_SUCCESS:
+            return {
+                ...state,
+                currentUser: action.payload,
+                updatingName: false,
+                nameChanged: true
+            };
+        case UserActionTypes.UPDATE_USER_NAME_FAILURE:
+            return {
+                ...state,
+                updatingName: false,
+                error: action.payload
+            };
+        case UserActionTypes.RESET_NAME_CHANGED_TO_FALSE:
+            return {
+                ...state,
+                nameChanged: false
+            };
         case UserActionTypes.UPDATE_USER_EMAIL_START:
             return {
                 ...state,

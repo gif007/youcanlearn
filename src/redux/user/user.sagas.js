@@ -12,7 +12,9 @@ import {
     signUpFailure,
     signUpSuccess,
     updateUserEmailSuccess,
-    updateUserEmailFailure
+    updateUserEmailFailure,
+    updateUserNameSuccess,
+    updateUserNameFailure
 } from './user.actions';
 
 
@@ -90,6 +92,18 @@ export function* updateUserEmail({payload: { oldEmail, newEmail, password }}) {
     }
 }
 
+export function* updateUserName({payload: { fname, lname }}) {
+    try {
+        const userAuth = yield getCurrentUser();
+        const userRef = firestore.doc(`users/${userAuth.uid}`);
+        yield userRef.update({fname, lname});
+        const userSnapshot = yield userRef.get();
+        yield put(updateUserNameSuccess({id: userSnapshot.id, ...userSnapshot.data()}));
+    } catch (error) {
+        yield put(updateUserNameFailure(error));
+    }
+}
+
 export function* onGoogleSignInStart() {
     yield takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle);
 };
@@ -118,6 +132,10 @@ export function* onUpdateEmailStart() {
     yield takeLatest(UserActionTypes.UPDATE_USER_EMAIL_START, updateUserEmail);
 };
 
+export function* onUpdateNameStart() {
+    yield takeLatest(UserActionTypes.UPDATE_USER_NAME_START, updateUserName);
+}
+
 export function* userSagas() {
     yield all([
         call(onGoogleSignInStart),
@@ -126,6 +144,7 @@ export function* userSagas() {
         call(onSignOutStart),
         call(onSignUpStart),
         call(onSignUpSuccess),
-        call(onUpdateEmailStart)
+        call(onUpdateEmailStart),
+        call(onUpdateNameStart)
     ]);
 }

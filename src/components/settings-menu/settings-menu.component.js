@@ -1,60 +1,80 @@
 import React, { useState } from 'react';
 
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 
 import {
     signOutStart,
-    resetEmailChangedToFalse
+    resetEmailChangedToFalse,
+    resetNameChangedToFalse
 } from '../../redux/user/user.actions';
-import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 import { closeSettingsMenu } from '../../redux/dropdowns/dropdowns.actions';
 
 import { MenuWrapper } from '../home-menu/home-menu.styles';
 import {
-    PopupWrapper,
+    MenuItem,
     ModalBackdrop
 } from './settings-menu.styles';
 
 import SettingsModal from '../settings-modal/settings-modal.component';
+import PersonalInfo from '../personal-info/personal-info.component';
 import ChangeEmail from '../change-email/change-email.component';
 
 
-const SettingsMenu = ({ signOut, closeSettingsMenu, currentUser, resetEmailChangedToFalse }) => {
+const SettingsMenu = ({ signOut, closeSettingsMenu, resetEmailChangedToFalse, resetNameChangedToFalse }) => {
+    const [isPersonalInfoHidden, setIsPersonalInfoHidden] = useState(true);
     const [isEmailModalHidden, setIsEmailModalHidden] = useState(true);
     
     return (
     <MenuWrapper>
-        <PopupWrapper onClick={() => 
-            alert(`Name: ${currentUser ? currentUser.fname + ' ' + currentUser.lname : null}`)
-        }>
+
+        <MenuItem onClick={() => setIsPersonalInfoHidden(false)}>
             Personal Information
-        </PopupWrapper>
-        <PopupWrapper onClick={() => alert('School: Binogi University')}>
+        </MenuItem>
+
+        <MenuItem onClick={() => alert('School: Binogi University')}>
             School and Class
-        </PopupWrapper>
-        <PopupWrapper onClick={() => alert('Not yet implemented')}>
+        </MenuItem>
+
+        <MenuItem onClick={() => alert('Not yet implemented')}>
             Change Password
-        </PopupWrapper>
-        <PopupWrapper onClick={() => setIsEmailModalHidden(false)}>
+        </MenuItem>
+
+        <MenuItem onClick={() => setIsEmailModalHidden(false)}>
             Change Email Address
-        </PopupWrapper>
-        <PopupWrapper onClick={() => alert('Not yet implemented')}>
+        </MenuItem>
+
+        <MenuItem onClick={() => alert('Not yet implemented')}>
             Merge accounts
-        </PopupWrapper>
-        <PopupWrapper onClick={() => alert('You do not currently have an active license')}>
+        </MenuItem>
+
+        <MenuItem onClick={() => alert('You do not currently have an active license')}>
             Licenses
-        </PopupWrapper>
-        <PopupWrapper onClick={() => alert('Not yet implemented')}>
+        </MenuItem>
+
+        <MenuItem onClick={() => alert('Not yet implemented')}>
             Agreements
-        </PopupWrapper>
-        <PopupWrapper onClick={() => {
+        </MenuItem>
+
+        <MenuItem onClick={() => {
             signOut();
             closeSettingsMenu();
         }}>
             Logout
-        </PopupWrapper>
+        </MenuItem>
+        {
+            isPersonalInfoHidden ? null : (
+                <>
+                    <SettingsModal setIsModalHidden={setIsPersonalInfoHidden}>
+                        <PersonalInfo />
+                    </SettingsModal>
+                    <ModalBackdrop onClick={() => {
+                        setIsPersonalInfoHidden(true);
+                        resetNameChangedToFalse();
+                    }} />
+                </>
+            )
+        }
         {
             isEmailModalHidden ? null : (
                 <>
@@ -74,11 +94,8 @@ const SettingsMenu = ({ signOut, closeSettingsMenu, currentUser, resetEmailChang
 const mapDispatchToProps = dispatch => ({
     signOut: () => dispatch(signOutStart()),
     closeSettingsMenu: () => dispatch(closeSettingsMenu()),
-    resetEmailChangedToFalse: () => dispatch(resetEmailChangedToFalse())
+    resetEmailChangedToFalse: () => dispatch(resetEmailChangedToFalse()),
+    resetNameChangedToFalse: () => dispatch(resetNameChangedToFalse())
 })
 
-const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsMenu);
+export default connect(null, mapDispatchToProps)(SettingsMenu);

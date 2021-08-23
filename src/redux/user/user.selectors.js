@@ -38,3 +38,13 @@ export const selectIsEmailChanged = createSelector(
     [selectUser],
     user => user.emailChanged
 );
+
+export const selectIsNameUpdating = createSelector(
+    [selectUser],
+    user => user.updatingName
+);
+
+export const selectIsNameChanged = createSelector(
+    [selectUser],
+    user => user.nameChanged
+)
