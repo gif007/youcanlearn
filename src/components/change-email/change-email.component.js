@@ -12,6 +12,10 @@ import {
     selectIsEmailChanged
 } from '../../redux/user/user.selectors';
 
+import {
+    ChangeEmailContainer
+} from './change-email.styles';
+
 import Spinner from '../spinner/spinner.component';
 
 
@@ -36,7 +40,7 @@ const ChangeEmail = ({ currentUser, error, updateUserEmail, emailIsUpdating, ema
     }
 
     return (
-        <div style={{padding: '40px'}}>
+        <ChangeEmailContainer>
             <div style={{fontWeight: 700, marginBottom: '2rem'}}>Change email</div>
             <form onSubmit={handleSubmit}>
                 <input type='hidden' id='oldEmail' name='oldEmail' value={credentials.oldEmail} />
@@ -80,7 +84,7 @@ const ChangeEmail = ({ currentUser, error, updateUserEmail, emailIsUpdating, ema
                     <div>{error}</div>
                 ) : null
             }
-        </div>
+        </ChangeEmailContainer>
     )
 };
 

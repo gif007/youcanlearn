@@ -9,6 +9,10 @@ export const CreateAccountWrapper = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    @media screen and (max-width: 800px) {
+        padding: 40px 20px 20px 20px;
+    }
 `;
 
 export const Heading = styled.h2`

@@ -9,6 +9,11 @@ export const SettingsModalWrapper = styled.div`
     background: white;
     z-index: 9001;
     border-radius: 8px;
+
+    @media screen and (max-width: 800px) {
+        width: 90vw;
+        left: 5vw;
+    }
 `;
 
 export const CloseButton = styled.button`
