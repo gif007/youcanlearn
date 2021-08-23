@@ -7,6 +7,8 @@ import ErrorBoundary from './components/error-boundary/error-boundary.component'
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import { selectIsModalUp } from './redux/dropdowns/dropdowns.selector';
+
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { checkUserSession } from './redux/user/user.actions';
 
@@ -27,7 +29,7 @@ const SignInPage = lazy(() => import ('./pages/sign-in/sign-in.page'));
 const SignUpPage = lazy(() => import ('./pages/sign-up/sign-up.page'));
 
 
-const App = ({ fetchCurriculumStart, currentUser, checkUserSession }) => {
+const App = ({ fetchCurriculumStart, currentUser, checkUserSession, isModalUp }) => {
   useEffect(() => {
     fetchCurriculumStart();
     checkUserSession();
@@ -38,7 +40,7 @@ const App = ({ fetchCurriculumStart, currentUser, checkUserSession }) => {
       <Helmet>
         <title>YouCanLearn</title>
       </Helmet>
-      <GlobalStyle />
+      <GlobalStyle isModalUp={isModalUp} />
       <Header />
       <Switch>
         <ErrorBoundary>
@@ -81,7 +83,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  isModalUp: selectIsModalUp
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

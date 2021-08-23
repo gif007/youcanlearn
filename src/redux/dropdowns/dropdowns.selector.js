@@ -21,3 +21,8 @@ export const selectIsSearchMenuHidden = createSelector(
     [selectDropdowns],
     dropdowns => dropdowns.searchMenuHidden
 );
+
+export const selectIsModalUp = createSelector(
+    [selectDropdowns],
+    dropdowns => dropdowns.isModalUp
+);

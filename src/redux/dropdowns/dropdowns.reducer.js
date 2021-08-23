@@ -4,12 +4,18 @@ const INITIAL_STATE = {
     subjectMenuHidden: true,
     homeMenuHidden: true,
     settingsMenuHidden: true,
-    searchMenuHidden: true
+    searchMenuHidden: true,
+    isModalUp: false
 };
 
 
 const dropdownsReducer = (state=INITIAL_STATE, action) => {
     switch (action.type) {
+        case DropdownsActionTypes.TOGGLE_MODAL_UP:
+            return {
+                ...state,
+                isModalUp: !state.isModalUp
+            }
         case DropdownsActionTypes.TOGGLE_SUBJECT_MENU:
             return {
                 ...state,

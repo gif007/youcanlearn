@@ -5,6 +5,8 @@ import { createStructuredSelector } from 'reselect';
 
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 
+import { toggleModalUp } from '../../redux/dropdowns/dropdowns.actions';
+
 import {
     MenuWrapper,
     ButtonWrapper,
@@ -18,7 +20,7 @@ import CreateAccount from '../create-account/create-account.component';
 import Quiz from '../quiz/quiz.component';
 
 
-const QuizMenu = ({ lessonId, currentUser }) => {
+const QuizMenu = ({ lessonId, currentUser, toggleModalUp }) => {
     const [isModalHidden, setIsModalHidden] = useState(true);
     
     return (
@@ -26,7 +28,12 @@ const QuizMenu = ({ lessonId, currentUser }) => {
         {
             currentUser ? (
                 <>
-                    <ButtonWrapper onClick={() => setIsModalHidden(false)}>Quiz 1</ButtonWrapper>
+                    <ButtonWrapper onClick={() => {
+                        setIsModalHidden(false);
+                        toggleModalUp();
+                    }}>
+                        Quiz 1
+                    </ButtonWrapper>
                     <Chevron>&rsaquo;</Chevron>
                     <ButtonWrapper disable={true}>Quiz 2 &#128274;</ButtonWrapper>
                     <Chevron>&rsaquo;</Chevron>
@@ -46,7 +53,10 @@ const QuizMenu = ({ lessonId, currentUser }) => {
                             ) : <CreateAccount setIsModalHidden={setIsModalHidden} />
                         }
                     </QuizModal>
-                    <ModalBackdrop onClick={() => setIsModalHidden(true)} />
+                    <ModalBackdrop onClick={() => {
+                        setIsModalHidden(true);
+                        toggleModalUp();
+                    }} />
                 </>
             )
         }
@@ -57,4 +67,8 @@ const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser
 });
 
-export default connect(mapStateToProps)(QuizMenu);
+const mapDispatchToProps = dispatch => ({
+    toggleModalUp: () => dispatch(toggleModalUp())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuizMenu);

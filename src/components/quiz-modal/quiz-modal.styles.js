@@ -3,16 +3,20 @@ import styled from 'styled-components';
 
 export const QuizModalWrapper = styled.div`
     position: fixed;
-    top: 30%;
-    width: 600px;
-    left: calc(50vw - 300px);
+    top: 20%;
+    width: 650px;
+    left: calc(50vw - 325px);
     background: white;
     z-index: 9001;
     border-radius: 8px;
+    overflow: auto;
 
     @media screen and (max-width: 800px) {
-        width: 90vw;
-        left: 5vw;
+        width: 100vw;
+        height: 100vh;
+        left: 0;
+        top: 0;
+        border-radius: unset;
     }
 `;
 
@@ -30,6 +34,7 @@ export const CloseButton = styled.button`
     justify-content: center;
     font-size: 1.5rem;
     font-weight: 700;
+    z-index: 9999;
 
     :hover {
         background: #f0f0f0;

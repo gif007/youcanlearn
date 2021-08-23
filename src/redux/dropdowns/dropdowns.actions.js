@@ -32,3 +32,7 @@ export const closeHomeMenu = () => ({
 export const closeSettingsMenu = () => ({
     type: DropdownsActionTypes.CLOSE_SETTINGS_MENU
 });
+
+export const toggleModalUp = () => ({
+    type: DropdownsActionTypes.TOGGLE_MODAL_UP
+})

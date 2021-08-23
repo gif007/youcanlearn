@@ -9,6 +9,7 @@ export const GlobalStyle = createGlobalStyle`
         font-family: 'Open Sans', sans-serif;
         height: 100%;
         background: #f0f0f0;
+        ${props => props.isModalUp ? 'overflow: hidden;' : null}
 
     }
 

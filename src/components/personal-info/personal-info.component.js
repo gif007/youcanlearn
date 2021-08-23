@@ -40,9 +40,9 @@ const PersonalInfo = ({ currentUser, updateName, error, nameIsUpdating, nameChan
             <h2>Personal Information</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor='fname'>First Name</label>
-                <input onChange={handleChange} value={fname} type='text' id='fname' name='fname' required /><br />
+                <input disabled={nameChanged} onChange={handleChange} value={fname} type='text' id='fname' name='fname' required /><br />
                 <label htmlFor='lname'>Last Name</label>
-                <input onChange={handleChange} value={lname} type='text' id='lname' name='lname' required /><br />
+                <input disabled={nameChanged} onChange={handleChange} value={lname} type='text' id='lname' name='lname' required /><br />
                 {
                     nameIsUpdating ? (
                         <Spinner />
