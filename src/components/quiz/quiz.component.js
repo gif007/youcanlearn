@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -27,13 +27,30 @@ import {
 
 import Heart from '../../assets/heart.png';
 
+import Spinner from '../spinner/spinner.component';
+
+import SERVER_RESPONSE from './quiz.data';
+
 
 const Quiz = ({ token, lessonId }) => {
-    console.log(lessonId);
+    const [answer, setAnswer] = useState(undefined);
+    const [question, setQuestion] = useState(undefined);
+
+    useEffect(() => {
+        setQuestion(SERVER_RESPONSE);
+    }, [setQuestion])
+
+    const handleChange = (e) => {
+        setAnswer(e.target.value);
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert('Not yet implemented')
+        if (answer === '3') {
+            alert('Not yet implemented. Good guess though.');
+        } else {
+            alert('Not yet implemented');
+        }
     }
 
     return (
@@ -70,28 +87,31 @@ const Quiz = ({ token, lessonId }) => {
             </QuizHeader>
             <HorizontalRule />
             <QuizContent>
-                <AnswerForm onSubmit={handleSubmit}>
-                    <CustomFieldSet>
-                        <FormLegend>Which of these things is not like the other?</FormLegend>
-                        <AnswerWrapper>
-                            <CustomRadioButton type='radio' id='1' name='answer' value='1' />
-                            <CustomLabel htmlFor='1'>The broad side of a barn</CustomLabel>
-                        </AnswerWrapper>
-                        <AnswerWrapper>
-                            <CustomRadioButton type='radio' id='2' name='answer' value='2' />
-                            <CustomLabel htmlFor='2'>An army of Deadites</CustomLabel>
-                        </AnswerWrapper>
-                        <AnswerWrapper>
-                            <CustomRadioButton type='radio' id='3' name='answer' value='3' />
-                            <CustomLabel htmlFor='3'>An African Swallow carrying a coconut</CustomLabel>
-                        </AnswerWrapper>
-                        <AnswerWrapper>
-                            <CustomRadioButton type='radio' id='4' name='answer' value='4' />
-                            <CustomLabel htmlFor='4'>The square root of pi</CustomLabel>
-                        </AnswerWrapper>
-                        <SubmitButton type='submit'>Answer</SubmitButton>
-                    </CustomFieldSet>
-                </AnswerForm>
+                { question ? (
+                    <AnswerForm onSubmit={handleSubmit}>
+                        <CustomFieldSet>
+                            <FormLegend>{question.text}</FormLegend>
+                            {
+                                question.answers.map((answer, index) => {
+                                    return (
+                                        <AnswerWrapper key={index}>
+                                            <CustomRadioButton
+                                                onChange={handleChange}
+                                                type='radio'
+                                                id={answer.id}
+                                                name='answer'
+                                                value={answer.id}
+                                            />
+                                            <CustomLabel htmlFor={answer.id}>{answer.text}</CustomLabel>
+                                        </AnswerWrapper>
+                                    )
+                                })
+                            }
+                            <input type='hidden' id={question.id} value={question.id} />
+                            <SubmitButton type='submit'>Answer</SubmitButton>
+                        </CustomFieldSet>
+                    </AnswerForm>) : <Spinner />
+                }
             </QuizContent>
         </QuizWrapper>
     )
