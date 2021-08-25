@@ -40,7 +40,10 @@ const QuizMenu = ({ lessonId, currentUser, toggleModalUp }) => {
                     <ButtonWrapper disable={true}>Quiz 3 &#128274;</ButtonWrapper>
                 </>
             ) : (
-                <ButtonBar onClick={() => setIsModalHidden(false)}>Start quiz</ButtonBar>
+                <ButtonBar onClick={() => {
+                    setIsModalHidden(false);
+                    toggleModalUp();
+                }}>Start quiz</ButtonBar>
             )
         }
         {

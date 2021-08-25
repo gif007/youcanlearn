@@ -8,7 +8,10 @@ import {
     resetNameChangedToFalse
 } from '../../redux/user/user.actions';
 
-import { closeSettingsMenu } from '../../redux/dropdowns/dropdowns.actions';
+import {
+    closeSettingsMenu,
+    toggleModalUp
+} from '../../redux/dropdowns/dropdowns.actions';
 
 import { MenuWrapper } from '../home-menu/home-menu.styles';
 import {
@@ -21,14 +24,17 @@ import PersonalInfo from '../personal-info/personal-info.component';
 import ChangeEmail from '../change-email/change-email.component';
 
 
-const SettingsMenu = ({ signOut, closeSettingsMenu, resetEmailChangedToFalse, resetNameChangedToFalse }) => {
+const SettingsMenu = ({ signOut, closeSettingsMenu, resetEmailChangedToFalse, resetNameChangedToFalse, toggleModalUp }) => {
     const [isPersonalInfoHidden, setIsPersonalInfoHidden] = useState(true);
     const [isEmailModalHidden, setIsEmailModalHidden] = useState(true);
     
     return (
     <MenuWrapper>
 
-        <MenuItem onClick={() => setIsPersonalInfoHidden(false)}>
+        <MenuItem onClick={() => {
+            setIsPersonalInfoHidden(false);
+            toggleModalUp();
+        }}>
             Personal Information
         </MenuItem>
 
@@ -40,7 +46,10 @@ const SettingsMenu = ({ signOut, closeSettingsMenu, resetEmailChangedToFalse, re
             Change Password
         </MenuItem>
 
-        <MenuItem onClick={() => setIsEmailModalHidden(false)}>
+        <MenuItem onClick={() => {
+            setIsEmailModalHidden(false);
+            toggleModalUp();
+        }}>
             Change Email Address
         </MenuItem>
 
@@ -71,6 +80,7 @@ const SettingsMenu = ({ signOut, closeSettingsMenu, resetEmailChangedToFalse, re
                     <ModalBackdrop onClick={() => {
                         setIsPersonalInfoHidden(true);
                         resetNameChangedToFalse();
+                        toggleModalUp();
                     }} />
                 </>
             )
@@ -84,6 +94,7 @@ const SettingsMenu = ({ signOut, closeSettingsMenu, resetEmailChangedToFalse, re
                     <ModalBackdrop onClick={() => {
                         setIsEmailModalHidden(true);
                         resetEmailChangedToFalse();
+                        toggleModalUp();
                     }} />
                 </>
             )
@@ -95,7 +106,8 @@ const mapDispatchToProps = dispatch => ({
     signOut: () => dispatch(signOutStart()),
     closeSettingsMenu: () => dispatch(closeSettingsMenu()),
     resetEmailChangedToFalse: () => dispatch(resetEmailChangedToFalse()),
-    resetNameChangedToFalse: () => dispatch(resetNameChangedToFalse())
+    resetNameChangedToFalse: () => dispatch(resetNameChangedToFalse()),
+    toggleModalUp: () => dispatch(toggleModalUp())
 })
 
 export default connect(null, mapDispatchToProps)(SettingsMenu);

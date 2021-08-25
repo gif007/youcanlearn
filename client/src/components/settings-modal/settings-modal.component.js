@@ -7,13 +7,15 @@ import {
     resetNameChangedToFalse
 } from '../../redux/user/user.actions';
 
+import { toggleModalUp } from '../../redux/dropdowns/dropdowns.actions';
+
 import {
     SettingsModalWrapper,
     CloseButton
 } from './settings-modal.styles';
 
 
-const SettingsModal = ({ children, setIsModalHidden, resetEmailChangedToFalse, resetNameChangedToFalse }) => {
+const SettingsModal = ({ children, setIsModalHidden, resetEmailChangedToFalse, resetNameChangedToFalse, toggleModalUp }) => {
 
     return (
         <SettingsModalWrapper>
@@ -21,6 +23,7 @@ const SettingsModal = ({ children, setIsModalHidden, resetEmailChangedToFalse, r
                 setIsModalHidden(true);
                 resetEmailChangedToFalse();
                 resetNameChangedToFalse();
+                toggleModalUp();
             }}
                 >&times;
             </CloseButton>
@@ -31,7 +34,8 @@ const SettingsModal = ({ children, setIsModalHidden, resetEmailChangedToFalse, r
 
 const mapDispatchToProps = dispatch => ({
     resetEmailChangedToFalse: () => dispatch(resetEmailChangedToFalse()),
-    resetNameChangedToFalse: () => dispatch(resetNameChangedToFalse())
+    resetNameChangedToFalse: () => dispatch(resetNameChangedToFalse()),
+    toggleModalUp: () => dispatch(toggleModalUp())
 })
 
 export default connect(null, mapDispatchToProps)(SettingsModal);
