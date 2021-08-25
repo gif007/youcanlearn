@@ -21,4 +21,6 @@ const SERVER_RESPONSE = {
     ]
 };
 
-export default SERVER_RESPONSE;
+module.exports = {
+    dummyQuiz: SERVER_RESPONSE
+};

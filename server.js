@@ -3,6 +3,7 @@ const path = require('path');
 const compression = require('compression');
 const enforce = require('express-sslify');
 const { checkIfAuthenticated } = require('./firebase-service');
+const { dummyQuiz } = require('./quiz.data');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -28,6 +29,9 @@ app.listen(port, error => {
 });
 
 
-app.post('/private-resource', checkIfAuthenticated, (req, res) => {
-    res.send({message: req.body.message});
+app.post('/quiz-api/start', checkIfAuthenticated, (req, res) => {
+    if (req.body.lessonId) {
+        console.log(`Quiz has been requested for lesson ${req.body.lessonId}`);
+        res.send({ lesson: dummyQuiz });
+    }
 })

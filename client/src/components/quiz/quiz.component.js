@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import { connect } from 'react-redux';
 
@@ -29,16 +30,24 @@ import Heart from '../../assets/heart.png';
 
 import Spinner from '../spinner/spinner.component';
 
-import SERVER_RESPONSE from './quiz.data';
-
 
 const Quiz = ({ token, lessonId }) => {
     const [answer, setAnswer] = useState(undefined);
     const [question, setQuestion] = useState(undefined);
 
     useEffect(() => {
-        setQuestion(SERVER_RESPONSE);
-    }, [setQuestion])
+        axios({
+            url: '/quiz-api/start',
+            method: 'post',
+            headers:  { authorization: `Bearer ${token}` },
+            data: {
+                lessonId
+            }
+        })
+        .then(res => res.data)
+        .then(data => setQuestion(data.lesson))
+        .catch(err => console.log(err));
+    }, [setQuestion, token, lessonId])
 
     const handleChange = (e) => {
         setAnswer(e.target.value);
