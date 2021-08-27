@@ -22,6 +22,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# env variables in development
+.env
+
 # client directory
 # dependencies
 /client/node_modules
