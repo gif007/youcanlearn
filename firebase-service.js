@@ -1,4 +1,6 @@
 const admin = require('firebase-admin');
+const {Firestore} = require('@google-cloud/firestore');
+const firestore = new Firestore();
 
 
 admin.initializeApp({
@@ -33,6 +35,7 @@ getAuthToken(req, res, async () => {
 };
 
 module.exports = {
-    admin: admin,
-    checkIfAuthenticated: checkIfAuthenticated
+    admin,
+    checkIfAuthenticated,
+    firestore
 };

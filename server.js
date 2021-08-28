@@ -5,8 +5,7 @@ const enforce = require('express-sslify');
 const session = require('express-session');
 const MemcachedStore = require('connect-memjs')(session);
 
-const { checkIfAuthenticated } = require('./firebase-service');
-const { dummyQuestion } = require('./quiz.data');
+const { checkIfAuthenticated, firestore } = require('./firebase-service');
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
@@ -62,13 +61,19 @@ app.listen(port, error => {
 });
 
 // Initialize quiz instance
-app.post('/quiz-api/start', checkIfAuthenticated, (req, res) => {
+app.post('/quiz-api/start', checkIfAuthenticated, async (req, res) => {
     if (req.body.lessonId) {
         req.session.currentLesson = req.body.lessonId;
         req.session.score = 0;
         req.session.answers = 0;
     }
     console.log(`Quiz has been requested for lesson ${req.body.lessonId}`);
+
+    const document = firestore.doc('quizzes/T4jtzsGkckdNsXT8anqe');
+    const snapshot = await document.get();
+    const data = snapshot.get('questions');
+    const dummyQuestion = data[0];
+    req.session.question = dummyQuestion;
     
     res.send({
         question: dummyQuestion,
@@ -80,21 +85,26 @@ app.post('/quiz-api/start', checkIfAuthenticated, (req, res) => {
 // Submit an answer
 app.post('/quiz-api/submit', checkIfAuthenticated, (req, res) => {
     let correct = false;
-    
     if (req.body.answerId) {
         req.session.answers++;
 
-        if (dummyQuestion.answers.filter(ans => ans.id.toString() === req.body.answerId.toString())[0]['correct']) {
+        if (req.session.question.answers.filter(ans => ans.id.toString() === req.body.answerId.toString())[0]['correct']) {
             req.session.score++;
             correct = true;
         }
         if (req.session.score === 5) {
-            res.send({
-                done: true,
-                result: 'win',
-                score: req.session.score,
-                health: 2 - Math.abs(req.session.answers - req.session.score)
-            });
+            const document = firestore.doc(`points/${req.body.uid}`);
+            document.get()
+                .then(snapshot => snapshot.get('points'))
+                .then(currentPoints => document.set({points: currentPoints + 10}))
+                .then(_ => res.send({
+                    done: true,
+                    result: 'win',
+                    score: req.session.score,
+                    health: 2 - Math.abs(req.session.answers - req.session.score)
+                }))
+                .catch(err => console.log(err));
+            
             return;
         }
         if (Math.abs(req.session.score - req.session.answers) === 2) {
@@ -120,8 +130,9 @@ app.post('/quiz-api/next', checkIfAuthenticated, (req, res) => {
     if (req.body.lessonId) {
         console.log(`Quiz has been requested for lesson ${req.body.lessonId}`);
     }
+
     res.send({
-        question: dummyQuestion,
+        question: req.session.question,
         score: req.session.score,
         health: 2 - Math.abs(req.session.answers - req.session.score)
     });

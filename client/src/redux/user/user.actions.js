@@ -89,3 +89,18 @@ export const updateUserNameFailure = (error) => ({
 export const resetNameChangedToFalse = () => ({
     type: UserActionTypes.RESET_NAME_CHANGED_TO_FALSE
 });
+
+export const updatePoints = (uid) => ({
+    type: UserActionTypes.UPDATE_POINTS,
+    payload: uid
+});
+
+export const updatePointsSuccess = (points) => ({
+    type: UserActionTypes.UPDATE_POINTS_SUCCESS,
+    payload: points
+});
+
+export const updatePointsFailure = (err) => ({
+    type: UserActionTypes.UPDATE_POINTS_FAILURE,
+    payload: err.message
+})

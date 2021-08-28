@@ -18,6 +18,11 @@ export const selectUserToken = createSelector(
     (user) => user.token
 );
 
+export const selectUserPoints = createSelector(
+    [selectUser],
+    (user) => user.points
+);
+
 // get error message
 export const selectErrorMessage = createSelector(
     [selectUser],

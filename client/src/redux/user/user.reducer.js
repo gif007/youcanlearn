@@ -4,6 +4,7 @@ import UserActionTypes from './user.types';
 // initialize state of currentUser
 const INITIAL_STATE = {
     currentUser: null,
+    points: undefined,
     isAuthenticating: false,
     updatingEmail: false,
     updatingName: false,
@@ -16,6 +17,16 @@ const INITIAL_STATE = {
 // reducer which responds to actions which set the currentUser in the store
 const userReducer = (state=INITIAL_STATE, action) => {
     switch (action.type) {
+        case UserActionTypes.UPDATE_POINTS_SUCCESS:
+            return {
+                ...state,
+                points: action.payload
+            };
+        case UserActionTypes.UPDATE_POINTS_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            };
         case UserActionTypes.UPDATE_USER_NAME_START:
             return {
                 ...state,
@@ -74,6 +85,7 @@ const userReducer = (state=INITIAL_STATE, action) => {
                 ...state,
                 currentUser: action.payload.user,
                 token: action.payload.token,
+                points: action.payload.points,
                 isAuthenticating: false,
                 error: null
             };

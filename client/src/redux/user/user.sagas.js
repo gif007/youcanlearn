@@ -14,7 +14,9 @@ import {
     updateUserEmailSuccess,
     updateUserEmailFailure,
     updateUserNameSuccess,
-    updateUserNameFailure
+    updateUserNameFailure,
+    updatePointsSuccess,
+    updatePointsFailure
 } from './user.actions';
 
 
@@ -23,7 +25,10 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
         const token = yield auth.currentUser.getIdToken();
         const userRef = yield call(createUserProfileDocument, userAuth, additionalData);
         const userSnapshot = yield userRef.get();
-        yield put(signInSuccess({ user: {id: userSnapshot.id, ...userSnapshot.data()}, token }));
+        const pointsRef = yield firestore.doc('/points/' + userSnapshot.id);
+        const pointsSnapshot = yield pointsRef.get();
+        const points = pointsSnapshot.get('points');
+        yield put(signInSuccess({ user: {id: userSnapshot.id, ...userSnapshot.data()}, token, points }));
     } catch (error) {
         yield put(signInFailure(error));
     }
@@ -104,6 +109,17 @@ export function* updateUserName({payload: { fname, lname }}) {
     }
 }
 
+export function* updatePoints( props ) {
+    try {
+        const pointsRef = yield firestore.doc('/points/' + props.payload);
+        const pointsSnapshot = yield pointsRef.get();
+        const points = pointsSnapshot.get('points');
+        yield put(updatePointsSuccess(points));
+    } catch (error) {
+        yield put(updatePointsFailure(error));
+    }
+}
+
 export function* onGoogleSignInStart() {
     yield takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle);
 };
@@ -134,6 +150,10 @@ export function* onUpdateEmailStart() {
 
 export function* onUpdateNameStart() {
     yield takeLatest(UserActionTypes.UPDATE_USER_NAME_START, updateUserName);
+};
+
+export function* onUpdatePoints() {
+    yield takeLatest(UserActionTypes.UPDATE_POINTS, updatePoints);
 }
 
 export function* userSagas() {
@@ -145,6 +165,7 @@ export function* userSagas() {
         call(onSignUpStart),
         call(onSignUpSuccess),
         call(onUpdateEmailStart),
-        call(onUpdateNameStart)
+        call(onUpdateNameStart),
+        call(onUpdatePoints)
     ]);
 }

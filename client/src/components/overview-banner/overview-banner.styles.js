@@ -51,7 +51,9 @@ export const PointsTitle = styled.div`
 `;
 
 export const PointsContainer = styled.div`
+    position: relative;
     width: 100%;
+    height: 28px;
     display: flex;
     background-color: hsla(0,0%,100%,.3);
     border-radius: 8px;
@@ -60,9 +62,9 @@ export const PointsContainer = styled.div`
         flex: 1;
         text-align: center;
         border-left: 1px solid rgba(0,0,0,.1);
-        padding: 4px 8px;
         font-size: 1.25rem;
         font-weight: 700;
+        line-height: 28px;
     }
 
     span:nth-of-type(1) {

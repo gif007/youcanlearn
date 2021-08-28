@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import {
-    selectCurrentUser
+    selectCurrentUser,
+    selectUserPoints
 } from '../../redux/user/user.selectors';
 
 
@@ -19,23 +20,28 @@ import {
 import HomeIcon from '../../assets/home-40x40.png';
 
 
-const OverviewBanner = ({ currentUser }) => (
+const OverviewBanner = ({ currentUser, points }) => {
+    const pointsArray = Array.from(points.toString().padStart(4, ' '));
+    
+    return (
     <BannerWrapper>
         <Nameplate><img src={HomeIcon} alt='home icon' /><span>{currentUser ? currentUser.fname : null}</span></Nameplate>
         <Points>
             <PointsTitle>Points earned</PointsTitle>
             <PointsContainer>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span>{currentUser ? currentUser.points : null}</span>
+                {
+                    pointsArray.map((item, index) => {
+                        return <span key={index}>{item}</span>
+                    })
+                }
             </PointsContainer>
         </Points>
     </BannerWrapper>
-);
+)};
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser
+    currentUser: selectCurrentUser,
+    points: selectUserPoints
 })
 
 export default connect(mapStateToProps)(OverviewBanner);
