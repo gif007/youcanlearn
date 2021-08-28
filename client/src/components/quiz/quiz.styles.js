@@ -60,7 +60,7 @@ export const PointBlock = styled.div`
     height: 30px;
     width: 19%;
     border-radius: 6px;
-    background: #f0f0f0;
+    background: ${props => props.filled ? `blue` : `#f0f0f0`};
 `;
 
 export const HealthContainer = styled.div`

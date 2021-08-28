@@ -6,7 +6,7 @@ const session = require('express-session');
 const MemcachedStore = require('connect-memjs')(session);
 
 const { checkIfAuthenticated } = require('./firebase-service');
-const { dummyQuiz } = require('./quiz.data');
+const { dummyQuestion } = require('./quiz.data');
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
@@ -29,7 +29,10 @@ if (process.env.NODE_ENV === 'production') {
         store: new MemcachedStore({
             servers: [process.env.MEMCACHIER_SERVERS],
             prefix: '_session_'
-        })
+        }),
+        cookie: {
+            maxAge: 60000 * 60 // 1 hour
+        }
     }));
 
     app.get('*', function(req, res) {
@@ -46,7 +49,10 @@ if (process.env.NODE_ENV !== 'production') {
             password: process.env.MEMCACHIER_PASSWORD
         }),
         resave: false,
-        saveUninitialized: false
+        saveUninitialized: false,
+        cookie: {
+            maxAge: 60000 * 60 // 1 hour
+        }
     }));
 }
 
@@ -55,25 +61,68 @@ app.listen(port, error => {
     console.log('Server running on port ' + port);
 });
 
-
+// Initialize quiz instance
 app.post('/quiz-api/start', checkIfAuthenticated, (req, res) => {
     if (req.body.lessonId) {
-        if (req.session.views) {
-            req.session.views++;
-        } else {
-            req.session.views = 1;
-        }
-        if (req.session.currentLesson) {
-            if (req.session.currentLesson !== req.body.lessonId) {
-                req.session.currentLesson = req.body.lessonId;
-                req.session.views = 1;
-            }
-        } else {
-            req.session.currentLesson = req.body.lessonId;
-        }
-        
-        console.log(`Quiz has been requested for lesson ${req.body.lessonId}`);
-        console.log(`User has hit this route ${req.session.views} time(s)`);
-        res.send({ lesson: dummyQuiz });
+        req.session.currentLesson = req.body.lessonId;
+        req.session.score = 0;
+        req.session.answers = 0;
     }
+    console.log(`Quiz has been requested for lesson ${req.body.lessonId}`);
+    
+    res.send({
+        question: dummyQuestion,
+        score: req.session.score,
+        health: 2 - Math.abs(req.session.answers - req.session.score)
+    });
+});
+
+// Submit an answer
+app.post('/quiz-api/submit', checkIfAuthenticated, (req, res) => {
+    let correct = false;
+    
+    if (req.body.answerId) {
+        req.session.answers++;
+
+        if (dummyQuestion.answers.filter(ans => ans.id.toString() === req.body.answerId.toString())[0]['correct']) {
+            req.session.score++;
+            correct = true;
+        }
+        if (req.session.score === 5) {
+            res.send({
+                done: true,
+                result: 'win',
+                score: req.session.score,
+                health: 2 - Math.abs(req.session.answers - req.session.score)
+            });
+            return;
+        }
+        if (Math.abs(req.session.score - req.session.answers) === 2) {
+            res.send({
+                done: true,
+                result: 'loss',
+                score: req.session.score,
+                health: 2 - Math.abs(req.session.answers - req.session.score)
+            });
+            return;
+        }
+
+        res.send({
+            correct,
+            score: req.session.score,
+            health: 2 - Math.abs(req.session.answers - req.session.score)
+        });
+    }
+});
+
+// Get the next question
+app.post('/quiz-api/next', checkIfAuthenticated, (req, res) => {
+    if (req.body.lessonId) {
+        console.log(`Quiz has been requested for lesson ${req.body.lessonId}`);
+    }
+    res.send({
+        question: dummyQuestion,
+        score: req.session.score,
+        health: 2 - Math.abs(req.session.answers - req.session.score)
+    });
 });

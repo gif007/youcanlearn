@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const QuizModalWrapper = styled.div`
     position: fixed;
-    top: 20%;
+    top: 5%;
     width: 650px;
     left: calc(50vw - 325px);
     background: white;

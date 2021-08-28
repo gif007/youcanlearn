@@ -34,6 +34,10 @@ import Spinner from '../spinner/spinner.component';
 const Quiz = ({ token, lessonId }) => {
     const [answer, setAnswer] = useState(undefined);
     const [question, setQuestion] = useState(undefined);
+    const [score, setScore] = useState(0);
+    const [health, setHealth] = useState(0);
+    const [mark, setMark] = useState(undefined);
+    const [result, setResult] = useState(undefined);
 
     useEffect(() => {
         axios({
@@ -45,7 +49,11 @@ const Quiz = ({ token, lessonId }) => {
             }
         })
         .then(res => res.data)
-        .then(data => setQuestion(data.lesson))
+        .then(data => {
+            setQuestion(data.question);
+            setScore(data.score);
+            setHealth(data.health);
+        })
         .catch(err => console.log(err));
     }, [setQuestion, token, lessonId])
 
@@ -55,33 +63,73 @@ const Quiz = ({ token, lessonId }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (answer === '3') {
-            alert('Not yet implemented. Good guess though.');
-        } else {
-            alert('Not yet implemented');
-        }
+        setQuestion(undefined);
+        axios({
+            url: '/quiz-api/submit',
+            method: 'post',
+            headers:  { authorization: `Bearer ${token}` },
+            data: {
+                answerId: answer
+            }
+        })
+        .then(res => res.data)
+        .then(data => {
+            if (data.done) {
+                setResult(data.result);
+                setScore(data.score);
+                setHealth(data.health);
+                return;
+            }
+            setScore(data.score);
+            setHealth(data.health);
+            setMark(data.correct);
+        })
+        .catch(err => console.log(err));
+    }
+
+    const handleNext = (e) => {
+        e.preventDefault();
+        setMark(undefined);
+        axios({
+            url: '/quiz-api/next',
+            method: 'post',
+            headers:  { authorization: `Bearer ${token}` },
+            data: {
+                lessonId
+            }
+        })
+        .then(res => res.data)
+        .then(data => {
+            setQuestion(data.question);
+            setScore(data.score);
+            setHealth(data.health);
+        })
+        .catch(err => console.log(err));
     }
 
     return (
         <QuizWrapper>
             <QuizHeader>
-
                 <PointsContainer>
                     {
-                        [0,1,2,3,4].map((item, index) => {
+                        [0,1,2,3,4].map((_, index) => {
+                            if (index < score) {
+                                return <PointBlock filled={true} key={index}></PointBlock>
+                            }
                             return <PointBlock key={index}></PointBlock>
                         })
                     }
                 </PointsContainer>
-
                 <HealthContainer>
                     {
-                        [0,1].map((item, index) => {
-                            return <HeartWrapper key={index} src={Heart} alt='heart' />
+                        [0,1].map((_, index) => {
+                            if (index < health) {
+                                return <HeartWrapper key={index} src={Heart} alt='heart' />
+                            }
+                            return <div key={index} />
                         })
                     }
                 </HealthContainer>
-
                 <LanguageSelector>
                     <select onChange={() => alert('Not yet implemented')}>
                         <option>English</option>
@@ -92,7 +140,6 @@ const Quiz = ({ token, lessonId }) => {
                         <option>Arabic</option>
                     </select>
                 </LanguageSelector>
-
             </QuizHeader>
             <HorizontalRule />
             <QuizContent>
@@ -119,7 +166,17 @@ const Quiz = ({ token, lessonId }) => {
                             <input type='hidden' id={question.id} value={question.id} />
                             <SubmitButton type='submit'>Answer</SubmitButton>
                         </CustomFieldSet>
-                    </AnswerForm>) : <Spinner />
+                    </AnswerForm>
+                ) : mark !== undefined ? (
+                    <div>
+                        <div>{mark ? 'correct' : 'try again'}</div>
+                        <button onClick={handleNext} type='button'>Next question</button>
+                    </div>
+                ) : result ? (
+                    <div>{result}</div>
+                ) : (
+                    <Spinner />
+                )
                 }
             </QuizContent>
         </QuizWrapper>
