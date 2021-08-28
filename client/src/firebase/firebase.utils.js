@@ -124,6 +124,15 @@ export const createUserProfileDocument = async (userAuth, otherData) => {
 
     // if no snapshot exists, create one using userAuth
     if(!snapShot.exists) {
+        const pointsRef = firestore.doc(`points/${userAuth.uid}`);
+        try {
+            await pointsRef.set({
+                points: 0
+            })
+        } catch (err) {
+            console.log(err);
+        }
+
         const { email } = userAuth;
         // create new timestamp
         const createdAt = new Date();
@@ -133,7 +142,6 @@ export const createUserProfileDocument = async (userAuth, otherData) => {
             await userRef.set({
                 email,
                 createdAt,
-                points: 0,
                 ...otherData
             })
         } catch (err) {
