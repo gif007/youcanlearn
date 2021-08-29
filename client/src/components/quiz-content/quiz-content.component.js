@@ -18,7 +18,9 @@ import {
     AnswerWrapper,
     CustomRadioButton,
     CustomLabel,
-    SubmitButton
+    SubmitButton,
+    CenterContent,
+    ResultWrapper
 } from './quiz-content.styles';
 
 import Spinner from '../spinner/spinner.component';
@@ -108,12 +110,26 @@ const QuizContent = ({ question, mark, result, token, lessonId, setQuestion, set
                 </CustomFieldSet>
             </AnswerForm>
         ) : mark !== undefined ? (
-            <div>
-                <div>{mark ? 'correct' : 'try again'}</div>
-                <button onClick={handleNext} type='button'>Next question</button>
-            </div>
+            <CenterContent>
+                <ResultWrapper>{mark ? 'Correct!' : 'Sorry that was not the correct answer'}</ResultWrapper>
+                <SubmitButton onClick={handleNext} type='button'>Next question</SubmitButton>
+            </CenterContent>
         ) : result ? (
-            <div>{result}</div>
+            <CenterContent>
+                {
+                    result === 'win' ? (
+                        <>
+                            <ResultWrapper>Good work! Quiz {lessonId} complete.</ResultWrapper>
+                            <div>+10 points</div>
+                        </>
+                    ) : (
+                        <>
+                            <ResultWrapper>Great run but you are out of hearts!</ResultWrapper>
+                            <div>Watch the movie again and let's try that one more time</div>
+                        </>
+                    )
+                }
+            </CenterContent>
         ) : (
             <Spinner />
         )

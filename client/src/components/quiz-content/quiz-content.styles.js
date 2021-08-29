@@ -72,3 +72,16 @@ export const SubmitButton = styled.button`
         margin: .5rem 0;
     }
 `;
+
+export const CenterContent = styled.div`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const ResultWrapper = styled.h2`
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+`;
