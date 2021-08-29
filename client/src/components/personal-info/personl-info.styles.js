@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
 
-export const ChangeEmailContainer = styled.div`
+export const ChangeInfoContainer = styled.div`
     padding: 40px;
 
     form {
         label {
-            width: 80px;
             display: inline-block;
             text-align: right;
         }

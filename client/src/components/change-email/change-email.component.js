@@ -44,7 +44,7 @@ const ChangeEmail = ({ currentUser, error, updateUserEmail, emailIsUpdating, ema
             <div style={{fontWeight: 700, marginBottom: '2rem'}}>Change email</div>
             <form onSubmit={handleSubmit}>
                 <input type='hidden' id='oldEmail' name='oldEmail' value={credentials.oldEmail} />
-                <label htmlFor='newEmail'>Email&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label htmlFor='newEmail'>Email</label>
                 <input
                     style={{marginBottom: '1rem'}}
                     disabled={emailChanged}
@@ -55,7 +55,7 @@ const ChangeEmail = ({ currentUser, error, updateUserEmail, emailIsUpdating, ema
                     value={credentials.newEmail}
                     required
                 />< br />
-                <label htmlFor='password'>Password&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label htmlFor='password'>Password</label>
                 <input
                     disabled={emailChanged}
                     onChange={handleChange}

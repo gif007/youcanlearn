@@ -12,6 +12,8 @@ import {
     selectIsNameUpdating
 } from '../../redux/user/user.selectors';
 
+import { ChangeInfoContainer } from './personl-info.styles';
+
 import Spinner from '../spinner/spinner.component';
 
 
@@ -36,13 +38,13 @@ const PersonalInfo = ({ currentUser, updateName, error, nameIsUpdating, nameChan
     }
 
     return (
-        <div style={{padding: '40px'}}>
-            <h2>Personal Information</h2>
+        <ChangeInfoContainer>
+            <h2 style={{fontWeight: 700, marginBottom: '2rem'}}>Personal Information</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor='fname'>First Name</label>
-                <input disabled={nameChanged} onChange={handleChange} value={fname} type='text' id='fname' name='fname' required /><br />
+                <input disabled={nameChanged} onChange={handleChange} value={fname} type='text' id='fname' name='fname' required /><br /><br />
                 <label htmlFor='lname'>Last Name</label>
-                <input disabled={nameChanged} onChange={handleChange} value={lname} type='text' id='lname' name='lname' required /><br />
+                <input disabled={nameChanged} onChange={handleChange} value={lname} type='text' id='lname' name='lname' required /><br /><br />
                 {
                     nameIsUpdating ? (
                         <Spinner />
@@ -58,7 +60,7 @@ const PersonalInfo = ({ currentUser, updateName, error, nameIsUpdating, nameChan
                     <div>{error}</div>
                 ) : null
             }
-        </div>
+        </ChangeInfoContainer>
     )
 };
 
